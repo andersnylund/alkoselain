@@ -19,14 +19,15 @@ type Product {
   luonnehdinta: String
   pakkaustyyppi: String
   suljentatyppi: String
-  alkoholi: String
+  alkoholiprosentti: String
   hapot: String
-  sokeri: String
-  kantavierrep: String
+  sokeri: Float
+  kantavierreprosentti: String
   vari: String
   ebc: String
   katkerot: String
   ebu: String
   energia: String
   valikoima: String
+  alkoholilitrahinta: Float
 }

@@ -142,14 +142,14 @@ export type ProductOrderByInput =
   | "pakkaustyyppi_DESC"
   | "suljentatyppi_ASC"
   | "suljentatyppi_DESC"
-  | "alkoholi_ASC"
-  | "alkoholi_DESC"
+  | "alkoholiprosentti_ASC"
+  | "alkoholiprosentti_DESC"
   | "hapot_ASC"
   | "hapot_DESC"
   | "sokeri_ASC"
   | "sokeri_DESC"
-  | "kantavierrep_ASC"
-  | "kantavierrep_DESC"
+  | "kantavierreprosentti_ASC"
+  | "kantavierreprosentti_DESC"
   | "vari_ASC"
   | "vari_DESC"
   | "ebc_ASC"
@@ -161,7 +161,9 @@ export type ProductOrderByInput =
   | "energia_ASC"
   | "energia_DESC"
   | "valikoima_ASC"
-  | "valikoima_DESC";
+  | "valikoima_DESC"
+  | "alkoholilitrahinta_ASC"
+  | "alkoholilitrahinta_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
@@ -186,16 +188,17 @@ export interface ProductCreateInput {
   luonnehdinta?: Maybe<String>;
   pakkaustyyppi?: Maybe<String>;
   suljentatyppi?: Maybe<String>;
-  alkoholi?: Maybe<String>;
+  alkoholiprosentti?: Maybe<String>;
   hapot?: Maybe<String>;
-  sokeri?: Maybe<String>;
-  kantavierrep?: Maybe<String>;
+  sokeri?: Maybe<Float>;
+  kantavierreprosentti?: Maybe<String>;
   vari?: Maybe<String>;
   ebc?: Maybe<String>;
   katkerot?: Maybe<String>;
   ebu?: Maybe<String>;
   energia?: Maybe<String>;
   valikoima?: Maybe<String>;
+  alkoholilitrahinta?: Maybe<Float>;
 }
 
 export interface ProductUpdateInput {
@@ -218,48 +221,17 @@ export interface ProductUpdateInput {
   luonnehdinta?: Maybe<String>;
   pakkaustyyppi?: Maybe<String>;
   suljentatyppi?: Maybe<String>;
-  alkoholi?: Maybe<String>;
+  alkoholiprosentti?: Maybe<String>;
   hapot?: Maybe<String>;
-  sokeri?: Maybe<String>;
-  kantavierrep?: Maybe<String>;
+  sokeri?: Maybe<Float>;
+  kantavierreprosentti?: Maybe<String>;
   vari?: Maybe<String>;
   ebc?: Maybe<String>;
   katkerot?: Maybe<String>;
   ebu?: Maybe<String>;
   energia?: Maybe<String>;
   valikoima?: Maybe<String>;
-}
-
-export interface ProductUpdateManyMutationInput {
-  nimi?: Maybe<String>;
-  valmistaja?: Maybe<String>;
-  pullokoko?: Maybe<String>;
-  hinta?: Maybe<String>;
-  litrahinta?: Maybe<String>;
-  uutuus?: Maybe<String>;
-  hinnastojarjestyskoodi?: Maybe<String>;
-  tyyppi?: Maybe<String>;
-  erityisryhma?: Maybe<String>;
-  oluttyyppi?: Maybe<String>;
-  valmistusmaa?: Maybe<String>;
-  alue?: Maybe<String>;
-  vuosikerta?: Maybe<String>;
-  etikettimerkintoja?: Maybe<String>;
-  huomautus?: Maybe<String>;
-  rypaleet?: Maybe<String>;
-  luonnehdinta?: Maybe<String>;
-  pakkaustyyppi?: Maybe<String>;
-  suljentatyppi?: Maybe<String>;
-  alkoholi?: Maybe<String>;
-  hapot?: Maybe<String>;
-  sokeri?: Maybe<String>;
-  kantavierrep?: Maybe<String>;
-  vari?: Maybe<String>;
-  ebc?: Maybe<String>;
-  katkerot?: Maybe<String>;
-  ebu?: Maybe<String>;
-  energia?: Maybe<String>;
-  valikoima?: Maybe<String>;
+  alkoholilitrahinta?: Maybe<Float>;
 }
 
 export interface ProductWhereInput {
@@ -543,20 +515,20 @@ export interface ProductWhereInput {
   suljentatyppi_not_starts_with?: Maybe<String>;
   suljentatyppi_ends_with?: Maybe<String>;
   suljentatyppi_not_ends_with?: Maybe<String>;
-  alkoholi?: Maybe<String>;
-  alkoholi_not?: Maybe<String>;
-  alkoholi_in?: Maybe<String[] | String>;
-  alkoholi_not_in?: Maybe<String[] | String>;
-  alkoholi_lt?: Maybe<String>;
-  alkoholi_lte?: Maybe<String>;
-  alkoholi_gt?: Maybe<String>;
-  alkoholi_gte?: Maybe<String>;
-  alkoholi_contains?: Maybe<String>;
-  alkoholi_not_contains?: Maybe<String>;
-  alkoholi_starts_with?: Maybe<String>;
-  alkoholi_not_starts_with?: Maybe<String>;
-  alkoholi_ends_with?: Maybe<String>;
-  alkoholi_not_ends_with?: Maybe<String>;
+  alkoholiprosentti?: Maybe<String>;
+  alkoholiprosentti_not?: Maybe<String>;
+  alkoholiprosentti_in?: Maybe<String[] | String>;
+  alkoholiprosentti_not_in?: Maybe<String[] | String>;
+  alkoholiprosentti_lt?: Maybe<String>;
+  alkoholiprosentti_lte?: Maybe<String>;
+  alkoholiprosentti_gt?: Maybe<String>;
+  alkoholiprosentti_gte?: Maybe<String>;
+  alkoholiprosentti_contains?: Maybe<String>;
+  alkoholiprosentti_not_contains?: Maybe<String>;
+  alkoholiprosentti_starts_with?: Maybe<String>;
+  alkoholiprosentti_not_starts_with?: Maybe<String>;
+  alkoholiprosentti_ends_with?: Maybe<String>;
+  alkoholiprosentti_not_ends_with?: Maybe<String>;
   hapot?: Maybe<String>;
   hapot_not?: Maybe<String>;
   hapot_in?: Maybe<String[] | String>;
@@ -571,34 +543,28 @@ export interface ProductWhereInput {
   hapot_not_starts_with?: Maybe<String>;
   hapot_ends_with?: Maybe<String>;
   hapot_not_ends_with?: Maybe<String>;
-  sokeri?: Maybe<String>;
-  sokeri_not?: Maybe<String>;
-  sokeri_in?: Maybe<String[] | String>;
-  sokeri_not_in?: Maybe<String[] | String>;
-  sokeri_lt?: Maybe<String>;
-  sokeri_lte?: Maybe<String>;
-  sokeri_gt?: Maybe<String>;
-  sokeri_gte?: Maybe<String>;
-  sokeri_contains?: Maybe<String>;
-  sokeri_not_contains?: Maybe<String>;
-  sokeri_starts_with?: Maybe<String>;
-  sokeri_not_starts_with?: Maybe<String>;
-  sokeri_ends_with?: Maybe<String>;
-  sokeri_not_ends_with?: Maybe<String>;
-  kantavierrep?: Maybe<String>;
-  kantavierrep_not?: Maybe<String>;
-  kantavierrep_in?: Maybe<String[] | String>;
-  kantavierrep_not_in?: Maybe<String[] | String>;
-  kantavierrep_lt?: Maybe<String>;
-  kantavierrep_lte?: Maybe<String>;
-  kantavierrep_gt?: Maybe<String>;
-  kantavierrep_gte?: Maybe<String>;
-  kantavierrep_contains?: Maybe<String>;
-  kantavierrep_not_contains?: Maybe<String>;
-  kantavierrep_starts_with?: Maybe<String>;
-  kantavierrep_not_starts_with?: Maybe<String>;
-  kantavierrep_ends_with?: Maybe<String>;
-  kantavierrep_not_ends_with?: Maybe<String>;
+  sokeri?: Maybe<Float>;
+  sokeri_not?: Maybe<Float>;
+  sokeri_in?: Maybe<Float[] | Float>;
+  sokeri_not_in?: Maybe<Float[] | Float>;
+  sokeri_lt?: Maybe<Float>;
+  sokeri_lte?: Maybe<Float>;
+  sokeri_gt?: Maybe<Float>;
+  sokeri_gte?: Maybe<Float>;
+  kantavierreprosentti?: Maybe<String>;
+  kantavierreprosentti_not?: Maybe<String>;
+  kantavierreprosentti_in?: Maybe<String[] | String>;
+  kantavierreprosentti_not_in?: Maybe<String[] | String>;
+  kantavierreprosentti_lt?: Maybe<String>;
+  kantavierreprosentti_lte?: Maybe<String>;
+  kantavierreprosentti_gt?: Maybe<String>;
+  kantavierreprosentti_gte?: Maybe<String>;
+  kantavierreprosentti_contains?: Maybe<String>;
+  kantavierreprosentti_not_contains?: Maybe<String>;
+  kantavierreprosentti_starts_with?: Maybe<String>;
+  kantavierreprosentti_not_starts_with?: Maybe<String>;
+  kantavierreprosentti_ends_with?: Maybe<String>;
+  kantavierreprosentti_not_ends_with?: Maybe<String>;
   vari?: Maybe<String>;
   vari_not?: Maybe<String>;
   vari_in?: Maybe<String[] | String>;
@@ -683,9 +649,50 @@ export interface ProductWhereInput {
   valikoima_not_starts_with?: Maybe<String>;
   valikoima_ends_with?: Maybe<String>;
   valikoima_not_ends_with?: Maybe<String>;
+  alkoholilitrahinta?: Maybe<Float>;
+  alkoholilitrahinta_not?: Maybe<Float>;
+  alkoholilitrahinta_in?: Maybe<Float[] | Float>;
+  alkoholilitrahinta_not_in?: Maybe<Float[] | Float>;
+  alkoholilitrahinta_lt?: Maybe<Float>;
+  alkoholilitrahinta_lte?: Maybe<Float>;
+  alkoholilitrahinta_gt?: Maybe<Float>;
+  alkoholilitrahinta_gte?: Maybe<Float>;
   AND?: Maybe<ProductWhereInput[] | ProductWhereInput>;
   OR?: Maybe<ProductWhereInput[] | ProductWhereInput>;
   NOT?: Maybe<ProductWhereInput[] | ProductWhereInput>;
+}
+
+export interface ProductUpdateManyMutationInput {
+  nimi?: Maybe<String>;
+  valmistaja?: Maybe<String>;
+  pullokoko?: Maybe<String>;
+  hinta?: Maybe<String>;
+  litrahinta?: Maybe<String>;
+  uutuus?: Maybe<String>;
+  hinnastojarjestyskoodi?: Maybe<String>;
+  tyyppi?: Maybe<String>;
+  erityisryhma?: Maybe<String>;
+  oluttyyppi?: Maybe<String>;
+  valmistusmaa?: Maybe<String>;
+  alue?: Maybe<String>;
+  vuosikerta?: Maybe<String>;
+  etikettimerkintoja?: Maybe<String>;
+  huomautus?: Maybe<String>;
+  rypaleet?: Maybe<String>;
+  luonnehdinta?: Maybe<String>;
+  pakkaustyyppi?: Maybe<String>;
+  suljentatyppi?: Maybe<String>;
+  alkoholiprosentti?: Maybe<String>;
+  hapot?: Maybe<String>;
+  sokeri?: Maybe<Float>;
+  kantavierreprosentti?: Maybe<String>;
+  vari?: Maybe<String>;
+  ebc?: Maybe<String>;
+  katkerot?: Maybe<String>;
+  ebu?: Maybe<String>;
+  energia?: Maybe<String>;
+  valikoima?: Maybe<String>;
+  alkoholilitrahinta?: Maybe<Float>;
 }
 
 export interface ProductSubscriptionWhereInput {
@@ -707,141 +714,6 @@ export interface NodeNode {
   id: ID_Output;
 }
 
-export interface AggregateProduct {
-  count: Int;
-}
-
-export interface AggregateProductPromise
-  extends Promise<AggregateProduct>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateProductSubscription
-  extends Promise<AsyncIterator<AggregateProduct>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface ProductPreviousValues {
-  numero: ID_Output;
-  nimi?: String;
-  valmistaja?: String;
-  pullokoko?: String;
-  hinta?: String;
-  litrahinta?: String;
-  uutuus?: String;
-  hinnastojarjestyskoodi?: String;
-  tyyppi?: String;
-  erityisryhma?: String;
-  oluttyyppi?: String;
-  valmistusmaa?: String;
-  alue?: String;
-  vuosikerta?: String;
-  etikettimerkintoja?: String;
-  huomautus?: String;
-  rypaleet?: String;
-  luonnehdinta?: String;
-  pakkaustyyppi?: String;
-  suljentatyppi?: String;
-  alkoholi?: String;
-  hapot?: String;
-  sokeri?: String;
-  kantavierrep?: String;
-  vari?: String;
-  ebc?: String;
-  katkerot?: String;
-  ebu?: String;
-  energia?: String;
-  valikoima?: String;
-}
-
-export interface ProductPreviousValuesPromise
-  extends Promise<ProductPreviousValues>,
-    Fragmentable {
-  numero: () => Promise<ID_Output>;
-  nimi: () => Promise<String>;
-  valmistaja: () => Promise<String>;
-  pullokoko: () => Promise<String>;
-  hinta: () => Promise<String>;
-  litrahinta: () => Promise<String>;
-  uutuus: () => Promise<String>;
-  hinnastojarjestyskoodi: () => Promise<String>;
-  tyyppi: () => Promise<String>;
-  erityisryhma: () => Promise<String>;
-  oluttyyppi: () => Promise<String>;
-  valmistusmaa: () => Promise<String>;
-  alue: () => Promise<String>;
-  vuosikerta: () => Promise<String>;
-  etikettimerkintoja: () => Promise<String>;
-  huomautus: () => Promise<String>;
-  rypaleet: () => Promise<String>;
-  luonnehdinta: () => Promise<String>;
-  pakkaustyyppi: () => Promise<String>;
-  suljentatyppi: () => Promise<String>;
-  alkoholi: () => Promise<String>;
-  hapot: () => Promise<String>;
-  sokeri: () => Promise<String>;
-  kantavierrep: () => Promise<String>;
-  vari: () => Promise<String>;
-  ebc: () => Promise<String>;
-  katkerot: () => Promise<String>;
-  ebu: () => Promise<String>;
-  energia: () => Promise<String>;
-  valikoima: () => Promise<String>;
-}
-
-export interface ProductPreviousValuesSubscription
-  extends Promise<AsyncIterator<ProductPreviousValues>>,
-    Fragmentable {
-  numero: () => Promise<AsyncIterator<ID_Output>>;
-  nimi: () => Promise<AsyncIterator<String>>;
-  valmistaja: () => Promise<AsyncIterator<String>>;
-  pullokoko: () => Promise<AsyncIterator<String>>;
-  hinta: () => Promise<AsyncIterator<String>>;
-  litrahinta: () => Promise<AsyncIterator<String>>;
-  uutuus: () => Promise<AsyncIterator<String>>;
-  hinnastojarjestyskoodi: () => Promise<AsyncIterator<String>>;
-  tyyppi: () => Promise<AsyncIterator<String>>;
-  erityisryhma: () => Promise<AsyncIterator<String>>;
-  oluttyyppi: () => Promise<AsyncIterator<String>>;
-  valmistusmaa: () => Promise<AsyncIterator<String>>;
-  alue: () => Promise<AsyncIterator<String>>;
-  vuosikerta: () => Promise<AsyncIterator<String>>;
-  etikettimerkintoja: () => Promise<AsyncIterator<String>>;
-  huomautus: () => Promise<AsyncIterator<String>>;
-  rypaleet: () => Promise<AsyncIterator<String>>;
-  luonnehdinta: () => Promise<AsyncIterator<String>>;
-  pakkaustyyppi: () => Promise<AsyncIterator<String>>;
-  suljentatyppi: () => Promise<AsyncIterator<String>>;
-  alkoholi: () => Promise<AsyncIterator<String>>;
-  hapot: () => Promise<AsyncIterator<String>>;
-  sokeri: () => Promise<AsyncIterator<String>>;
-  kantavierrep: () => Promise<AsyncIterator<String>>;
-  vari: () => Promise<AsyncIterator<String>>;
-  ebc: () => Promise<AsyncIterator<String>>;
-  katkerot: () => Promise<AsyncIterator<String>>;
-  ebu: () => Promise<AsyncIterator<String>>;
-  energia: () => Promise<AsyncIterator<String>>;
-  valikoima: () => Promise<AsyncIterator<String>>;
-}
-
 export interface ProductEdge {
   node: Product;
   cursor: String;
@@ -859,29 +731,20 @@ export interface ProductEdgeSubscription
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface ProductSubscriptionPayload {
-  mutation: MutationType;
-  node: Product;
-  updatedFields: String[];
-  previousValues: ProductPreviousValues;
+export interface BatchPayload {
+  count: Long;
 }
 
-export interface ProductSubscriptionPayloadPromise
-  extends Promise<ProductSubscriptionPayload>,
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
     Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ProductPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ProductPreviousValuesPromise>() => T;
+  count: () => Promise<Long>;
 }
 
-export interface ProductSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ProductSubscriptionPayload>>,
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ProductSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ProductPreviousValuesSubscription>() => T;
+  count: () => Promise<AsyncIterator<Long>>;
 }
 
 export interface Product {
@@ -905,16 +768,17 @@ export interface Product {
   luonnehdinta?: String;
   pakkaustyyppi?: String;
   suljentatyppi?: String;
-  alkoholi?: String;
+  alkoholiprosentti?: String;
   hapot?: String;
-  sokeri?: String;
-  kantavierrep?: String;
+  sokeri?: Float;
+  kantavierreprosentti?: String;
   vari?: String;
   ebc?: String;
   katkerot?: String;
   ebu?: String;
   energia?: String;
   valikoima?: String;
+  alkoholilitrahinta?: Float;
 }
 
 export interface ProductPromise extends Promise<Product>, Fragmentable {
@@ -938,16 +802,17 @@ export interface ProductPromise extends Promise<Product>, Fragmentable {
   luonnehdinta: () => Promise<String>;
   pakkaustyyppi: () => Promise<String>;
   suljentatyppi: () => Promise<String>;
-  alkoholi: () => Promise<String>;
+  alkoholiprosentti: () => Promise<String>;
   hapot: () => Promise<String>;
-  sokeri: () => Promise<String>;
-  kantavierrep: () => Promise<String>;
+  sokeri: () => Promise<Float>;
+  kantavierreprosentti: () => Promise<String>;
   vari: () => Promise<String>;
   ebc: () => Promise<String>;
   katkerot: () => Promise<String>;
   ebu: () => Promise<String>;
   energia: () => Promise<String>;
   valikoima: () => Promise<String>;
+  alkoholilitrahinta: () => Promise<Float>;
 }
 
 export interface ProductSubscription
@@ -973,16 +838,17 @@ export interface ProductSubscription
   luonnehdinta: () => Promise<AsyncIterator<String>>;
   pakkaustyyppi: () => Promise<AsyncIterator<String>>;
   suljentatyppi: () => Promise<AsyncIterator<String>>;
-  alkoholi: () => Promise<AsyncIterator<String>>;
+  alkoholiprosentti: () => Promise<AsyncIterator<String>>;
   hapot: () => Promise<AsyncIterator<String>>;
-  sokeri: () => Promise<AsyncIterator<String>>;
-  kantavierrep: () => Promise<AsyncIterator<String>>;
+  sokeri: () => Promise<AsyncIterator<Float>>;
+  kantavierreprosentti: () => Promise<AsyncIterator<String>>;
   vari: () => Promise<AsyncIterator<String>>;
   ebc: () => Promise<AsyncIterator<String>>;
   katkerot: () => Promise<AsyncIterator<String>>;
   ebu: () => Promise<AsyncIterator<String>>;
   energia: () => Promise<AsyncIterator<String>>;
   valikoima: () => Promise<AsyncIterator<String>>;
+  alkoholilitrahinta: () => Promise<AsyncIterator<Float>>;
 }
 
 export interface ProductNullablePromise
@@ -1008,16 +874,42 @@ export interface ProductNullablePromise
   luonnehdinta: () => Promise<String>;
   pakkaustyyppi: () => Promise<String>;
   suljentatyppi: () => Promise<String>;
-  alkoholi: () => Promise<String>;
+  alkoholiprosentti: () => Promise<String>;
   hapot: () => Promise<String>;
-  sokeri: () => Promise<String>;
-  kantavierrep: () => Promise<String>;
+  sokeri: () => Promise<Float>;
+  kantavierreprosentti: () => Promise<String>;
   vari: () => Promise<String>;
   ebc: () => Promise<String>;
   katkerot: () => Promise<String>;
   ebu: () => Promise<String>;
   energia: () => Promise<String>;
   valikoima: () => Promise<String>;
+  alkoholilitrahinta: () => Promise<Float>;
+}
+
+export interface ProductSubscriptionPayload {
+  mutation: MutationType;
+  node: Product;
+  updatedFields: String[];
+  previousValues: ProductPreviousValues;
+}
+
+export interface ProductSubscriptionPayloadPromise
+  extends Promise<ProductSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ProductPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ProductPreviousValuesPromise>() => T;
+}
+
+export interface ProductSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ProductSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ProductSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ProductPreviousValuesSubscription>() => T;
 }
 
 export interface ProductConnection {
@@ -1064,12 +956,142 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string;
+export interface AggregateProduct {
+  count: Int;
+}
 
-export type Long = string;
+export interface AggregateProductPromise
+  extends Promise<AggregateProduct>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateProductSubscription
+  extends Promise<AsyncIterator<AggregateProduct>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ProductPreviousValues {
+  numero: ID_Output;
+  nimi?: String;
+  valmistaja?: String;
+  pullokoko?: String;
+  hinta?: String;
+  litrahinta?: String;
+  uutuus?: String;
+  hinnastojarjestyskoodi?: String;
+  tyyppi?: String;
+  erityisryhma?: String;
+  oluttyyppi?: String;
+  valmistusmaa?: String;
+  alue?: String;
+  vuosikerta?: String;
+  etikettimerkintoja?: String;
+  huomautus?: String;
+  rypaleet?: String;
+  luonnehdinta?: String;
+  pakkaustyyppi?: String;
+  suljentatyppi?: String;
+  alkoholiprosentti?: String;
+  hapot?: String;
+  sokeri?: Float;
+  kantavierreprosentti?: String;
+  vari?: String;
+  ebc?: String;
+  katkerot?: String;
+  ebu?: String;
+  energia?: String;
+  valikoima?: String;
+  alkoholilitrahinta?: Float;
+}
+
+export interface ProductPreviousValuesPromise
+  extends Promise<ProductPreviousValues>,
+    Fragmentable {
+  numero: () => Promise<ID_Output>;
+  nimi: () => Promise<String>;
+  valmistaja: () => Promise<String>;
+  pullokoko: () => Promise<String>;
+  hinta: () => Promise<String>;
+  litrahinta: () => Promise<String>;
+  uutuus: () => Promise<String>;
+  hinnastojarjestyskoodi: () => Promise<String>;
+  tyyppi: () => Promise<String>;
+  erityisryhma: () => Promise<String>;
+  oluttyyppi: () => Promise<String>;
+  valmistusmaa: () => Promise<String>;
+  alue: () => Promise<String>;
+  vuosikerta: () => Promise<String>;
+  etikettimerkintoja: () => Promise<String>;
+  huomautus: () => Promise<String>;
+  rypaleet: () => Promise<String>;
+  luonnehdinta: () => Promise<String>;
+  pakkaustyyppi: () => Promise<String>;
+  suljentatyppi: () => Promise<String>;
+  alkoholiprosentti: () => Promise<String>;
+  hapot: () => Promise<String>;
+  sokeri: () => Promise<Float>;
+  kantavierreprosentti: () => Promise<String>;
+  vari: () => Promise<String>;
+  ebc: () => Promise<String>;
+  katkerot: () => Promise<String>;
+  ebu: () => Promise<String>;
+  energia: () => Promise<String>;
+  valikoima: () => Promise<String>;
+  alkoholilitrahinta: () => Promise<Float>;
+}
+
+export interface ProductPreviousValuesSubscription
+  extends Promise<AsyncIterator<ProductPreviousValues>>,
+    Fragmentable {
+  numero: () => Promise<AsyncIterator<ID_Output>>;
+  nimi: () => Promise<AsyncIterator<String>>;
+  valmistaja: () => Promise<AsyncIterator<String>>;
+  pullokoko: () => Promise<AsyncIterator<String>>;
+  hinta: () => Promise<AsyncIterator<String>>;
+  litrahinta: () => Promise<AsyncIterator<String>>;
+  uutuus: () => Promise<AsyncIterator<String>>;
+  hinnastojarjestyskoodi: () => Promise<AsyncIterator<String>>;
+  tyyppi: () => Promise<AsyncIterator<String>>;
+  erityisryhma: () => Promise<AsyncIterator<String>>;
+  oluttyyppi: () => Promise<AsyncIterator<String>>;
+  valmistusmaa: () => Promise<AsyncIterator<String>>;
+  alue: () => Promise<AsyncIterator<String>>;
+  vuosikerta: () => Promise<AsyncIterator<String>>;
+  etikettimerkintoja: () => Promise<AsyncIterator<String>>;
+  huomautus: () => Promise<AsyncIterator<String>>;
+  rypaleet: () => Promise<AsyncIterator<String>>;
+  luonnehdinta: () => Promise<AsyncIterator<String>>;
+  pakkaustyyppi: () => Promise<AsyncIterator<String>>;
+  suljentatyppi: () => Promise<AsyncIterator<String>>;
+  alkoholiprosentti: () => Promise<AsyncIterator<String>>;
+  hapot: () => Promise<AsyncIterator<String>>;
+  sokeri: () => Promise<AsyncIterator<Float>>;
+  kantavierreprosentti: () => Promise<AsyncIterator<String>>;
+  vari: () => Promise<AsyncIterator<String>>;
+  ebc: () => Promise<AsyncIterator<String>>;
+  katkerot: () => Promise<AsyncIterator<String>>;
+  ebu: () => Promise<AsyncIterator<String>>;
+  energia: () => Promise<AsyncIterator<String>>;
+  valikoima: () => Promise<AsyncIterator<String>>;
+  alkoholilitrahinta: () => Promise<AsyncIterator<Float>>;
+}
+
+/*
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point). 
+*/
+export type Float = number;
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+*/
+export type Int = number;
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
@@ -1078,14 +1100,11 @@ export type ID_Input = string | number;
 export type ID_Output = string;
 
 /*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
-export type Int = number;
+export type String = string;
 
-/*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
+export type Long = string;
 
 /**
  * Model Metadata

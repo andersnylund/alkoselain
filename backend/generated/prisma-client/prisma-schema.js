@@ -60,16 +60,17 @@ type Product {
   luonnehdinta: String
   pakkaustyyppi: String
   suljentatyppi: String
-  alkoholi: String
+  alkoholiprosentti: String
   hapot: String
-  sokeri: String
-  kantavierrep: String
+  sokeri: Float
+  kantavierreprosentti: String
   vari: String
   ebc: String
   katkerot: String
   ebu: String
   energia: String
   valikoima: String
+  alkoholilitrahinta: Float
 }
 
 type ProductConnection {
@@ -99,16 +100,17 @@ input ProductCreateInput {
   luonnehdinta: String
   pakkaustyyppi: String
   suljentatyppi: String
-  alkoholi: String
+  alkoholiprosentti: String
   hapot: String
-  sokeri: String
-  kantavierrep: String
+  sokeri: Float
+  kantavierreprosentti: String
   vari: String
   ebc: String
   katkerot: String
   ebu: String
   energia: String
   valikoima: String
+  alkoholilitrahinta: Float
 }
 
 type ProductEdge {
@@ -157,14 +159,14 @@ enum ProductOrderByInput {
   pakkaustyyppi_DESC
   suljentatyppi_ASC
   suljentatyppi_DESC
-  alkoholi_ASC
-  alkoholi_DESC
+  alkoholiprosentti_ASC
+  alkoholiprosentti_DESC
   hapot_ASC
   hapot_DESC
   sokeri_ASC
   sokeri_DESC
-  kantavierrep_ASC
-  kantavierrep_DESC
+  kantavierreprosentti_ASC
+  kantavierreprosentti_DESC
   vari_ASC
   vari_DESC
   ebc_ASC
@@ -177,6 +179,8 @@ enum ProductOrderByInput {
   energia_DESC
   valikoima_ASC
   valikoima_DESC
+  alkoholilitrahinta_ASC
+  alkoholilitrahinta_DESC
 }
 
 type ProductPreviousValues {
@@ -200,16 +204,17 @@ type ProductPreviousValues {
   luonnehdinta: String
   pakkaustyyppi: String
   suljentatyppi: String
-  alkoholi: String
+  alkoholiprosentti: String
   hapot: String
-  sokeri: String
-  kantavierrep: String
+  sokeri: Float
+  kantavierreprosentti: String
   vari: String
   ebc: String
   katkerot: String
   ebu: String
   energia: String
   valikoima: String
+  alkoholilitrahinta: Float
 }
 
 type ProductSubscriptionPayload {
@@ -250,16 +255,17 @@ input ProductUpdateInput {
   luonnehdinta: String
   pakkaustyyppi: String
   suljentatyppi: String
-  alkoholi: String
+  alkoholiprosentti: String
   hapot: String
-  sokeri: String
-  kantavierrep: String
+  sokeri: Float
+  kantavierreprosentti: String
   vari: String
   ebc: String
   katkerot: String
   ebu: String
   energia: String
   valikoima: String
+  alkoholilitrahinta: Float
 }
 
 input ProductUpdateManyMutationInput {
@@ -282,16 +288,17 @@ input ProductUpdateManyMutationInput {
   luonnehdinta: String
   pakkaustyyppi: String
   suljentatyppi: String
-  alkoholi: String
+  alkoholiprosentti: String
   hapot: String
-  sokeri: String
-  kantavierrep: String
+  sokeri: Float
+  kantavierreprosentti: String
   vari: String
   ebc: String
   katkerot: String
   ebu: String
   energia: String
   valikoima: String
+  alkoholilitrahinta: Float
 }
 
 input ProductWhereInput {
@@ -575,20 +582,20 @@ input ProductWhereInput {
   suljentatyppi_not_starts_with: String
   suljentatyppi_ends_with: String
   suljentatyppi_not_ends_with: String
-  alkoholi: String
-  alkoholi_not: String
-  alkoholi_in: [String!]
-  alkoholi_not_in: [String!]
-  alkoholi_lt: String
-  alkoholi_lte: String
-  alkoholi_gt: String
-  alkoholi_gte: String
-  alkoholi_contains: String
-  alkoholi_not_contains: String
-  alkoholi_starts_with: String
-  alkoholi_not_starts_with: String
-  alkoholi_ends_with: String
-  alkoholi_not_ends_with: String
+  alkoholiprosentti: String
+  alkoholiprosentti_not: String
+  alkoholiprosentti_in: [String!]
+  alkoholiprosentti_not_in: [String!]
+  alkoholiprosentti_lt: String
+  alkoholiprosentti_lte: String
+  alkoholiprosentti_gt: String
+  alkoholiprosentti_gte: String
+  alkoholiprosentti_contains: String
+  alkoholiprosentti_not_contains: String
+  alkoholiprosentti_starts_with: String
+  alkoholiprosentti_not_starts_with: String
+  alkoholiprosentti_ends_with: String
+  alkoholiprosentti_not_ends_with: String
   hapot: String
   hapot_not: String
   hapot_in: [String!]
@@ -603,34 +610,28 @@ input ProductWhereInput {
   hapot_not_starts_with: String
   hapot_ends_with: String
   hapot_not_ends_with: String
-  sokeri: String
-  sokeri_not: String
-  sokeri_in: [String!]
-  sokeri_not_in: [String!]
-  sokeri_lt: String
-  sokeri_lte: String
-  sokeri_gt: String
-  sokeri_gte: String
-  sokeri_contains: String
-  sokeri_not_contains: String
-  sokeri_starts_with: String
-  sokeri_not_starts_with: String
-  sokeri_ends_with: String
-  sokeri_not_ends_with: String
-  kantavierrep: String
-  kantavierrep_not: String
-  kantavierrep_in: [String!]
-  kantavierrep_not_in: [String!]
-  kantavierrep_lt: String
-  kantavierrep_lte: String
-  kantavierrep_gt: String
-  kantavierrep_gte: String
-  kantavierrep_contains: String
-  kantavierrep_not_contains: String
-  kantavierrep_starts_with: String
-  kantavierrep_not_starts_with: String
-  kantavierrep_ends_with: String
-  kantavierrep_not_ends_with: String
+  sokeri: Float
+  sokeri_not: Float
+  sokeri_in: [Float!]
+  sokeri_not_in: [Float!]
+  sokeri_lt: Float
+  sokeri_lte: Float
+  sokeri_gt: Float
+  sokeri_gte: Float
+  kantavierreprosentti: String
+  kantavierreprosentti_not: String
+  kantavierreprosentti_in: [String!]
+  kantavierreprosentti_not_in: [String!]
+  kantavierreprosentti_lt: String
+  kantavierreprosentti_lte: String
+  kantavierreprosentti_gt: String
+  kantavierreprosentti_gte: String
+  kantavierreprosentti_contains: String
+  kantavierreprosentti_not_contains: String
+  kantavierreprosentti_starts_with: String
+  kantavierreprosentti_not_starts_with: String
+  kantavierreprosentti_ends_with: String
+  kantavierreprosentti_not_ends_with: String
   vari: String
   vari_not: String
   vari_in: [String!]
@@ -715,6 +716,14 @@ input ProductWhereInput {
   valikoima_not_starts_with: String
   valikoima_ends_with: String
   valikoima_not_ends_with: String
+  alkoholilitrahinta: Float
+  alkoholilitrahinta_not: Float
+  alkoholilitrahinta_in: [Float!]
+  alkoholilitrahinta_not_in: [Float!]
+  alkoholilitrahinta_lt: Float
+  alkoholilitrahinta_lte: Float
+  alkoholilitrahinta_gt: Float
+  alkoholilitrahinta_gte: Float
   AND: [ProductWhereInput!]
   OR: [ProductWhereInput!]
   NOT: [ProductWhereInput!]
