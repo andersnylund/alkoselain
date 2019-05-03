@@ -1,5 +1,6 @@
 import xlsx from 'xlsx';
 import axios from 'axios';
+import fs from 'fs';
 
 const toJSON = async () => {
     const alkoHeaders = ['nro', 'nimi', 'valmistaja', 'pullokoko', 'hinta', 'litrahinta',
@@ -32,7 +33,10 @@ const toJSON = async () => {
         return product;
     })
 
-    console.log(halpaa);
+    fs.writeFile('halpaa.json', JSON.stringify(halpaa), 'utf8', () => {
+        console.log('written');
+    });
+
 }
 
 toJSON();
