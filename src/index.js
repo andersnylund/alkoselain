@@ -1,17 +1,29 @@
 import xlsx from 'xlsx';
+import axios from 'axios';
 
 const toJSON = async () => {
-    const products = xlsx.utils.sheet_to_json('')
+    const alkoHeaders = ['nro', 'nimi', 'valmistaja', 'pullokoko', 'hinta', 'litrahinta',
+    'uutuus', 'hinnastojärjestys', 'tyyppi', 'erityisryhmä', 'oluttyyppi',
+    'valmistusmaa', 'alue', 'vuosikerta', 'etikettimerkintöjä', 'huomautus',
+    'rypäleet', 'luonnehdinta', 'pakkaustyyppi', 'suljentatyyppi', 'alkoholi-%',
+    'hapot g/l', 'sokeri g/l', 'kantavierrep-%', 'väri', 'katkerot', 'energia', 'valikoima', 'pvm', '_id'];
+    
+    const url = 'https://www.alko.fi/INTERSHOP/static/WFS/Alko-OnlineShop-Site/-/Alko-OnlineShop/fi_FI/Alkon%20Hinnasto%20Tekstitiedostona/alkon-hinnasto-tekstitiedostona.xls';
 
-    const products = await csv({
-        delimiter: ';'
-    }).fromFile('alkon-hinnasto-tekstitiedostona.csv');
-
-    products.forEach(product => {
-        product['Pullokoko'] = product['Pullokoko'].replace(' l', '').replace(',', '.');
+    const buffer = await axios.get(url, {
+        responseType: 'arraybuffer'
     });
 
-    console.log(products);
+    const data = new Uint8Array(buffer.data);
+
+    const workBook = xlsx.read(data, { type: 'array'});
+
+    const sheet = xlsx.utils.sheet_to_json(workBook.Sheets[workBook.SheetNames[0]], { header: alkoHeaders });
+    console.log('workBook.SheetNames:', workBook.SheetNames)
+
+    console.log('sheet:', sheet)
+
+
 }
 
 toJSON();

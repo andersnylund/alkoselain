@@ -10,6 +10,7 @@
     "dev-start": "babel-node src/index.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "xlsx": "^0.14.3"
   },
   "devDependencies": {
