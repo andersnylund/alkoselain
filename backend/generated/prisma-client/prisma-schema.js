@@ -3,7 +3,7 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateUser {
+/* GraphQL */ `type AggregateProduct {
   count: Int!
 }
 
@@ -14,12 +14,12 @@ type BatchPayload {
 scalar Long
 
 type Mutation {
-  createUser(data: UserCreateInput!): User!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createProduct(data: ProductCreateInput!): Product!
+  updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
+  updateManyProducts(data: ProductUpdateManyMutationInput!, where: ProductWhereInput): BatchPayload!
+  upsertProduct(where: ProductWhereUniqueInput!, create: ProductCreateInput!, update: ProductUpdateInput!): Product!
+  deleteProduct(where: ProductWhereUniqueInput!): Product
+  deleteManyProducts(where: ProductWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -39,112 +39,700 @@ type PageInfo {
   endCursor: String
 }
 
-type Query {
-  user(where: UserWhereUniqueInput!): User
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  node(id: ID!): Node
+type Product {
+  numero: ID!
+  nimi: String
+  valmistaja: String
+  pullokoko: String
+  hinta: String
+  litrahinta: String
+  uutuus: String
+  hinnastojarjestyskoodi: String
+  tyyppi: String
+  erityisryhma: String
+  oluttyyppi: String
+  valmistusmaa: String
+  alue: String
+  vuosikerta: String
+  etikettimerkintoja: String
+  huomautus: String
+  rypaleet: String
+  luonnehdinta: String
+  pakkaustyyppi: String
+  suljentatyppi: String
+  alkoholi: String
+  hapot: String
+  sokeri: String
+  kantavierrep: String
+  vari: String
+  ebc: String
+  katkerot: String
+  ebu: String
+  energia: String
+  valikoima: String
 }
 
-type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-}
-
-type User {
-  id: ID!
-  name: String!
-}
-
-type UserConnection {
+type ProductConnection {
   pageInfo: PageInfo!
-  edges: [UserEdge]!
-  aggregate: AggregateUser!
+  edges: [ProductEdge]!
+  aggregate: AggregateProduct!
 }
 
-input UserCreateInput {
-  id: ID
-  name: String!
+input ProductCreateInput {
+  numero: ID
+  nimi: String
+  valmistaja: String
+  pullokoko: String
+  hinta: String
+  litrahinta: String
+  uutuus: String
+  hinnastojarjestyskoodi: String
+  tyyppi: String
+  erityisryhma: String
+  oluttyyppi: String
+  valmistusmaa: String
+  alue: String
+  vuosikerta: String
+  etikettimerkintoja: String
+  huomautus: String
+  rypaleet: String
+  luonnehdinta: String
+  pakkaustyyppi: String
+  suljentatyppi: String
+  alkoholi: String
+  hapot: String
+  sokeri: String
+  kantavierrep: String
+  vari: String
+  ebc: String
+  katkerot: String
+  ebu: String
+  energia: String
+  valikoima: String
 }
 
-type UserEdge {
-  node: User!
+type ProductEdge {
+  node: Product!
   cursor: String!
 }
 
-enum UserOrderByInput {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
+enum ProductOrderByInput {
+  numero_ASC
+  numero_DESC
+  nimi_ASC
+  nimi_DESC
+  valmistaja_ASC
+  valmistaja_DESC
+  pullokoko_ASC
+  pullokoko_DESC
+  hinta_ASC
+  hinta_DESC
+  litrahinta_ASC
+  litrahinta_DESC
+  uutuus_ASC
+  uutuus_DESC
+  hinnastojarjestyskoodi_ASC
+  hinnastojarjestyskoodi_DESC
+  tyyppi_ASC
+  tyyppi_DESC
+  erityisryhma_ASC
+  erityisryhma_DESC
+  oluttyyppi_ASC
+  oluttyyppi_DESC
+  valmistusmaa_ASC
+  valmistusmaa_DESC
+  alue_ASC
+  alue_DESC
+  vuosikerta_ASC
+  vuosikerta_DESC
+  etikettimerkintoja_ASC
+  etikettimerkintoja_DESC
+  huomautus_ASC
+  huomautus_DESC
+  rypaleet_ASC
+  rypaleet_DESC
+  luonnehdinta_ASC
+  luonnehdinta_DESC
+  pakkaustyyppi_ASC
+  pakkaustyyppi_DESC
+  suljentatyppi_ASC
+  suljentatyppi_DESC
+  alkoholi_ASC
+  alkoholi_DESC
+  hapot_ASC
+  hapot_DESC
+  sokeri_ASC
+  sokeri_DESC
+  kantavierrep_ASC
+  kantavierrep_DESC
+  vari_ASC
+  vari_DESC
+  ebc_ASC
+  ebc_DESC
+  katkerot_ASC
+  katkerot_DESC
+  ebu_ASC
+  ebu_DESC
+  energia_ASC
+  energia_DESC
+  valikoima_ASC
+  valikoima_DESC
 }
 
-type UserPreviousValues {
-  id: ID!
-  name: String!
+type ProductPreviousValues {
+  numero: ID!
+  nimi: String
+  valmistaja: String
+  pullokoko: String
+  hinta: String
+  litrahinta: String
+  uutuus: String
+  hinnastojarjestyskoodi: String
+  tyyppi: String
+  erityisryhma: String
+  oluttyyppi: String
+  valmistusmaa: String
+  alue: String
+  vuosikerta: String
+  etikettimerkintoja: String
+  huomautus: String
+  rypaleet: String
+  luonnehdinta: String
+  pakkaustyyppi: String
+  suljentatyppi: String
+  alkoholi: String
+  hapot: String
+  sokeri: String
+  kantavierrep: String
+  vari: String
+  ebc: String
+  katkerot: String
+  ebu: String
+  energia: String
+  valikoima: String
 }
 
-type UserSubscriptionPayload {
+type ProductSubscriptionPayload {
   mutation: MutationType!
-  node: User
+  node: Product
   updatedFields: [String!]
-  previousValues: UserPreviousValues
+  previousValues: ProductPreviousValues
 }
 
-input UserSubscriptionWhereInput {
+input ProductSubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: UserWhereInput
-  AND: [UserSubscriptionWhereInput!]
-  OR: [UserSubscriptionWhereInput!]
-  NOT: [UserSubscriptionWhereInput!]
+  node: ProductWhereInput
+  AND: [ProductSubscriptionWhereInput!]
+  OR: [ProductSubscriptionWhereInput!]
+  NOT: [ProductSubscriptionWhereInput!]
 }
 
-input UserUpdateInput {
-  name: String
+input ProductUpdateInput {
+  nimi: String
+  valmistaja: String
+  pullokoko: String
+  hinta: String
+  litrahinta: String
+  uutuus: String
+  hinnastojarjestyskoodi: String
+  tyyppi: String
+  erityisryhma: String
+  oluttyyppi: String
+  valmistusmaa: String
+  alue: String
+  vuosikerta: String
+  etikettimerkintoja: String
+  huomautus: String
+  rypaleet: String
+  luonnehdinta: String
+  pakkaustyyppi: String
+  suljentatyppi: String
+  alkoholi: String
+  hapot: String
+  sokeri: String
+  kantavierrep: String
+  vari: String
+  ebc: String
+  katkerot: String
+  ebu: String
+  energia: String
+  valikoima: String
 }
 
-input UserUpdateManyMutationInput {
-  name: String
+input ProductUpdateManyMutationInput {
+  nimi: String
+  valmistaja: String
+  pullokoko: String
+  hinta: String
+  litrahinta: String
+  uutuus: String
+  hinnastojarjestyskoodi: String
+  tyyppi: String
+  erityisryhma: String
+  oluttyyppi: String
+  valmistusmaa: String
+  alue: String
+  vuosikerta: String
+  etikettimerkintoja: String
+  huomautus: String
+  rypaleet: String
+  luonnehdinta: String
+  pakkaustyyppi: String
+  suljentatyppi: String
+  alkoholi: String
+  hapot: String
+  sokeri: String
+  kantavierrep: String
+  vari: String
+  ebc: String
+  katkerot: String
+  ebu: String
+  energia: String
+  valikoima: String
 }
 
-input UserWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  AND: [UserWhereInput!]
-  OR: [UserWhereInput!]
-  NOT: [UserWhereInput!]
+input ProductWhereInput {
+  numero: ID
+  numero_not: ID
+  numero_in: [ID!]
+  numero_not_in: [ID!]
+  numero_lt: ID
+  numero_lte: ID
+  numero_gt: ID
+  numero_gte: ID
+  numero_contains: ID
+  numero_not_contains: ID
+  numero_starts_with: ID
+  numero_not_starts_with: ID
+  numero_ends_with: ID
+  numero_not_ends_with: ID
+  nimi: String
+  nimi_not: String
+  nimi_in: [String!]
+  nimi_not_in: [String!]
+  nimi_lt: String
+  nimi_lte: String
+  nimi_gt: String
+  nimi_gte: String
+  nimi_contains: String
+  nimi_not_contains: String
+  nimi_starts_with: String
+  nimi_not_starts_with: String
+  nimi_ends_with: String
+  nimi_not_ends_with: String
+  valmistaja: String
+  valmistaja_not: String
+  valmistaja_in: [String!]
+  valmistaja_not_in: [String!]
+  valmistaja_lt: String
+  valmistaja_lte: String
+  valmistaja_gt: String
+  valmistaja_gte: String
+  valmistaja_contains: String
+  valmistaja_not_contains: String
+  valmistaja_starts_with: String
+  valmistaja_not_starts_with: String
+  valmistaja_ends_with: String
+  valmistaja_not_ends_with: String
+  pullokoko: String
+  pullokoko_not: String
+  pullokoko_in: [String!]
+  pullokoko_not_in: [String!]
+  pullokoko_lt: String
+  pullokoko_lte: String
+  pullokoko_gt: String
+  pullokoko_gte: String
+  pullokoko_contains: String
+  pullokoko_not_contains: String
+  pullokoko_starts_with: String
+  pullokoko_not_starts_with: String
+  pullokoko_ends_with: String
+  pullokoko_not_ends_with: String
+  hinta: String
+  hinta_not: String
+  hinta_in: [String!]
+  hinta_not_in: [String!]
+  hinta_lt: String
+  hinta_lte: String
+  hinta_gt: String
+  hinta_gte: String
+  hinta_contains: String
+  hinta_not_contains: String
+  hinta_starts_with: String
+  hinta_not_starts_with: String
+  hinta_ends_with: String
+  hinta_not_ends_with: String
+  litrahinta: String
+  litrahinta_not: String
+  litrahinta_in: [String!]
+  litrahinta_not_in: [String!]
+  litrahinta_lt: String
+  litrahinta_lte: String
+  litrahinta_gt: String
+  litrahinta_gte: String
+  litrahinta_contains: String
+  litrahinta_not_contains: String
+  litrahinta_starts_with: String
+  litrahinta_not_starts_with: String
+  litrahinta_ends_with: String
+  litrahinta_not_ends_with: String
+  uutuus: String
+  uutuus_not: String
+  uutuus_in: [String!]
+  uutuus_not_in: [String!]
+  uutuus_lt: String
+  uutuus_lte: String
+  uutuus_gt: String
+  uutuus_gte: String
+  uutuus_contains: String
+  uutuus_not_contains: String
+  uutuus_starts_with: String
+  uutuus_not_starts_with: String
+  uutuus_ends_with: String
+  uutuus_not_ends_with: String
+  hinnastojarjestyskoodi: String
+  hinnastojarjestyskoodi_not: String
+  hinnastojarjestyskoodi_in: [String!]
+  hinnastojarjestyskoodi_not_in: [String!]
+  hinnastojarjestyskoodi_lt: String
+  hinnastojarjestyskoodi_lte: String
+  hinnastojarjestyskoodi_gt: String
+  hinnastojarjestyskoodi_gte: String
+  hinnastojarjestyskoodi_contains: String
+  hinnastojarjestyskoodi_not_contains: String
+  hinnastojarjestyskoodi_starts_with: String
+  hinnastojarjestyskoodi_not_starts_with: String
+  hinnastojarjestyskoodi_ends_with: String
+  hinnastojarjestyskoodi_not_ends_with: String
+  tyyppi: String
+  tyyppi_not: String
+  tyyppi_in: [String!]
+  tyyppi_not_in: [String!]
+  tyyppi_lt: String
+  tyyppi_lte: String
+  tyyppi_gt: String
+  tyyppi_gte: String
+  tyyppi_contains: String
+  tyyppi_not_contains: String
+  tyyppi_starts_with: String
+  tyyppi_not_starts_with: String
+  tyyppi_ends_with: String
+  tyyppi_not_ends_with: String
+  erityisryhma: String
+  erityisryhma_not: String
+  erityisryhma_in: [String!]
+  erityisryhma_not_in: [String!]
+  erityisryhma_lt: String
+  erityisryhma_lte: String
+  erityisryhma_gt: String
+  erityisryhma_gte: String
+  erityisryhma_contains: String
+  erityisryhma_not_contains: String
+  erityisryhma_starts_with: String
+  erityisryhma_not_starts_with: String
+  erityisryhma_ends_with: String
+  erityisryhma_not_ends_with: String
+  oluttyyppi: String
+  oluttyyppi_not: String
+  oluttyyppi_in: [String!]
+  oluttyyppi_not_in: [String!]
+  oluttyyppi_lt: String
+  oluttyyppi_lte: String
+  oluttyyppi_gt: String
+  oluttyyppi_gte: String
+  oluttyyppi_contains: String
+  oluttyyppi_not_contains: String
+  oluttyyppi_starts_with: String
+  oluttyyppi_not_starts_with: String
+  oluttyyppi_ends_with: String
+  oluttyyppi_not_ends_with: String
+  valmistusmaa: String
+  valmistusmaa_not: String
+  valmistusmaa_in: [String!]
+  valmistusmaa_not_in: [String!]
+  valmistusmaa_lt: String
+  valmistusmaa_lte: String
+  valmistusmaa_gt: String
+  valmistusmaa_gte: String
+  valmistusmaa_contains: String
+  valmistusmaa_not_contains: String
+  valmistusmaa_starts_with: String
+  valmistusmaa_not_starts_with: String
+  valmistusmaa_ends_with: String
+  valmistusmaa_not_ends_with: String
+  alue: String
+  alue_not: String
+  alue_in: [String!]
+  alue_not_in: [String!]
+  alue_lt: String
+  alue_lte: String
+  alue_gt: String
+  alue_gte: String
+  alue_contains: String
+  alue_not_contains: String
+  alue_starts_with: String
+  alue_not_starts_with: String
+  alue_ends_with: String
+  alue_not_ends_with: String
+  vuosikerta: String
+  vuosikerta_not: String
+  vuosikerta_in: [String!]
+  vuosikerta_not_in: [String!]
+  vuosikerta_lt: String
+  vuosikerta_lte: String
+  vuosikerta_gt: String
+  vuosikerta_gte: String
+  vuosikerta_contains: String
+  vuosikerta_not_contains: String
+  vuosikerta_starts_with: String
+  vuosikerta_not_starts_with: String
+  vuosikerta_ends_with: String
+  vuosikerta_not_ends_with: String
+  etikettimerkintoja: String
+  etikettimerkintoja_not: String
+  etikettimerkintoja_in: [String!]
+  etikettimerkintoja_not_in: [String!]
+  etikettimerkintoja_lt: String
+  etikettimerkintoja_lte: String
+  etikettimerkintoja_gt: String
+  etikettimerkintoja_gte: String
+  etikettimerkintoja_contains: String
+  etikettimerkintoja_not_contains: String
+  etikettimerkintoja_starts_with: String
+  etikettimerkintoja_not_starts_with: String
+  etikettimerkintoja_ends_with: String
+  etikettimerkintoja_not_ends_with: String
+  huomautus: String
+  huomautus_not: String
+  huomautus_in: [String!]
+  huomautus_not_in: [String!]
+  huomautus_lt: String
+  huomautus_lte: String
+  huomautus_gt: String
+  huomautus_gte: String
+  huomautus_contains: String
+  huomautus_not_contains: String
+  huomautus_starts_with: String
+  huomautus_not_starts_with: String
+  huomautus_ends_with: String
+  huomautus_not_ends_with: String
+  rypaleet: String
+  rypaleet_not: String
+  rypaleet_in: [String!]
+  rypaleet_not_in: [String!]
+  rypaleet_lt: String
+  rypaleet_lte: String
+  rypaleet_gt: String
+  rypaleet_gte: String
+  rypaleet_contains: String
+  rypaleet_not_contains: String
+  rypaleet_starts_with: String
+  rypaleet_not_starts_with: String
+  rypaleet_ends_with: String
+  rypaleet_not_ends_with: String
+  luonnehdinta: String
+  luonnehdinta_not: String
+  luonnehdinta_in: [String!]
+  luonnehdinta_not_in: [String!]
+  luonnehdinta_lt: String
+  luonnehdinta_lte: String
+  luonnehdinta_gt: String
+  luonnehdinta_gte: String
+  luonnehdinta_contains: String
+  luonnehdinta_not_contains: String
+  luonnehdinta_starts_with: String
+  luonnehdinta_not_starts_with: String
+  luonnehdinta_ends_with: String
+  luonnehdinta_not_ends_with: String
+  pakkaustyyppi: String
+  pakkaustyyppi_not: String
+  pakkaustyyppi_in: [String!]
+  pakkaustyyppi_not_in: [String!]
+  pakkaustyyppi_lt: String
+  pakkaustyyppi_lte: String
+  pakkaustyyppi_gt: String
+  pakkaustyyppi_gte: String
+  pakkaustyyppi_contains: String
+  pakkaustyyppi_not_contains: String
+  pakkaustyyppi_starts_with: String
+  pakkaustyyppi_not_starts_with: String
+  pakkaustyyppi_ends_with: String
+  pakkaustyyppi_not_ends_with: String
+  suljentatyppi: String
+  suljentatyppi_not: String
+  suljentatyppi_in: [String!]
+  suljentatyppi_not_in: [String!]
+  suljentatyppi_lt: String
+  suljentatyppi_lte: String
+  suljentatyppi_gt: String
+  suljentatyppi_gte: String
+  suljentatyppi_contains: String
+  suljentatyppi_not_contains: String
+  suljentatyppi_starts_with: String
+  suljentatyppi_not_starts_with: String
+  suljentatyppi_ends_with: String
+  suljentatyppi_not_ends_with: String
+  alkoholi: String
+  alkoholi_not: String
+  alkoholi_in: [String!]
+  alkoholi_not_in: [String!]
+  alkoholi_lt: String
+  alkoholi_lte: String
+  alkoholi_gt: String
+  alkoholi_gte: String
+  alkoholi_contains: String
+  alkoholi_not_contains: String
+  alkoholi_starts_with: String
+  alkoholi_not_starts_with: String
+  alkoholi_ends_with: String
+  alkoholi_not_ends_with: String
+  hapot: String
+  hapot_not: String
+  hapot_in: [String!]
+  hapot_not_in: [String!]
+  hapot_lt: String
+  hapot_lte: String
+  hapot_gt: String
+  hapot_gte: String
+  hapot_contains: String
+  hapot_not_contains: String
+  hapot_starts_with: String
+  hapot_not_starts_with: String
+  hapot_ends_with: String
+  hapot_not_ends_with: String
+  sokeri: String
+  sokeri_not: String
+  sokeri_in: [String!]
+  sokeri_not_in: [String!]
+  sokeri_lt: String
+  sokeri_lte: String
+  sokeri_gt: String
+  sokeri_gte: String
+  sokeri_contains: String
+  sokeri_not_contains: String
+  sokeri_starts_with: String
+  sokeri_not_starts_with: String
+  sokeri_ends_with: String
+  sokeri_not_ends_with: String
+  kantavierrep: String
+  kantavierrep_not: String
+  kantavierrep_in: [String!]
+  kantavierrep_not_in: [String!]
+  kantavierrep_lt: String
+  kantavierrep_lte: String
+  kantavierrep_gt: String
+  kantavierrep_gte: String
+  kantavierrep_contains: String
+  kantavierrep_not_contains: String
+  kantavierrep_starts_with: String
+  kantavierrep_not_starts_with: String
+  kantavierrep_ends_with: String
+  kantavierrep_not_ends_with: String
+  vari: String
+  vari_not: String
+  vari_in: [String!]
+  vari_not_in: [String!]
+  vari_lt: String
+  vari_lte: String
+  vari_gt: String
+  vari_gte: String
+  vari_contains: String
+  vari_not_contains: String
+  vari_starts_with: String
+  vari_not_starts_with: String
+  vari_ends_with: String
+  vari_not_ends_with: String
+  ebc: String
+  ebc_not: String
+  ebc_in: [String!]
+  ebc_not_in: [String!]
+  ebc_lt: String
+  ebc_lte: String
+  ebc_gt: String
+  ebc_gte: String
+  ebc_contains: String
+  ebc_not_contains: String
+  ebc_starts_with: String
+  ebc_not_starts_with: String
+  ebc_ends_with: String
+  ebc_not_ends_with: String
+  katkerot: String
+  katkerot_not: String
+  katkerot_in: [String!]
+  katkerot_not_in: [String!]
+  katkerot_lt: String
+  katkerot_lte: String
+  katkerot_gt: String
+  katkerot_gte: String
+  katkerot_contains: String
+  katkerot_not_contains: String
+  katkerot_starts_with: String
+  katkerot_not_starts_with: String
+  katkerot_ends_with: String
+  katkerot_not_ends_with: String
+  ebu: String
+  ebu_not: String
+  ebu_in: [String!]
+  ebu_not_in: [String!]
+  ebu_lt: String
+  ebu_lte: String
+  ebu_gt: String
+  ebu_gte: String
+  ebu_contains: String
+  ebu_not_contains: String
+  ebu_starts_with: String
+  ebu_not_starts_with: String
+  ebu_ends_with: String
+  ebu_not_ends_with: String
+  energia: String
+  energia_not: String
+  energia_in: [String!]
+  energia_not_in: [String!]
+  energia_lt: String
+  energia_lte: String
+  energia_gt: String
+  energia_gte: String
+  energia_contains: String
+  energia_not_contains: String
+  energia_starts_with: String
+  energia_not_starts_with: String
+  energia_ends_with: String
+  energia_not_ends_with: String
+  valikoima: String
+  valikoima_not: String
+  valikoima_in: [String!]
+  valikoima_not_in: [String!]
+  valikoima_lt: String
+  valikoima_lte: String
+  valikoima_gt: String
+  valikoima_gte: String
+  valikoima_contains: String
+  valikoima_not_contains: String
+  valikoima_starts_with: String
+  valikoima_not_starts_with: String
+  valikoima_ends_with: String
+  valikoima_not_ends_with: String
+  AND: [ProductWhereInput!]
+  OR: [ProductWhereInput!]
+  NOT: [ProductWhereInput!]
 }
 
-input UserWhereUniqueInput {
-  id: ID
+input ProductWhereUniqueInput {
+  numero: ID
+}
+
+type Query {
+  product(where: ProductWhereUniqueInput!): Product
+  products(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Product]!
+  productsConnection(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProductConnection!
+  node(id: ID!): Node
+}
+
+type Subscription {
+  product(where: ProductSubscriptionWhereInput): ProductSubscriptionPayload
 }
 `
       }

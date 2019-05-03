@@ -1,4 +1,32 @@
-type User {
-  id: ID! @id
-  name: String!
+type Product {
+  numero: ID! @id
+  nimi: String
+  valmistaja: String
+  pullokoko: String
+  hinta: String
+  litrahinta: String
+  uutuus: String
+  hinnastojarjestyskoodi: String
+  tyyppi: String
+  erityisryhma: String
+  oluttyyppi: String
+  valmistusmaa: String
+  alue: String
+  vuosikerta: String
+  etikettimerkintoja: String
+  huomautus: String
+  rypaleet: String
+  luonnehdinta: String
+  pakkaustyyppi: String
+  suljentatyppi: String
+  alkoholi: String
+  hapot: String
+  sokeri: String
+  kantavierrep: String
+  vari: String
+  ebc: String
+  katkerot: String
+  ebu: String
+  energia: String
+  valikoima: String
 }

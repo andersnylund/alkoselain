@@ -16,7 +16,7 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
-  user: (where?: UserWhereInput) => Promise<boolean>;
+  product: (where?: ProductWhereInput) => Promise<boolean>;
 }
 
 export interface Node {}
@@ -38,47 +38,47 @@ export interface Prisma {
    * Queries
    */
 
-  user: (where: UserWhereUniqueInput) => UserNullablePromise;
-  users: (args?: {
-    where?: UserWhereInput;
-    orderBy?: UserOrderByInput;
+  product: (where: ProductWhereUniqueInput) => ProductNullablePromise;
+  products: (args?: {
+    where?: ProductWhereInput;
+    orderBy?: ProductOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => FragmentableArray<User>;
-  usersConnection: (args?: {
-    where?: UserWhereInput;
-    orderBy?: UserOrderByInput;
+  }) => FragmentableArray<Product>;
+  productsConnection: (args?: {
+    where?: ProductWhereInput;
+    orderBy?: ProductOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => UserConnectionPromise;
+  }) => ProductConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
    * Mutations
    */
 
-  createUser: (data: UserCreateInput) => UserPromise;
-  updateUser: (args: {
-    data: UserUpdateInput;
-    where: UserWhereUniqueInput;
-  }) => UserPromise;
-  updateManyUsers: (args: {
-    data: UserUpdateManyMutationInput;
-    where?: UserWhereInput;
+  createProduct: (data: ProductCreateInput) => ProductPromise;
+  updateProduct: (args: {
+    data: ProductUpdateInput;
+    where: ProductWhereUniqueInput;
+  }) => ProductPromise;
+  updateManyProducts: (args: {
+    data: ProductUpdateManyMutationInput;
+    where?: ProductWhereInput;
   }) => BatchPayloadPromise;
-  upsertUser: (args: {
-    where: UserWhereUniqueInput;
-    create: UserCreateInput;
-    update: UserUpdateInput;
-  }) => UserPromise;
-  deleteUser: (where: UserWhereUniqueInput) => UserPromise;
-  deleteManyUsers: (where?: UserWhereInput) => BatchPayloadPromise;
+  upsertProduct: (args: {
+    where: ProductWhereUniqueInput;
+    create: ProductCreateInput;
+    update: ProductUpdateInput;
+  }) => ProductPromise;
+  deleteProduct: (where: ProductWhereUniqueInput) => ProductPromise;
+  deleteManyProducts: (where?: ProductWhereInput) => BatchPayloadPromise;
 
   /**
    * Subscriptions
@@ -88,9 +88,9 @@ export interface Prisma {
 }
 
 export interface Subscription {
-  user: (
-    where?: UserSubscriptionWhereInput
-  ) => UserSubscriptionPayloadSubscription;
+  product: (
+    where?: ProductSubscriptionWhereInput
+  ) => ProductSubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
@@ -101,88 +101,624 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type UserOrderByInput = "id_ASC" | "id_DESC" | "name_ASC" | "name_DESC";
+export type ProductOrderByInput =
+  | "numero_ASC"
+  | "numero_DESC"
+  | "nimi_ASC"
+  | "nimi_DESC"
+  | "valmistaja_ASC"
+  | "valmistaja_DESC"
+  | "pullokoko_ASC"
+  | "pullokoko_DESC"
+  | "hinta_ASC"
+  | "hinta_DESC"
+  | "litrahinta_ASC"
+  | "litrahinta_DESC"
+  | "uutuus_ASC"
+  | "uutuus_DESC"
+  | "hinnastojarjestyskoodi_ASC"
+  | "hinnastojarjestyskoodi_DESC"
+  | "tyyppi_ASC"
+  | "tyyppi_DESC"
+  | "erityisryhma_ASC"
+  | "erityisryhma_DESC"
+  | "oluttyyppi_ASC"
+  | "oluttyyppi_DESC"
+  | "valmistusmaa_ASC"
+  | "valmistusmaa_DESC"
+  | "alue_ASC"
+  | "alue_DESC"
+  | "vuosikerta_ASC"
+  | "vuosikerta_DESC"
+  | "etikettimerkintoja_ASC"
+  | "etikettimerkintoja_DESC"
+  | "huomautus_ASC"
+  | "huomautus_DESC"
+  | "rypaleet_ASC"
+  | "rypaleet_DESC"
+  | "luonnehdinta_ASC"
+  | "luonnehdinta_DESC"
+  | "pakkaustyyppi_ASC"
+  | "pakkaustyyppi_DESC"
+  | "suljentatyppi_ASC"
+  | "suljentatyppi_DESC"
+  | "alkoholi_ASC"
+  | "alkoholi_DESC"
+  | "hapot_ASC"
+  | "hapot_DESC"
+  | "sokeri_ASC"
+  | "sokeri_DESC"
+  | "kantavierrep_ASC"
+  | "kantavierrep_DESC"
+  | "vari_ASC"
+  | "vari_DESC"
+  | "ebc_ASC"
+  | "ebc_DESC"
+  | "katkerot_ASC"
+  | "katkerot_DESC"
+  | "ebu_ASC"
+  | "ebu_DESC"
+  | "energia_ASC"
+  | "energia_DESC"
+  | "valikoima_ASC"
+  | "valikoima_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface UserCreateInput {
-  id?: Maybe<ID_Input>;
-  name: String;
+export interface ProductCreateInput {
+  numero?: Maybe<ID_Input>;
+  nimi?: Maybe<String>;
+  valmistaja?: Maybe<String>;
+  pullokoko?: Maybe<String>;
+  hinta?: Maybe<String>;
+  litrahinta?: Maybe<String>;
+  uutuus?: Maybe<String>;
+  hinnastojarjestyskoodi?: Maybe<String>;
+  tyyppi?: Maybe<String>;
+  erityisryhma?: Maybe<String>;
+  oluttyyppi?: Maybe<String>;
+  valmistusmaa?: Maybe<String>;
+  alue?: Maybe<String>;
+  vuosikerta?: Maybe<String>;
+  etikettimerkintoja?: Maybe<String>;
+  huomautus?: Maybe<String>;
+  rypaleet?: Maybe<String>;
+  luonnehdinta?: Maybe<String>;
+  pakkaustyyppi?: Maybe<String>;
+  suljentatyppi?: Maybe<String>;
+  alkoholi?: Maybe<String>;
+  hapot?: Maybe<String>;
+  sokeri?: Maybe<String>;
+  kantavierrep?: Maybe<String>;
+  vari?: Maybe<String>;
+  ebc?: Maybe<String>;
+  katkerot?: Maybe<String>;
+  ebu?: Maybe<String>;
+  energia?: Maybe<String>;
+  valikoima?: Maybe<String>;
 }
 
-export interface UserUpdateInput {
-  name?: Maybe<String>;
+export interface ProductUpdateInput {
+  nimi?: Maybe<String>;
+  valmistaja?: Maybe<String>;
+  pullokoko?: Maybe<String>;
+  hinta?: Maybe<String>;
+  litrahinta?: Maybe<String>;
+  uutuus?: Maybe<String>;
+  hinnastojarjestyskoodi?: Maybe<String>;
+  tyyppi?: Maybe<String>;
+  erityisryhma?: Maybe<String>;
+  oluttyyppi?: Maybe<String>;
+  valmistusmaa?: Maybe<String>;
+  alue?: Maybe<String>;
+  vuosikerta?: Maybe<String>;
+  etikettimerkintoja?: Maybe<String>;
+  huomautus?: Maybe<String>;
+  rypaleet?: Maybe<String>;
+  luonnehdinta?: Maybe<String>;
+  pakkaustyyppi?: Maybe<String>;
+  suljentatyppi?: Maybe<String>;
+  alkoholi?: Maybe<String>;
+  hapot?: Maybe<String>;
+  sokeri?: Maybe<String>;
+  kantavierrep?: Maybe<String>;
+  vari?: Maybe<String>;
+  ebc?: Maybe<String>;
+  katkerot?: Maybe<String>;
+  ebu?: Maybe<String>;
+  energia?: Maybe<String>;
+  valikoima?: Maybe<String>;
 }
 
-export interface UserUpdateManyMutationInput {
-  name?: Maybe<String>;
+export interface ProductUpdateManyMutationInput {
+  nimi?: Maybe<String>;
+  valmistaja?: Maybe<String>;
+  pullokoko?: Maybe<String>;
+  hinta?: Maybe<String>;
+  litrahinta?: Maybe<String>;
+  uutuus?: Maybe<String>;
+  hinnastojarjestyskoodi?: Maybe<String>;
+  tyyppi?: Maybe<String>;
+  erityisryhma?: Maybe<String>;
+  oluttyyppi?: Maybe<String>;
+  valmistusmaa?: Maybe<String>;
+  alue?: Maybe<String>;
+  vuosikerta?: Maybe<String>;
+  etikettimerkintoja?: Maybe<String>;
+  huomautus?: Maybe<String>;
+  rypaleet?: Maybe<String>;
+  luonnehdinta?: Maybe<String>;
+  pakkaustyyppi?: Maybe<String>;
+  suljentatyppi?: Maybe<String>;
+  alkoholi?: Maybe<String>;
+  hapot?: Maybe<String>;
+  sokeri?: Maybe<String>;
+  kantavierrep?: Maybe<String>;
+  vari?: Maybe<String>;
+  ebc?: Maybe<String>;
+  katkerot?: Maybe<String>;
+  ebu?: Maybe<String>;
+  energia?: Maybe<String>;
+  valikoima?: Maybe<String>;
 }
 
-export interface UserWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  AND?: Maybe<UserWhereInput[] | UserWhereInput>;
-  OR?: Maybe<UserWhereInput[] | UserWhereInput>;
-  NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
+export interface ProductWhereInput {
+  numero?: Maybe<ID_Input>;
+  numero_not?: Maybe<ID_Input>;
+  numero_in?: Maybe<ID_Input[] | ID_Input>;
+  numero_not_in?: Maybe<ID_Input[] | ID_Input>;
+  numero_lt?: Maybe<ID_Input>;
+  numero_lte?: Maybe<ID_Input>;
+  numero_gt?: Maybe<ID_Input>;
+  numero_gte?: Maybe<ID_Input>;
+  numero_contains?: Maybe<ID_Input>;
+  numero_not_contains?: Maybe<ID_Input>;
+  numero_starts_with?: Maybe<ID_Input>;
+  numero_not_starts_with?: Maybe<ID_Input>;
+  numero_ends_with?: Maybe<ID_Input>;
+  numero_not_ends_with?: Maybe<ID_Input>;
+  nimi?: Maybe<String>;
+  nimi_not?: Maybe<String>;
+  nimi_in?: Maybe<String[] | String>;
+  nimi_not_in?: Maybe<String[] | String>;
+  nimi_lt?: Maybe<String>;
+  nimi_lte?: Maybe<String>;
+  nimi_gt?: Maybe<String>;
+  nimi_gte?: Maybe<String>;
+  nimi_contains?: Maybe<String>;
+  nimi_not_contains?: Maybe<String>;
+  nimi_starts_with?: Maybe<String>;
+  nimi_not_starts_with?: Maybe<String>;
+  nimi_ends_with?: Maybe<String>;
+  nimi_not_ends_with?: Maybe<String>;
+  valmistaja?: Maybe<String>;
+  valmistaja_not?: Maybe<String>;
+  valmistaja_in?: Maybe<String[] | String>;
+  valmistaja_not_in?: Maybe<String[] | String>;
+  valmistaja_lt?: Maybe<String>;
+  valmistaja_lte?: Maybe<String>;
+  valmistaja_gt?: Maybe<String>;
+  valmistaja_gte?: Maybe<String>;
+  valmistaja_contains?: Maybe<String>;
+  valmistaja_not_contains?: Maybe<String>;
+  valmistaja_starts_with?: Maybe<String>;
+  valmistaja_not_starts_with?: Maybe<String>;
+  valmistaja_ends_with?: Maybe<String>;
+  valmistaja_not_ends_with?: Maybe<String>;
+  pullokoko?: Maybe<String>;
+  pullokoko_not?: Maybe<String>;
+  pullokoko_in?: Maybe<String[] | String>;
+  pullokoko_not_in?: Maybe<String[] | String>;
+  pullokoko_lt?: Maybe<String>;
+  pullokoko_lte?: Maybe<String>;
+  pullokoko_gt?: Maybe<String>;
+  pullokoko_gte?: Maybe<String>;
+  pullokoko_contains?: Maybe<String>;
+  pullokoko_not_contains?: Maybe<String>;
+  pullokoko_starts_with?: Maybe<String>;
+  pullokoko_not_starts_with?: Maybe<String>;
+  pullokoko_ends_with?: Maybe<String>;
+  pullokoko_not_ends_with?: Maybe<String>;
+  hinta?: Maybe<String>;
+  hinta_not?: Maybe<String>;
+  hinta_in?: Maybe<String[] | String>;
+  hinta_not_in?: Maybe<String[] | String>;
+  hinta_lt?: Maybe<String>;
+  hinta_lte?: Maybe<String>;
+  hinta_gt?: Maybe<String>;
+  hinta_gte?: Maybe<String>;
+  hinta_contains?: Maybe<String>;
+  hinta_not_contains?: Maybe<String>;
+  hinta_starts_with?: Maybe<String>;
+  hinta_not_starts_with?: Maybe<String>;
+  hinta_ends_with?: Maybe<String>;
+  hinta_not_ends_with?: Maybe<String>;
+  litrahinta?: Maybe<String>;
+  litrahinta_not?: Maybe<String>;
+  litrahinta_in?: Maybe<String[] | String>;
+  litrahinta_not_in?: Maybe<String[] | String>;
+  litrahinta_lt?: Maybe<String>;
+  litrahinta_lte?: Maybe<String>;
+  litrahinta_gt?: Maybe<String>;
+  litrahinta_gte?: Maybe<String>;
+  litrahinta_contains?: Maybe<String>;
+  litrahinta_not_contains?: Maybe<String>;
+  litrahinta_starts_with?: Maybe<String>;
+  litrahinta_not_starts_with?: Maybe<String>;
+  litrahinta_ends_with?: Maybe<String>;
+  litrahinta_not_ends_with?: Maybe<String>;
+  uutuus?: Maybe<String>;
+  uutuus_not?: Maybe<String>;
+  uutuus_in?: Maybe<String[] | String>;
+  uutuus_not_in?: Maybe<String[] | String>;
+  uutuus_lt?: Maybe<String>;
+  uutuus_lte?: Maybe<String>;
+  uutuus_gt?: Maybe<String>;
+  uutuus_gte?: Maybe<String>;
+  uutuus_contains?: Maybe<String>;
+  uutuus_not_contains?: Maybe<String>;
+  uutuus_starts_with?: Maybe<String>;
+  uutuus_not_starts_with?: Maybe<String>;
+  uutuus_ends_with?: Maybe<String>;
+  uutuus_not_ends_with?: Maybe<String>;
+  hinnastojarjestyskoodi?: Maybe<String>;
+  hinnastojarjestyskoodi_not?: Maybe<String>;
+  hinnastojarjestyskoodi_in?: Maybe<String[] | String>;
+  hinnastojarjestyskoodi_not_in?: Maybe<String[] | String>;
+  hinnastojarjestyskoodi_lt?: Maybe<String>;
+  hinnastojarjestyskoodi_lte?: Maybe<String>;
+  hinnastojarjestyskoodi_gt?: Maybe<String>;
+  hinnastojarjestyskoodi_gte?: Maybe<String>;
+  hinnastojarjestyskoodi_contains?: Maybe<String>;
+  hinnastojarjestyskoodi_not_contains?: Maybe<String>;
+  hinnastojarjestyskoodi_starts_with?: Maybe<String>;
+  hinnastojarjestyskoodi_not_starts_with?: Maybe<String>;
+  hinnastojarjestyskoodi_ends_with?: Maybe<String>;
+  hinnastojarjestyskoodi_not_ends_with?: Maybe<String>;
+  tyyppi?: Maybe<String>;
+  tyyppi_not?: Maybe<String>;
+  tyyppi_in?: Maybe<String[] | String>;
+  tyyppi_not_in?: Maybe<String[] | String>;
+  tyyppi_lt?: Maybe<String>;
+  tyyppi_lte?: Maybe<String>;
+  tyyppi_gt?: Maybe<String>;
+  tyyppi_gte?: Maybe<String>;
+  tyyppi_contains?: Maybe<String>;
+  tyyppi_not_contains?: Maybe<String>;
+  tyyppi_starts_with?: Maybe<String>;
+  tyyppi_not_starts_with?: Maybe<String>;
+  tyyppi_ends_with?: Maybe<String>;
+  tyyppi_not_ends_with?: Maybe<String>;
+  erityisryhma?: Maybe<String>;
+  erityisryhma_not?: Maybe<String>;
+  erityisryhma_in?: Maybe<String[] | String>;
+  erityisryhma_not_in?: Maybe<String[] | String>;
+  erityisryhma_lt?: Maybe<String>;
+  erityisryhma_lte?: Maybe<String>;
+  erityisryhma_gt?: Maybe<String>;
+  erityisryhma_gte?: Maybe<String>;
+  erityisryhma_contains?: Maybe<String>;
+  erityisryhma_not_contains?: Maybe<String>;
+  erityisryhma_starts_with?: Maybe<String>;
+  erityisryhma_not_starts_with?: Maybe<String>;
+  erityisryhma_ends_with?: Maybe<String>;
+  erityisryhma_not_ends_with?: Maybe<String>;
+  oluttyyppi?: Maybe<String>;
+  oluttyyppi_not?: Maybe<String>;
+  oluttyyppi_in?: Maybe<String[] | String>;
+  oluttyyppi_not_in?: Maybe<String[] | String>;
+  oluttyyppi_lt?: Maybe<String>;
+  oluttyyppi_lte?: Maybe<String>;
+  oluttyyppi_gt?: Maybe<String>;
+  oluttyyppi_gte?: Maybe<String>;
+  oluttyyppi_contains?: Maybe<String>;
+  oluttyyppi_not_contains?: Maybe<String>;
+  oluttyyppi_starts_with?: Maybe<String>;
+  oluttyyppi_not_starts_with?: Maybe<String>;
+  oluttyyppi_ends_with?: Maybe<String>;
+  oluttyyppi_not_ends_with?: Maybe<String>;
+  valmistusmaa?: Maybe<String>;
+  valmistusmaa_not?: Maybe<String>;
+  valmistusmaa_in?: Maybe<String[] | String>;
+  valmistusmaa_not_in?: Maybe<String[] | String>;
+  valmistusmaa_lt?: Maybe<String>;
+  valmistusmaa_lte?: Maybe<String>;
+  valmistusmaa_gt?: Maybe<String>;
+  valmistusmaa_gte?: Maybe<String>;
+  valmistusmaa_contains?: Maybe<String>;
+  valmistusmaa_not_contains?: Maybe<String>;
+  valmistusmaa_starts_with?: Maybe<String>;
+  valmistusmaa_not_starts_with?: Maybe<String>;
+  valmistusmaa_ends_with?: Maybe<String>;
+  valmistusmaa_not_ends_with?: Maybe<String>;
+  alue?: Maybe<String>;
+  alue_not?: Maybe<String>;
+  alue_in?: Maybe<String[] | String>;
+  alue_not_in?: Maybe<String[] | String>;
+  alue_lt?: Maybe<String>;
+  alue_lte?: Maybe<String>;
+  alue_gt?: Maybe<String>;
+  alue_gte?: Maybe<String>;
+  alue_contains?: Maybe<String>;
+  alue_not_contains?: Maybe<String>;
+  alue_starts_with?: Maybe<String>;
+  alue_not_starts_with?: Maybe<String>;
+  alue_ends_with?: Maybe<String>;
+  alue_not_ends_with?: Maybe<String>;
+  vuosikerta?: Maybe<String>;
+  vuosikerta_not?: Maybe<String>;
+  vuosikerta_in?: Maybe<String[] | String>;
+  vuosikerta_not_in?: Maybe<String[] | String>;
+  vuosikerta_lt?: Maybe<String>;
+  vuosikerta_lte?: Maybe<String>;
+  vuosikerta_gt?: Maybe<String>;
+  vuosikerta_gte?: Maybe<String>;
+  vuosikerta_contains?: Maybe<String>;
+  vuosikerta_not_contains?: Maybe<String>;
+  vuosikerta_starts_with?: Maybe<String>;
+  vuosikerta_not_starts_with?: Maybe<String>;
+  vuosikerta_ends_with?: Maybe<String>;
+  vuosikerta_not_ends_with?: Maybe<String>;
+  etikettimerkintoja?: Maybe<String>;
+  etikettimerkintoja_not?: Maybe<String>;
+  etikettimerkintoja_in?: Maybe<String[] | String>;
+  etikettimerkintoja_not_in?: Maybe<String[] | String>;
+  etikettimerkintoja_lt?: Maybe<String>;
+  etikettimerkintoja_lte?: Maybe<String>;
+  etikettimerkintoja_gt?: Maybe<String>;
+  etikettimerkintoja_gte?: Maybe<String>;
+  etikettimerkintoja_contains?: Maybe<String>;
+  etikettimerkintoja_not_contains?: Maybe<String>;
+  etikettimerkintoja_starts_with?: Maybe<String>;
+  etikettimerkintoja_not_starts_with?: Maybe<String>;
+  etikettimerkintoja_ends_with?: Maybe<String>;
+  etikettimerkintoja_not_ends_with?: Maybe<String>;
+  huomautus?: Maybe<String>;
+  huomautus_not?: Maybe<String>;
+  huomautus_in?: Maybe<String[] | String>;
+  huomautus_not_in?: Maybe<String[] | String>;
+  huomautus_lt?: Maybe<String>;
+  huomautus_lte?: Maybe<String>;
+  huomautus_gt?: Maybe<String>;
+  huomautus_gte?: Maybe<String>;
+  huomautus_contains?: Maybe<String>;
+  huomautus_not_contains?: Maybe<String>;
+  huomautus_starts_with?: Maybe<String>;
+  huomautus_not_starts_with?: Maybe<String>;
+  huomautus_ends_with?: Maybe<String>;
+  huomautus_not_ends_with?: Maybe<String>;
+  rypaleet?: Maybe<String>;
+  rypaleet_not?: Maybe<String>;
+  rypaleet_in?: Maybe<String[] | String>;
+  rypaleet_not_in?: Maybe<String[] | String>;
+  rypaleet_lt?: Maybe<String>;
+  rypaleet_lte?: Maybe<String>;
+  rypaleet_gt?: Maybe<String>;
+  rypaleet_gte?: Maybe<String>;
+  rypaleet_contains?: Maybe<String>;
+  rypaleet_not_contains?: Maybe<String>;
+  rypaleet_starts_with?: Maybe<String>;
+  rypaleet_not_starts_with?: Maybe<String>;
+  rypaleet_ends_with?: Maybe<String>;
+  rypaleet_not_ends_with?: Maybe<String>;
+  luonnehdinta?: Maybe<String>;
+  luonnehdinta_not?: Maybe<String>;
+  luonnehdinta_in?: Maybe<String[] | String>;
+  luonnehdinta_not_in?: Maybe<String[] | String>;
+  luonnehdinta_lt?: Maybe<String>;
+  luonnehdinta_lte?: Maybe<String>;
+  luonnehdinta_gt?: Maybe<String>;
+  luonnehdinta_gte?: Maybe<String>;
+  luonnehdinta_contains?: Maybe<String>;
+  luonnehdinta_not_contains?: Maybe<String>;
+  luonnehdinta_starts_with?: Maybe<String>;
+  luonnehdinta_not_starts_with?: Maybe<String>;
+  luonnehdinta_ends_with?: Maybe<String>;
+  luonnehdinta_not_ends_with?: Maybe<String>;
+  pakkaustyyppi?: Maybe<String>;
+  pakkaustyyppi_not?: Maybe<String>;
+  pakkaustyyppi_in?: Maybe<String[] | String>;
+  pakkaustyyppi_not_in?: Maybe<String[] | String>;
+  pakkaustyyppi_lt?: Maybe<String>;
+  pakkaustyyppi_lte?: Maybe<String>;
+  pakkaustyyppi_gt?: Maybe<String>;
+  pakkaustyyppi_gte?: Maybe<String>;
+  pakkaustyyppi_contains?: Maybe<String>;
+  pakkaustyyppi_not_contains?: Maybe<String>;
+  pakkaustyyppi_starts_with?: Maybe<String>;
+  pakkaustyyppi_not_starts_with?: Maybe<String>;
+  pakkaustyyppi_ends_with?: Maybe<String>;
+  pakkaustyyppi_not_ends_with?: Maybe<String>;
+  suljentatyppi?: Maybe<String>;
+  suljentatyppi_not?: Maybe<String>;
+  suljentatyppi_in?: Maybe<String[] | String>;
+  suljentatyppi_not_in?: Maybe<String[] | String>;
+  suljentatyppi_lt?: Maybe<String>;
+  suljentatyppi_lte?: Maybe<String>;
+  suljentatyppi_gt?: Maybe<String>;
+  suljentatyppi_gte?: Maybe<String>;
+  suljentatyppi_contains?: Maybe<String>;
+  suljentatyppi_not_contains?: Maybe<String>;
+  suljentatyppi_starts_with?: Maybe<String>;
+  suljentatyppi_not_starts_with?: Maybe<String>;
+  suljentatyppi_ends_with?: Maybe<String>;
+  suljentatyppi_not_ends_with?: Maybe<String>;
+  alkoholi?: Maybe<String>;
+  alkoholi_not?: Maybe<String>;
+  alkoholi_in?: Maybe<String[] | String>;
+  alkoholi_not_in?: Maybe<String[] | String>;
+  alkoholi_lt?: Maybe<String>;
+  alkoholi_lte?: Maybe<String>;
+  alkoholi_gt?: Maybe<String>;
+  alkoholi_gte?: Maybe<String>;
+  alkoholi_contains?: Maybe<String>;
+  alkoholi_not_contains?: Maybe<String>;
+  alkoholi_starts_with?: Maybe<String>;
+  alkoholi_not_starts_with?: Maybe<String>;
+  alkoholi_ends_with?: Maybe<String>;
+  alkoholi_not_ends_with?: Maybe<String>;
+  hapot?: Maybe<String>;
+  hapot_not?: Maybe<String>;
+  hapot_in?: Maybe<String[] | String>;
+  hapot_not_in?: Maybe<String[] | String>;
+  hapot_lt?: Maybe<String>;
+  hapot_lte?: Maybe<String>;
+  hapot_gt?: Maybe<String>;
+  hapot_gte?: Maybe<String>;
+  hapot_contains?: Maybe<String>;
+  hapot_not_contains?: Maybe<String>;
+  hapot_starts_with?: Maybe<String>;
+  hapot_not_starts_with?: Maybe<String>;
+  hapot_ends_with?: Maybe<String>;
+  hapot_not_ends_with?: Maybe<String>;
+  sokeri?: Maybe<String>;
+  sokeri_not?: Maybe<String>;
+  sokeri_in?: Maybe<String[] | String>;
+  sokeri_not_in?: Maybe<String[] | String>;
+  sokeri_lt?: Maybe<String>;
+  sokeri_lte?: Maybe<String>;
+  sokeri_gt?: Maybe<String>;
+  sokeri_gte?: Maybe<String>;
+  sokeri_contains?: Maybe<String>;
+  sokeri_not_contains?: Maybe<String>;
+  sokeri_starts_with?: Maybe<String>;
+  sokeri_not_starts_with?: Maybe<String>;
+  sokeri_ends_with?: Maybe<String>;
+  sokeri_not_ends_with?: Maybe<String>;
+  kantavierrep?: Maybe<String>;
+  kantavierrep_not?: Maybe<String>;
+  kantavierrep_in?: Maybe<String[] | String>;
+  kantavierrep_not_in?: Maybe<String[] | String>;
+  kantavierrep_lt?: Maybe<String>;
+  kantavierrep_lte?: Maybe<String>;
+  kantavierrep_gt?: Maybe<String>;
+  kantavierrep_gte?: Maybe<String>;
+  kantavierrep_contains?: Maybe<String>;
+  kantavierrep_not_contains?: Maybe<String>;
+  kantavierrep_starts_with?: Maybe<String>;
+  kantavierrep_not_starts_with?: Maybe<String>;
+  kantavierrep_ends_with?: Maybe<String>;
+  kantavierrep_not_ends_with?: Maybe<String>;
+  vari?: Maybe<String>;
+  vari_not?: Maybe<String>;
+  vari_in?: Maybe<String[] | String>;
+  vari_not_in?: Maybe<String[] | String>;
+  vari_lt?: Maybe<String>;
+  vari_lte?: Maybe<String>;
+  vari_gt?: Maybe<String>;
+  vari_gte?: Maybe<String>;
+  vari_contains?: Maybe<String>;
+  vari_not_contains?: Maybe<String>;
+  vari_starts_with?: Maybe<String>;
+  vari_not_starts_with?: Maybe<String>;
+  vari_ends_with?: Maybe<String>;
+  vari_not_ends_with?: Maybe<String>;
+  ebc?: Maybe<String>;
+  ebc_not?: Maybe<String>;
+  ebc_in?: Maybe<String[] | String>;
+  ebc_not_in?: Maybe<String[] | String>;
+  ebc_lt?: Maybe<String>;
+  ebc_lte?: Maybe<String>;
+  ebc_gt?: Maybe<String>;
+  ebc_gte?: Maybe<String>;
+  ebc_contains?: Maybe<String>;
+  ebc_not_contains?: Maybe<String>;
+  ebc_starts_with?: Maybe<String>;
+  ebc_not_starts_with?: Maybe<String>;
+  ebc_ends_with?: Maybe<String>;
+  ebc_not_ends_with?: Maybe<String>;
+  katkerot?: Maybe<String>;
+  katkerot_not?: Maybe<String>;
+  katkerot_in?: Maybe<String[] | String>;
+  katkerot_not_in?: Maybe<String[] | String>;
+  katkerot_lt?: Maybe<String>;
+  katkerot_lte?: Maybe<String>;
+  katkerot_gt?: Maybe<String>;
+  katkerot_gte?: Maybe<String>;
+  katkerot_contains?: Maybe<String>;
+  katkerot_not_contains?: Maybe<String>;
+  katkerot_starts_with?: Maybe<String>;
+  katkerot_not_starts_with?: Maybe<String>;
+  katkerot_ends_with?: Maybe<String>;
+  katkerot_not_ends_with?: Maybe<String>;
+  ebu?: Maybe<String>;
+  ebu_not?: Maybe<String>;
+  ebu_in?: Maybe<String[] | String>;
+  ebu_not_in?: Maybe<String[] | String>;
+  ebu_lt?: Maybe<String>;
+  ebu_lte?: Maybe<String>;
+  ebu_gt?: Maybe<String>;
+  ebu_gte?: Maybe<String>;
+  ebu_contains?: Maybe<String>;
+  ebu_not_contains?: Maybe<String>;
+  ebu_starts_with?: Maybe<String>;
+  ebu_not_starts_with?: Maybe<String>;
+  ebu_ends_with?: Maybe<String>;
+  ebu_not_ends_with?: Maybe<String>;
+  energia?: Maybe<String>;
+  energia_not?: Maybe<String>;
+  energia_in?: Maybe<String[] | String>;
+  energia_not_in?: Maybe<String[] | String>;
+  energia_lt?: Maybe<String>;
+  energia_lte?: Maybe<String>;
+  energia_gt?: Maybe<String>;
+  energia_gte?: Maybe<String>;
+  energia_contains?: Maybe<String>;
+  energia_not_contains?: Maybe<String>;
+  energia_starts_with?: Maybe<String>;
+  energia_not_starts_with?: Maybe<String>;
+  energia_ends_with?: Maybe<String>;
+  energia_not_ends_with?: Maybe<String>;
+  valikoima?: Maybe<String>;
+  valikoima_not?: Maybe<String>;
+  valikoima_in?: Maybe<String[] | String>;
+  valikoima_not_in?: Maybe<String[] | String>;
+  valikoima_lt?: Maybe<String>;
+  valikoima_lte?: Maybe<String>;
+  valikoima_gt?: Maybe<String>;
+  valikoima_gte?: Maybe<String>;
+  valikoima_contains?: Maybe<String>;
+  valikoima_not_contains?: Maybe<String>;
+  valikoima_starts_with?: Maybe<String>;
+  valikoima_not_starts_with?: Maybe<String>;
+  valikoima_ends_with?: Maybe<String>;
+  valikoima_not_ends_with?: Maybe<String>;
+  AND?: Maybe<ProductWhereInput[] | ProductWhereInput>;
+  OR?: Maybe<ProductWhereInput[] | ProductWhereInput>;
+  NOT?: Maybe<ProductWhereInput[] | ProductWhereInput>;
 }
 
-export interface UserSubscriptionWhereInput {
+export interface ProductSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<UserWhereInput>;
-  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  node?: Maybe<ProductWhereInput>;
+  AND?: Maybe<ProductSubscriptionWhereInput[] | ProductSubscriptionWhereInput>;
+  OR?: Maybe<ProductSubscriptionWhereInput[] | ProductSubscriptionWhereInput>;
+  NOT?: Maybe<ProductSubscriptionWhereInput[] | ProductSubscriptionWhereInput>;
 }
 
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
+export type ProductWhereUniqueInput = AtLeastOne<{
+  numero: Maybe<ID_Input>;
 }>;
 
 export interface NodeNode {
   id: ID_Output;
 }
 
-export interface AggregateUser {
+export interface AggregateProduct {
   count: Int;
 }
 
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
+export interface AggregateProductPromise
+  extends Promise<AggregateProduct>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
+export interface AggregateProductSubscription
+  extends Promise<AsyncIterator<AggregateProduct>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -203,110 +739,306 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface UserPreviousValues {
-  id: ID_Output;
-  name: String;
+export interface ProductPreviousValues {
+  numero: ID_Output;
+  nimi?: String;
+  valmistaja?: String;
+  pullokoko?: String;
+  hinta?: String;
+  litrahinta?: String;
+  uutuus?: String;
+  hinnastojarjestyskoodi?: String;
+  tyyppi?: String;
+  erityisryhma?: String;
+  oluttyyppi?: String;
+  valmistusmaa?: String;
+  alue?: String;
+  vuosikerta?: String;
+  etikettimerkintoja?: String;
+  huomautus?: String;
+  rypaleet?: String;
+  luonnehdinta?: String;
+  pakkaustyyppi?: String;
+  suljentatyppi?: String;
+  alkoholi?: String;
+  hapot?: String;
+  sokeri?: String;
+  kantavierrep?: String;
+  vari?: String;
+  ebc?: String;
+  katkerot?: String;
+  ebu?: String;
+  energia?: String;
+  valikoima?: String;
 }
 
-export interface UserPreviousValuesPromise
-  extends Promise<UserPreviousValues>,
+export interface ProductPreviousValuesPromise
+  extends Promise<ProductPreviousValues>,
     Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
+  numero: () => Promise<ID_Output>;
+  nimi: () => Promise<String>;
+  valmistaja: () => Promise<String>;
+  pullokoko: () => Promise<String>;
+  hinta: () => Promise<String>;
+  litrahinta: () => Promise<String>;
+  uutuus: () => Promise<String>;
+  hinnastojarjestyskoodi: () => Promise<String>;
+  tyyppi: () => Promise<String>;
+  erityisryhma: () => Promise<String>;
+  oluttyyppi: () => Promise<String>;
+  valmistusmaa: () => Promise<String>;
+  alue: () => Promise<String>;
+  vuosikerta: () => Promise<String>;
+  etikettimerkintoja: () => Promise<String>;
+  huomautus: () => Promise<String>;
+  rypaleet: () => Promise<String>;
+  luonnehdinta: () => Promise<String>;
+  pakkaustyyppi: () => Promise<String>;
+  suljentatyppi: () => Promise<String>;
+  alkoholi: () => Promise<String>;
+  hapot: () => Promise<String>;
+  sokeri: () => Promise<String>;
+  kantavierrep: () => Promise<String>;
+  vari: () => Promise<String>;
+  ebc: () => Promise<String>;
+  katkerot: () => Promise<String>;
+  ebu: () => Promise<String>;
+  energia: () => Promise<String>;
+  valikoima: () => Promise<String>;
 }
 
-export interface UserPreviousValuesSubscription
-  extends Promise<AsyncIterator<UserPreviousValues>>,
+export interface ProductPreviousValuesSubscription
+  extends Promise<AsyncIterator<ProductPreviousValues>>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
+  numero: () => Promise<AsyncIterator<ID_Output>>;
+  nimi: () => Promise<AsyncIterator<String>>;
+  valmistaja: () => Promise<AsyncIterator<String>>;
+  pullokoko: () => Promise<AsyncIterator<String>>;
+  hinta: () => Promise<AsyncIterator<String>>;
+  litrahinta: () => Promise<AsyncIterator<String>>;
+  uutuus: () => Promise<AsyncIterator<String>>;
+  hinnastojarjestyskoodi: () => Promise<AsyncIterator<String>>;
+  tyyppi: () => Promise<AsyncIterator<String>>;
+  erityisryhma: () => Promise<AsyncIterator<String>>;
+  oluttyyppi: () => Promise<AsyncIterator<String>>;
+  valmistusmaa: () => Promise<AsyncIterator<String>>;
+  alue: () => Promise<AsyncIterator<String>>;
+  vuosikerta: () => Promise<AsyncIterator<String>>;
+  etikettimerkintoja: () => Promise<AsyncIterator<String>>;
+  huomautus: () => Promise<AsyncIterator<String>>;
+  rypaleet: () => Promise<AsyncIterator<String>>;
+  luonnehdinta: () => Promise<AsyncIterator<String>>;
+  pakkaustyyppi: () => Promise<AsyncIterator<String>>;
+  suljentatyppi: () => Promise<AsyncIterator<String>>;
+  alkoholi: () => Promise<AsyncIterator<String>>;
+  hapot: () => Promise<AsyncIterator<String>>;
+  sokeri: () => Promise<AsyncIterator<String>>;
+  kantavierrep: () => Promise<AsyncIterator<String>>;
+  vari: () => Promise<AsyncIterator<String>>;
+  ebc: () => Promise<AsyncIterator<String>>;
+  katkerot: () => Promise<AsyncIterator<String>>;
+  ebu: () => Promise<AsyncIterator<String>>;
+  energia: () => Promise<AsyncIterator<String>>;
+  valikoima: () => Promise<AsyncIterator<String>>;
 }
 
-export interface UserEdge {
-  node: User;
+export interface ProductEdge {
+  node: Product;
   cursor: String;
 }
 
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
+export interface ProductEdgePromise extends Promise<ProductEdge>, Fragmentable {
+  node: <T = ProductPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
+export interface ProductEdgeSubscription
+  extends Promise<AsyncIterator<ProductEdge>>,
     Fragmentable {
-  node: <T = UserSubscription>() => T;
+  node: <T = ProductSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface UserSubscriptionPayload {
+export interface ProductSubscriptionPayload {
   mutation: MutationType;
-  node: User;
+  node: Product;
   updatedFields: String[];
-  previousValues: UserPreviousValues;
+  previousValues: ProductPreviousValues;
 }
 
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
+export interface ProductSubscriptionPayloadPromise
+  extends Promise<ProductSubscriptionPayload>,
     Fragmentable {
   mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
+  node: <T = ProductPromise>() => T;
   updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
+  previousValues: <T = ProductPreviousValuesPromise>() => T;
 }
 
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+export interface ProductSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ProductSubscriptionPayload>>,
     Fragmentable {
   mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
+  node: <T = ProductSubscription>() => T;
   updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
+  previousValues: <T = ProductPreviousValuesSubscription>() => T;
 }
 
-export interface User {
-  id: ID_Output;
-  name: String;
+export interface Product {
+  numero: ID_Output;
+  nimi?: String;
+  valmistaja?: String;
+  pullokoko?: String;
+  hinta?: String;
+  litrahinta?: String;
+  uutuus?: String;
+  hinnastojarjestyskoodi?: String;
+  tyyppi?: String;
+  erityisryhma?: String;
+  oluttyyppi?: String;
+  valmistusmaa?: String;
+  alue?: String;
+  vuosikerta?: String;
+  etikettimerkintoja?: String;
+  huomautus?: String;
+  rypaleet?: String;
+  luonnehdinta?: String;
+  pakkaustyyppi?: String;
+  suljentatyppi?: String;
+  alkoholi?: String;
+  hapot?: String;
+  sokeri?: String;
+  kantavierrep?: String;
+  vari?: String;
+  ebc?: String;
+  katkerot?: String;
+  ebu?: String;
+  energia?: String;
+  valikoima?: String;
 }
 
-export interface UserPromise extends Promise<User>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
+export interface ProductPromise extends Promise<Product>, Fragmentable {
+  numero: () => Promise<ID_Output>;
+  nimi: () => Promise<String>;
+  valmistaja: () => Promise<String>;
+  pullokoko: () => Promise<String>;
+  hinta: () => Promise<String>;
+  litrahinta: () => Promise<String>;
+  uutuus: () => Promise<String>;
+  hinnastojarjestyskoodi: () => Promise<String>;
+  tyyppi: () => Promise<String>;
+  erityisryhma: () => Promise<String>;
+  oluttyyppi: () => Promise<String>;
+  valmistusmaa: () => Promise<String>;
+  alue: () => Promise<String>;
+  vuosikerta: () => Promise<String>;
+  etikettimerkintoja: () => Promise<String>;
+  huomautus: () => Promise<String>;
+  rypaleet: () => Promise<String>;
+  luonnehdinta: () => Promise<String>;
+  pakkaustyyppi: () => Promise<String>;
+  suljentatyppi: () => Promise<String>;
+  alkoholi: () => Promise<String>;
+  hapot: () => Promise<String>;
+  sokeri: () => Promise<String>;
+  kantavierrep: () => Promise<String>;
+  vari: () => Promise<String>;
+  ebc: () => Promise<String>;
+  katkerot: () => Promise<String>;
+  ebu: () => Promise<String>;
+  energia: () => Promise<String>;
+  valikoima: () => Promise<String>;
 }
 
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
+export interface ProductSubscription
+  extends Promise<AsyncIterator<Product>>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
+  numero: () => Promise<AsyncIterator<ID_Output>>;
+  nimi: () => Promise<AsyncIterator<String>>;
+  valmistaja: () => Promise<AsyncIterator<String>>;
+  pullokoko: () => Promise<AsyncIterator<String>>;
+  hinta: () => Promise<AsyncIterator<String>>;
+  litrahinta: () => Promise<AsyncIterator<String>>;
+  uutuus: () => Promise<AsyncIterator<String>>;
+  hinnastojarjestyskoodi: () => Promise<AsyncIterator<String>>;
+  tyyppi: () => Promise<AsyncIterator<String>>;
+  erityisryhma: () => Promise<AsyncIterator<String>>;
+  oluttyyppi: () => Promise<AsyncIterator<String>>;
+  valmistusmaa: () => Promise<AsyncIterator<String>>;
+  alue: () => Promise<AsyncIterator<String>>;
+  vuosikerta: () => Promise<AsyncIterator<String>>;
+  etikettimerkintoja: () => Promise<AsyncIterator<String>>;
+  huomautus: () => Promise<AsyncIterator<String>>;
+  rypaleet: () => Promise<AsyncIterator<String>>;
+  luonnehdinta: () => Promise<AsyncIterator<String>>;
+  pakkaustyyppi: () => Promise<AsyncIterator<String>>;
+  suljentatyppi: () => Promise<AsyncIterator<String>>;
+  alkoholi: () => Promise<AsyncIterator<String>>;
+  hapot: () => Promise<AsyncIterator<String>>;
+  sokeri: () => Promise<AsyncIterator<String>>;
+  kantavierrep: () => Promise<AsyncIterator<String>>;
+  vari: () => Promise<AsyncIterator<String>>;
+  ebc: () => Promise<AsyncIterator<String>>;
+  katkerot: () => Promise<AsyncIterator<String>>;
+  ebu: () => Promise<AsyncIterator<String>>;
+  energia: () => Promise<AsyncIterator<String>>;
+  valikoima: () => Promise<AsyncIterator<String>>;
 }
 
-export interface UserNullablePromise
-  extends Promise<User | null>,
+export interface ProductNullablePromise
+  extends Promise<Product | null>,
     Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
+  numero: () => Promise<ID_Output>;
+  nimi: () => Promise<String>;
+  valmistaja: () => Promise<String>;
+  pullokoko: () => Promise<String>;
+  hinta: () => Promise<String>;
+  litrahinta: () => Promise<String>;
+  uutuus: () => Promise<String>;
+  hinnastojarjestyskoodi: () => Promise<String>;
+  tyyppi: () => Promise<String>;
+  erityisryhma: () => Promise<String>;
+  oluttyyppi: () => Promise<String>;
+  valmistusmaa: () => Promise<String>;
+  alue: () => Promise<String>;
+  vuosikerta: () => Promise<String>;
+  etikettimerkintoja: () => Promise<String>;
+  huomautus: () => Promise<String>;
+  rypaleet: () => Promise<String>;
+  luonnehdinta: () => Promise<String>;
+  pakkaustyyppi: () => Promise<String>;
+  suljentatyppi: () => Promise<String>;
+  alkoholi: () => Promise<String>;
+  hapot: () => Promise<String>;
+  sokeri: () => Promise<String>;
+  kantavierrep: () => Promise<String>;
+  vari: () => Promise<String>;
+  ebc: () => Promise<String>;
+  katkerot: () => Promise<String>;
+  ebu: () => Promise<String>;
+  energia: () => Promise<String>;
+  valikoima: () => Promise<String>;
 }
 
-export interface UserConnection {
+export interface ProductConnection {
   pageInfo: PageInfo;
-  edges: UserEdge[];
+  edges: ProductEdge[];
 }
 
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
+export interface ProductConnectionPromise
+  extends Promise<ProductConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
+  edges: <T = FragmentableArray<ProductEdge>>() => T;
+  aggregate: <T = AggregateProductPromise>() => T;
 }
 
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
+export interface ProductConnectionSubscription
+  extends Promise<AsyncIterator<ProductConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ProductEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateProductSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -361,7 +1093,7 @@ export type Boolean = boolean;
 
 export const models: Model[] = [
   {
-    name: "User",
+    name: "Product",
     embedded: false
   }
 ];
