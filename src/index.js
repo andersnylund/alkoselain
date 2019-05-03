@@ -18,12 +18,21 @@ const toJSON = async () => {
 
     const workBook = xlsx.read(data, { type: 'array'});
 
-    const sheet = xlsx.utils.sheet_to_json(workBook.Sheets[workBook.SheetNames[0]], { header: alkoHeaders });
-    console.log('workBook.SheetNames:', workBook.SheetNames)
+    const products = xlsx.utils.sheet_to_json(workBook.Sheets[workBook.SheetNames[0]], { header: alkoHeaders });
 
-    console.log('sheet:', sheet)
+    const filtered = products.filter(product => !!product['pullokoko']);
 
+    const halpaa = filtered.map(product => {
+        if (product['pullokoko']) {
+            product['pullokoko'] = product['pullokoko'].replace(' l', '').replace(',', '.');
+            const alcoholAmount = Number(product['pullokoko']) * (Number(product['alkoholi-%'] / 100));
+            const alcoholLiterPrice = product['hinta'] / alcoholAmount;
+            product['alkoholi-litrahinta'] = alcoholLiterPrice;
+        }
+        return product;
+    })
 
+    console.log(halpaa);
 }
 
 toJSON();
