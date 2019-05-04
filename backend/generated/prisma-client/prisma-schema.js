@@ -43,8 +43,8 @@ type Product {
   id: ID!
   nimi: String
   valmistaja: String
-  pullokoko: String
-  hinta: String
+  pullokoko: Float
+  hinta: Float
   litrahinta: String
   uutuus: String
   hinnastojarjestys: String
@@ -53,22 +53,22 @@ type Product {
   oluttyyppi: String
   valmistusmaa: String
   alue: String
-  vuosikerta: String
+  vuosikerta: Int
   etikettimerkintoja: String
   huomautus: String
   rypaleet: String
   luonnehdinta: String
   pakkaustyyppi: String
   suljentatyyppi: String
-  alkoholiprosentti: String
-  hapot: String
+  alkoholiprosentti: Float
+  hapot: Float
   sokeri: Float
   kantavierreprosentti: Float
   vari: String
   ebc: String
   katkerot: String
   ebu: String
-  energia: String
+  energia: Float
   valikoima: String
   alkoholilitrahinta: Float
 }
@@ -83,8 +83,8 @@ input ProductCreateInput {
   id: ID
   nimi: String
   valmistaja: String
-  pullokoko: String
-  hinta: String
+  pullokoko: Float
+  hinta: Float
   litrahinta: String
   uutuus: String
   hinnastojarjestys: String
@@ -93,22 +93,22 @@ input ProductCreateInput {
   oluttyyppi: String
   valmistusmaa: String
   alue: String
-  vuosikerta: String
+  vuosikerta: Int
   etikettimerkintoja: String
   huomautus: String
   rypaleet: String
   luonnehdinta: String
   pakkaustyyppi: String
   suljentatyyppi: String
-  alkoholiprosentti: String
-  hapot: String
+  alkoholiprosentti: Float
+  hapot: Float
   sokeri: Float
   kantavierreprosentti: Float
   vari: String
   ebc: String
   katkerot: String
   ebu: String
-  energia: String
+  energia: Float
   valikoima: String
   alkoholilitrahinta: Float
 }
@@ -187,8 +187,8 @@ type ProductPreviousValues {
   id: ID!
   nimi: String
   valmistaja: String
-  pullokoko: String
-  hinta: String
+  pullokoko: Float
+  hinta: Float
   litrahinta: String
   uutuus: String
   hinnastojarjestys: String
@@ -197,22 +197,22 @@ type ProductPreviousValues {
   oluttyyppi: String
   valmistusmaa: String
   alue: String
-  vuosikerta: String
+  vuosikerta: Int
   etikettimerkintoja: String
   huomautus: String
   rypaleet: String
   luonnehdinta: String
   pakkaustyyppi: String
   suljentatyyppi: String
-  alkoholiprosentti: String
-  hapot: String
+  alkoholiprosentti: Float
+  hapot: Float
   sokeri: Float
   kantavierreprosentti: Float
   vari: String
   ebc: String
   katkerot: String
   ebu: String
-  energia: String
+  energia: Float
   valikoima: String
   alkoholilitrahinta: Float
 }
@@ -238,8 +238,8 @@ input ProductSubscriptionWhereInput {
 input ProductUpdateInput {
   nimi: String
   valmistaja: String
-  pullokoko: String
-  hinta: String
+  pullokoko: Float
+  hinta: Float
   litrahinta: String
   uutuus: String
   hinnastojarjestys: String
@@ -248,22 +248,22 @@ input ProductUpdateInput {
   oluttyyppi: String
   valmistusmaa: String
   alue: String
-  vuosikerta: String
+  vuosikerta: Int
   etikettimerkintoja: String
   huomautus: String
   rypaleet: String
   luonnehdinta: String
   pakkaustyyppi: String
   suljentatyyppi: String
-  alkoholiprosentti: String
-  hapot: String
+  alkoholiprosentti: Float
+  hapot: Float
   sokeri: Float
   kantavierreprosentti: Float
   vari: String
   ebc: String
   katkerot: String
   ebu: String
-  energia: String
+  energia: Float
   valikoima: String
   alkoholilitrahinta: Float
 }
@@ -271,8 +271,8 @@ input ProductUpdateInput {
 input ProductUpdateManyMutationInput {
   nimi: String
   valmistaja: String
-  pullokoko: String
-  hinta: String
+  pullokoko: Float
+  hinta: Float
   litrahinta: String
   uutuus: String
   hinnastojarjestys: String
@@ -281,22 +281,22 @@ input ProductUpdateManyMutationInput {
   oluttyyppi: String
   valmistusmaa: String
   alue: String
-  vuosikerta: String
+  vuosikerta: Int
   etikettimerkintoja: String
   huomautus: String
   rypaleet: String
   luonnehdinta: String
   pakkaustyyppi: String
   suljentatyyppi: String
-  alkoholiprosentti: String
-  hapot: String
+  alkoholiprosentti: Float
+  hapot: Float
   sokeri: Float
   kantavierreprosentti: Float
   vari: String
   ebc: String
   katkerot: String
   ebu: String
-  energia: String
+  energia: Float
   valikoima: String
   alkoholilitrahinta: Float
 }
@@ -344,34 +344,22 @@ input ProductWhereInput {
   valmistaja_not_starts_with: String
   valmistaja_ends_with: String
   valmistaja_not_ends_with: String
-  pullokoko: String
-  pullokoko_not: String
-  pullokoko_in: [String!]
-  pullokoko_not_in: [String!]
-  pullokoko_lt: String
-  pullokoko_lte: String
-  pullokoko_gt: String
-  pullokoko_gte: String
-  pullokoko_contains: String
-  pullokoko_not_contains: String
-  pullokoko_starts_with: String
-  pullokoko_not_starts_with: String
-  pullokoko_ends_with: String
-  pullokoko_not_ends_with: String
-  hinta: String
-  hinta_not: String
-  hinta_in: [String!]
-  hinta_not_in: [String!]
-  hinta_lt: String
-  hinta_lte: String
-  hinta_gt: String
-  hinta_gte: String
-  hinta_contains: String
-  hinta_not_contains: String
-  hinta_starts_with: String
-  hinta_not_starts_with: String
-  hinta_ends_with: String
-  hinta_not_ends_with: String
+  pullokoko: Float
+  pullokoko_not: Float
+  pullokoko_in: [Float!]
+  pullokoko_not_in: [Float!]
+  pullokoko_lt: Float
+  pullokoko_lte: Float
+  pullokoko_gt: Float
+  pullokoko_gte: Float
+  hinta: Float
+  hinta_not: Float
+  hinta_in: [Float!]
+  hinta_not_in: [Float!]
+  hinta_lt: Float
+  hinta_lte: Float
+  hinta_gt: Float
+  hinta_gte: Float
   litrahinta: String
   litrahinta_not: String
   litrahinta_in: [String!]
@@ -484,20 +472,14 @@ input ProductWhereInput {
   alue_not_starts_with: String
   alue_ends_with: String
   alue_not_ends_with: String
-  vuosikerta: String
-  vuosikerta_not: String
-  vuosikerta_in: [String!]
-  vuosikerta_not_in: [String!]
-  vuosikerta_lt: String
-  vuosikerta_lte: String
-  vuosikerta_gt: String
-  vuosikerta_gte: String
-  vuosikerta_contains: String
-  vuosikerta_not_contains: String
-  vuosikerta_starts_with: String
-  vuosikerta_not_starts_with: String
-  vuosikerta_ends_with: String
-  vuosikerta_not_ends_with: String
+  vuosikerta: Int
+  vuosikerta_not: Int
+  vuosikerta_in: [Int!]
+  vuosikerta_not_in: [Int!]
+  vuosikerta_lt: Int
+  vuosikerta_lte: Int
+  vuosikerta_gt: Int
+  vuosikerta_gte: Int
   etikettimerkintoja: String
   etikettimerkintoja_not: String
   etikettimerkintoja_in: [String!]
@@ -582,34 +564,22 @@ input ProductWhereInput {
   suljentatyyppi_not_starts_with: String
   suljentatyyppi_ends_with: String
   suljentatyyppi_not_ends_with: String
-  alkoholiprosentti: String
-  alkoholiprosentti_not: String
-  alkoholiprosentti_in: [String!]
-  alkoholiprosentti_not_in: [String!]
-  alkoholiprosentti_lt: String
-  alkoholiprosentti_lte: String
-  alkoholiprosentti_gt: String
-  alkoholiprosentti_gte: String
-  alkoholiprosentti_contains: String
-  alkoholiprosentti_not_contains: String
-  alkoholiprosentti_starts_with: String
-  alkoholiprosentti_not_starts_with: String
-  alkoholiprosentti_ends_with: String
-  alkoholiprosentti_not_ends_with: String
-  hapot: String
-  hapot_not: String
-  hapot_in: [String!]
-  hapot_not_in: [String!]
-  hapot_lt: String
-  hapot_lte: String
-  hapot_gt: String
-  hapot_gte: String
-  hapot_contains: String
-  hapot_not_contains: String
-  hapot_starts_with: String
-  hapot_not_starts_with: String
-  hapot_ends_with: String
-  hapot_not_ends_with: String
+  alkoholiprosentti: Float
+  alkoholiprosentti_not: Float
+  alkoholiprosentti_in: [Float!]
+  alkoholiprosentti_not_in: [Float!]
+  alkoholiprosentti_lt: Float
+  alkoholiprosentti_lte: Float
+  alkoholiprosentti_gt: Float
+  alkoholiprosentti_gte: Float
+  hapot: Float
+  hapot_not: Float
+  hapot_in: [Float!]
+  hapot_not_in: [Float!]
+  hapot_lt: Float
+  hapot_lte: Float
+  hapot_gt: Float
+  hapot_gte: Float
   sokeri: Float
   sokeri_not: Float
   sokeri_in: [Float!]
@@ -682,20 +652,14 @@ input ProductWhereInput {
   ebu_not_starts_with: String
   ebu_ends_with: String
   ebu_not_ends_with: String
-  energia: String
-  energia_not: String
-  energia_in: [String!]
-  energia_not_in: [String!]
-  energia_lt: String
-  energia_lte: String
-  energia_gt: String
-  energia_gte: String
-  energia_contains: String
-  energia_not_contains: String
-  energia_starts_with: String
-  energia_not_starts_with: String
-  energia_ends_with: String
-  energia_not_ends_with: String
+  energia: Float
+  energia_not: Float
+  energia_in: [Float!]
+  energia_not_in: [Float!]
+  energia_lt: Float
+  energia_lte: Float
+  energia_gt: Float
+  energia_gte: Float
   valikoima: String
   valikoima_not: String
   valikoima_in: [String!]

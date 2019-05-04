@@ -1,7 +1,8 @@
 import xlsx from "xlsx";
 import axios from "axios";
-import { prisma } from "../generated/prisma-client";
 import fs from "fs";
+
+import { prisma } from "../generated/prisma-client";
 
 const chunk = (array, size) => {
   const chunked_arr = [];
@@ -13,7 +14,11 @@ const chunk = (array, size) => {
   return chunked_arr;
 };
 
-const toJSON = async () => {
+const run = async () => {
+  await prisma.deleteManyProducts({
+    id_not: ""
+  });
+
   const alkoHeaders = [
     "id",
     "nimi",
@@ -66,18 +71,32 @@ const toJSON = async () => {
   headersRemoved.forEach(async product => {
     product["_typeName"] = "Product";
     if (product["pullokoko"]) {
-      product["pullokoko"] = product["pullokoko"]
-        .replace(" l", "")
-        .replace(",", ".");
+      product["pullokoko"] = Number(
+        product["pullokoko"].replace(" l", "").replace(",", ".")
+      );
       const alcoholAmount =
-        Number(product["pullokoko"]) *
-        Number(product["alkoholiprosentti"] / 100);
+        (product["pullokoko"] * product["alkoholiprosentti"]) / 100;
       if (alcoholAmount > 0) {
         const alcoholLiterPrice = product["hinta"] / alcoholAmount;
-        product["alkoholilitrahinta"] =  alcoholLiterPrice;
+        product["alkoholilitrahinta"] = alcoholLiterPrice;
       } else {
         product["alkoholilitrahinta"] = 9999;
-      }   
+      }
+    }
+    if (product["alkoholiprosentti"]) {
+      product["alkoholiprosentti"] = Number(product["alkoholiprosentti"]);
+    }
+    if (product["hapot"]) {
+      product["hapot"] = Number(product["hapot"]);
+    }
+    if (product["energia"]) {
+      product["energia"] = Number(product["energia"]);
+    }
+    if (product["vuosikerta"]) {
+      product["vuosikerta"] = Number(product["vuosikerta"]);
+    }
+    if (product["hinta"]) {
+      product["hinta"] = Number(product["hinta"]);
     }
   });
 
@@ -88,10 +107,14 @@ const toJSON = async () => {
     data.valueType = "nodes";
     data.values = chunk;
 
-    await fs.writeFile(`./data/nodes/0${i+1}.json`, JSON.stringify(data), () => {
-      console.log(`written chunk ${i+1}`);
-    });
+    await fs.writeFile(
+      `./data/nodes/0${i + 1}.json`,
+      JSON.stringify(data),
+      () => {
+        console.log(`written chunk ${i + 1}`);
+      }
+    );
   });
 };
 
-toJSON();
+run();

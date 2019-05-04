@@ -7,10 +7,11 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev-start": "babel-node src/index.js"
+    "import-data": "prisma deploy --force && prisma generate && rm -rf data && mkdir -p data/nodes && mkdir -p data/lists && mkdir -p data/relations && babel-node src/import.js && prisma import -d data"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "prisma": "^1.32.2",
     "prisma-client-lib": "^1.30.4",
     "xlsx": "^0.14.3"
   },
