@@ -1,0 +1,22 @@
+{
+  "name": "billifyllo",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "git@github.com:andersnylund/billifyllo.git",
+  "author": "Anders Nylund <anders.nylund.an@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev-start": "babel-node src/index.js"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "prisma-client-lib": "^1.30.4",
+    "xlsx": "^0.14.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.4"
+  }
+}

@@ -1,0 +1,33 @@
+type Product {
+  id: ID! @id
+  nimi: String
+  valmistaja: String
+  pullokoko: String
+  hinta: String
+  litrahinta: String
+  uutuus: String
+  hinnastojarjestys: String
+  tyyppi: String
+  erityisryhma: String
+  oluttyyppi: String
+  valmistusmaa: String
+  alue: String
+  vuosikerta: String
+  etikettimerkintoja: String
+  huomautus: String
+  rypaleet: String
+  luonnehdinta: String
+  pakkaustyyppi: String
+  suljentatyyppi: String
+  alkoholiprosentti: String
+  hapot: String
+  sokeri: Float
+  kantavierreprosentti: Float
+  vari: String
+  ebc: String
+  katkerot: String
+  ebu: String
+  energia: String
+  valikoima: String
+  alkoholilitrahinta: Float
+}
