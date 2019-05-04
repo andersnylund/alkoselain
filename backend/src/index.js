@@ -1,6 +1,17 @@
 import xlsx from "xlsx";
 import axios from "axios";
 import { prisma } from "../generated/prisma-client";
+import fs from "fs";
+
+const chunk = (array, size) => {
+  const chunked_arr = [];
+  let index = 0;
+  while (index < array.length) {
+    chunked_arr.push(array.slice(index, size + index));
+    index += size;
+  }
+  return chunked_arr;
+};
 
 const toJSON = async () => {
   await prisma.deleteManyProducts({
@@ -54,9 +65,9 @@ const toJSON = async () => {
     { header: alkoHeaders }
   );
 
-  const only100First = products.slice(3, 1000);
+  const headersRemoved = products.slice(3);
 
-  only100First.forEach(async product => {
+  headersRemoved.forEach(async product => {
     if (product["pullokoko"]) {
       product["pullokoko"] = product["pullokoko"]
         .replace(" l", "")
@@ -68,45 +79,59 @@ const toJSON = async () => {
       product["alkoholilitrahinta"] = alcoholLiterPrice;
     }
 
-    try {
-      await prisma.createProduct({
-        numero: product["numero"],
-        nimi: product["nimi"],
-        valmistaja: product["valmistaja"],
-        pullokoko: product["pullokoko"],
-        hinta: product["hinta"],
-        litrahinta: product["litrahinta"],
-        uutuus: product["uutuus"],
-        hinnastojarjestyskoodi: product["hinnastojarjestyskoodi"],
-        tyyppi: product["tyyppi"],
-        erityisryhma: product["erityisryhma"],
-        oluttyyppi: product["oluttyyppi"],
-        valmistusmaa: product["valmistusmaa"],
-        alue: product["alue"],
-        vuosikerta: product["vuosikerta"],
-        etikettimerkintoja: product["etikettimerkintoja"],
-        huomautus: product["huomautus"],
-        rypaleet: product["rypaleet"],
-        luonnehdinta: product["luonnehdinta"],
-        pakkaustyyppi: product["pakkaustyyppi"],
-        suljentatyppi: product["suljentatyppi"],
-        alkoholiprosentti: product["alkoholiprosentti"],
-        hapot: product["hapot"],
-        sokeri: product["sokeri"],
-        kantavierreprosentti: product["kantavierreprosentti"],
-        vari: product["vari"],
-        ebc: product["ebc"],
-        katkerot: product["katkerot"],
-        ebu: product["ebu"],
-        energia: product["energia"],
-        valikoima: product["valikoima"],
-        alkoholilitrahinta: product["alkoholilitrahinta"]
-      });
-    } catch (e) {
-      console.log(e);
-      console.log(product);
-    }
+    //     try {
+    //       await prisma.createProduct({
+    //         numero: product["numero"],
+    //         nimi: product["nimi"],
+    //         valmistaja: product["valmistaja"],
+    //         pullokoko: product["pullokoko"],
+    //         hinta: product["hinta"],
+    //         litrahinta: product["litrahinta"],
+    //         uutuus: product["uutuus"],
+    //         hinnastojarjestyskoodi: product["hinnastojarjestyskoodi"],
+    //         tyyppi: product["tyyppi"],
+    //         erityisryhma: product["erityisryhma"],
+    //         oluttyyppi: product["oluttyyppi"],
+    //         valmistusmaa: product["valmistusmaa"],
+    //         alue: product["alue"],
+    //         vuosikerta: product["vuosikerta"],
+    //         etikettimerkintoja: product["etikettimerkintoja"],
+    //         huomautus: product["huomautus"],
+    //         rypaleet: product["rypaleet"],
+    //         luonnehdinta: product["luonnehdinta"],
+    //         pakkaustyyppi: product["pakkaustyyppi"],
+    //         suljentatyppi: product["suljentatyppi"],
+    //         alkoholiprosentti: product["alkoholiprosentti"],
+    //         hapot: product["hapot"],
+    //         sokeri: product["sokeri"],
+    //         kantavierreprosentti: product["kantavierreprosentti"],
+    //         vari: product["vari"],
+    //         ebc: product["ebc"],
+    //         katkerot: product["katkerot"],
+    //         ebu: product["ebu"],
+    //         energia: product["energia"],
+    //         valikoima: product["valikoima"],
+    //         alkoholilitrahinta: product["alkoholilitrahinta"]
+    //       });
+    //     } catch (e) {
+    //       console.log(e);
+    //       console.log(product);
+    //     }
   });
+
+  const chunked = chunk(headersRemoved, 1000);
+
+  chunked.forEach(async (chunk, i) => {
+    const data = {};
+    data.valueType = 'nodes';
+    data.values = chunk;
+
+    await fs.writeFile(`./data/nodes/${i}.json`, JSON.stringify(data), () => {
+      console.log(`written chunk ${i}`);
+    });
+  });
+
+  
 };
 
 toJSON();
