@@ -40,14 +40,14 @@ type PageInfo {
 }
 
 type Product {
-  numero: ID!
+  id: ID!
   nimi: String
   valmistaja: String
   pullokoko: String
   hinta: String
   litrahinta: String
   uutuus: String
-  hinnastojarjestyskoodi: String
+  hinnastojarjestys: String
   tyyppi: String
   erityisryhma: String
   oluttyyppi: String
@@ -59,11 +59,11 @@ type Product {
   rypaleet: String
   luonnehdinta: String
   pakkaustyyppi: String
-  suljentatyppi: String
+  suljentatyyppi: String
   alkoholiprosentti: String
   hapot: String
   sokeri: Float
-  kantavierreprosentti: String
+  kantavierreprosentti: Float
   vari: String
   ebc: String
   katkerot: String
@@ -80,14 +80,14 @@ type ProductConnection {
 }
 
 input ProductCreateInput {
-  numero: ID
+  id: ID
   nimi: String
   valmistaja: String
   pullokoko: String
   hinta: String
   litrahinta: String
   uutuus: String
-  hinnastojarjestyskoodi: String
+  hinnastojarjestys: String
   tyyppi: String
   erityisryhma: String
   oluttyyppi: String
@@ -99,11 +99,11 @@ input ProductCreateInput {
   rypaleet: String
   luonnehdinta: String
   pakkaustyyppi: String
-  suljentatyppi: String
+  suljentatyyppi: String
   alkoholiprosentti: String
   hapot: String
   sokeri: Float
-  kantavierreprosentti: String
+  kantavierreprosentti: Float
   vari: String
   ebc: String
   katkerot: String
@@ -119,8 +119,8 @@ type ProductEdge {
 }
 
 enum ProductOrderByInput {
-  numero_ASC
-  numero_DESC
+  id_ASC
+  id_DESC
   nimi_ASC
   nimi_DESC
   valmistaja_ASC
@@ -133,8 +133,8 @@ enum ProductOrderByInput {
   litrahinta_DESC
   uutuus_ASC
   uutuus_DESC
-  hinnastojarjestyskoodi_ASC
-  hinnastojarjestyskoodi_DESC
+  hinnastojarjestys_ASC
+  hinnastojarjestys_DESC
   tyyppi_ASC
   tyyppi_DESC
   erityisryhma_ASC
@@ -157,8 +157,8 @@ enum ProductOrderByInput {
   luonnehdinta_DESC
   pakkaustyyppi_ASC
   pakkaustyyppi_DESC
-  suljentatyppi_ASC
-  suljentatyppi_DESC
+  suljentatyyppi_ASC
+  suljentatyyppi_DESC
   alkoholiprosentti_ASC
   alkoholiprosentti_DESC
   hapot_ASC
@@ -184,14 +184,14 @@ enum ProductOrderByInput {
 }
 
 type ProductPreviousValues {
-  numero: ID!
+  id: ID!
   nimi: String
   valmistaja: String
   pullokoko: String
   hinta: String
   litrahinta: String
   uutuus: String
-  hinnastojarjestyskoodi: String
+  hinnastojarjestys: String
   tyyppi: String
   erityisryhma: String
   oluttyyppi: String
@@ -203,11 +203,11 @@ type ProductPreviousValues {
   rypaleet: String
   luonnehdinta: String
   pakkaustyyppi: String
-  suljentatyppi: String
+  suljentatyyppi: String
   alkoholiprosentti: String
   hapot: String
   sokeri: Float
-  kantavierreprosentti: String
+  kantavierreprosentti: Float
   vari: String
   ebc: String
   katkerot: String
@@ -242,7 +242,7 @@ input ProductUpdateInput {
   hinta: String
   litrahinta: String
   uutuus: String
-  hinnastojarjestyskoodi: String
+  hinnastojarjestys: String
   tyyppi: String
   erityisryhma: String
   oluttyyppi: String
@@ -254,11 +254,11 @@ input ProductUpdateInput {
   rypaleet: String
   luonnehdinta: String
   pakkaustyyppi: String
-  suljentatyppi: String
+  suljentatyyppi: String
   alkoholiprosentti: String
   hapot: String
   sokeri: Float
-  kantavierreprosentti: String
+  kantavierreprosentti: Float
   vari: String
   ebc: String
   katkerot: String
@@ -275,7 +275,7 @@ input ProductUpdateManyMutationInput {
   hinta: String
   litrahinta: String
   uutuus: String
-  hinnastojarjestyskoodi: String
+  hinnastojarjestys: String
   tyyppi: String
   erityisryhma: String
   oluttyyppi: String
@@ -287,11 +287,11 @@ input ProductUpdateManyMutationInput {
   rypaleet: String
   luonnehdinta: String
   pakkaustyyppi: String
-  suljentatyppi: String
+  suljentatyyppi: String
   alkoholiprosentti: String
   hapot: String
   sokeri: Float
-  kantavierreprosentti: String
+  kantavierreprosentti: Float
   vari: String
   ebc: String
   katkerot: String
@@ -302,20 +302,20 @@ input ProductUpdateManyMutationInput {
 }
 
 input ProductWhereInput {
-  numero: ID
-  numero_not: ID
-  numero_in: [ID!]
-  numero_not_in: [ID!]
-  numero_lt: ID
-  numero_lte: ID
-  numero_gt: ID
-  numero_gte: ID
-  numero_contains: ID
-  numero_not_contains: ID
-  numero_starts_with: ID
-  numero_not_starts_with: ID
-  numero_ends_with: ID
-  numero_not_ends_with: ID
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
   nimi: String
   nimi_not: String
   nimi_in: [String!]
@@ -400,20 +400,20 @@ input ProductWhereInput {
   uutuus_not_starts_with: String
   uutuus_ends_with: String
   uutuus_not_ends_with: String
-  hinnastojarjestyskoodi: String
-  hinnastojarjestyskoodi_not: String
-  hinnastojarjestyskoodi_in: [String!]
-  hinnastojarjestyskoodi_not_in: [String!]
-  hinnastojarjestyskoodi_lt: String
-  hinnastojarjestyskoodi_lte: String
-  hinnastojarjestyskoodi_gt: String
-  hinnastojarjestyskoodi_gte: String
-  hinnastojarjestyskoodi_contains: String
-  hinnastojarjestyskoodi_not_contains: String
-  hinnastojarjestyskoodi_starts_with: String
-  hinnastojarjestyskoodi_not_starts_with: String
-  hinnastojarjestyskoodi_ends_with: String
-  hinnastojarjestyskoodi_not_ends_with: String
+  hinnastojarjestys: String
+  hinnastojarjestys_not: String
+  hinnastojarjestys_in: [String!]
+  hinnastojarjestys_not_in: [String!]
+  hinnastojarjestys_lt: String
+  hinnastojarjestys_lte: String
+  hinnastojarjestys_gt: String
+  hinnastojarjestys_gte: String
+  hinnastojarjestys_contains: String
+  hinnastojarjestys_not_contains: String
+  hinnastojarjestys_starts_with: String
+  hinnastojarjestys_not_starts_with: String
+  hinnastojarjestys_ends_with: String
+  hinnastojarjestys_not_ends_with: String
   tyyppi: String
   tyyppi_not: String
   tyyppi_in: [String!]
@@ -568,20 +568,20 @@ input ProductWhereInput {
   pakkaustyyppi_not_starts_with: String
   pakkaustyyppi_ends_with: String
   pakkaustyyppi_not_ends_with: String
-  suljentatyppi: String
-  suljentatyppi_not: String
-  suljentatyppi_in: [String!]
-  suljentatyppi_not_in: [String!]
-  suljentatyppi_lt: String
-  suljentatyppi_lte: String
-  suljentatyppi_gt: String
-  suljentatyppi_gte: String
-  suljentatyppi_contains: String
-  suljentatyppi_not_contains: String
-  suljentatyppi_starts_with: String
-  suljentatyppi_not_starts_with: String
-  suljentatyppi_ends_with: String
-  suljentatyppi_not_ends_with: String
+  suljentatyyppi: String
+  suljentatyyppi_not: String
+  suljentatyyppi_in: [String!]
+  suljentatyyppi_not_in: [String!]
+  suljentatyyppi_lt: String
+  suljentatyyppi_lte: String
+  suljentatyyppi_gt: String
+  suljentatyyppi_gte: String
+  suljentatyyppi_contains: String
+  suljentatyyppi_not_contains: String
+  suljentatyyppi_starts_with: String
+  suljentatyyppi_not_starts_with: String
+  suljentatyyppi_ends_with: String
+  suljentatyyppi_not_ends_with: String
   alkoholiprosentti: String
   alkoholiprosentti_not: String
   alkoholiprosentti_in: [String!]
@@ -618,20 +618,14 @@ input ProductWhereInput {
   sokeri_lte: Float
   sokeri_gt: Float
   sokeri_gte: Float
-  kantavierreprosentti: String
-  kantavierreprosentti_not: String
-  kantavierreprosentti_in: [String!]
-  kantavierreprosentti_not_in: [String!]
-  kantavierreprosentti_lt: String
-  kantavierreprosentti_lte: String
-  kantavierreprosentti_gt: String
-  kantavierreprosentti_gte: String
-  kantavierreprosentti_contains: String
-  kantavierreprosentti_not_contains: String
-  kantavierreprosentti_starts_with: String
-  kantavierreprosentti_not_starts_with: String
-  kantavierreprosentti_ends_with: String
-  kantavierreprosentti_not_ends_with: String
+  kantavierreprosentti: Float
+  kantavierreprosentti_not: Float
+  kantavierreprosentti_in: [Float!]
+  kantavierreprosentti_not_in: [Float!]
+  kantavierreprosentti_lt: Float
+  kantavierreprosentti_lte: Float
+  kantavierreprosentti_gt: Float
+  kantavierreprosentti_gte: Float
   vari: String
   vari_not: String
   vari_in: [String!]
@@ -730,7 +724,7 @@ input ProductWhereInput {
 }
 
 input ProductWhereUniqueInput {
-  numero: ID
+  id: ID
 }
 
 type Query {

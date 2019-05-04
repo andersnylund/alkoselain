@@ -1,12 +1,12 @@
 type Product {
-  numero: ID! @id
+  id: ID! @id
   nimi: String
   valmistaja: String
   pullokoko: String
   hinta: String
   litrahinta: String
   uutuus: String
-  hinnastojarjestyskoodi: String
+  hinnastojarjestys: String
   tyyppi: String
   erityisryhma: String
   oluttyyppi: String
@@ -18,11 +18,11 @@ type Product {
   rypaleet: String
   luonnehdinta: String
   pakkaustyyppi: String
-  suljentatyppi: String
+  suljentatyyppi: String
   alkoholiprosentti: String
   hapot: String
   sokeri: Float
-  kantavierreprosentti: String
+  kantavierreprosentti: Float
   vari: String
   ebc: String
   katkerot: String
