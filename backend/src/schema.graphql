@@ -1,0 +1,15 @@
+# The shape of the public facing API
+
+# import * from './generated/prisma.graphql'
+
+type Query {
+  productsConnection(
+    where: ProductWhereInput
+    orderBy: ProductOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): ProductConnection!
+}

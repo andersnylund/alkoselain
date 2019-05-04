@@ -2,7 +2,7 @@ import xlsx from "xlsx";
 import axios from "axios";
 import fs from "fs";
 
-import { prisma } from "../generated/prisma-client";
+import { prisma } from "./generated/prisma-client";
 
 const chunk = (array, size) => {
   const chunked_arr = [];
@@ -110,9 +110,7 @@ const run = async () => {
     await fs.writeFile(
       `./data/nodes/0${i + 1}.json`,
       JSON.stringify(data),
-      () => {
-        console.log(`written chunk ${i + 1}`);
-      }
+      () => {}
     );
   });
 };
