@@ -61,7 +61,7 @@ function App() {
         return (
           <div className="App">
             {data.productsConnection.edges.map(edge => {
-              return <p>{edge.node.nimi}</p>;
+              return <p key={edge.node.id}>{edge.node.nimi}</p>;
             })}
           </div>
         );
