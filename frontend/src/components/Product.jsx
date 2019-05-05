@@ -1,10 +1,15 @@
 import React from 'react';
 import { shape, string, number } from 'prop-types';
-import { Card } from 'semantic-ui-react';
+import { Card, Image } from 'semantic-ui-react';
 
 const Product = ({ product }) => {
   return (
     <Card>
+      <Image
+        src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${
+          product.id
+        }/${product.nimi}.jpg`}
+      />
       <Card.Content>
         <Card.Header>{product.nimi}</Card.Header>
         <Card.Meta>{product.valmistaja}</Card.Meta>
