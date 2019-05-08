@@ -5,7 +5,7 @@ import { filterableFields } from '../constants';
 import { SET_SELECTED_FIELD } from '../actions/filterActions';
 
 const initialState = {
-  selectedField: filterableFields.alkoholilitrahinta,
+  selectedField: filterableFields[0],
 };
 
 const reducer = (state = initialState, action) => {

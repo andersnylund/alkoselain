@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { string, func } from 'prop-types';
+import { string, func, shape } from 'prop-types';
 
 import { filterableFields } from '../constants';
 import { setSelectedFieldAction } from '../actions/filterActions';
@@ -9,14 +9,16 @@ import { setSelectedFieldAction } from '../actions/filterActions';
 const Filters = ({ selectedField, setSelectedField }) => {
   return (
     <Menu>
-      {Object.keys(filterableFields).map(field => (
+      {filterableFields.map(field => (
         <Menu.Item
-          key={field}
-          name={field}
-          active={selectedField === field}
-          onClick={(e, { name }) => setSelectedField(name)}
+          key={field.key}
+          name={field.key}
+          active={selectedField.key === field.key}
+          onClick={(e, { name }) =>
+            setSelectedField(filterableFields.find(f => f.key === name))
+          }
         >
-          {filterableFields[field]}
+          {field.value}
         </Menu.Item>
       ))}
     </Menu>
@@ -24,7 +26,10 @@ const Filters = ({ selectedField, setSelectedField }) => {
 };
 
 Filters.propTypes = {
-  selectedField: string.isRequired,
+  selectedField: shape({
+    key: string.isRequired,
+    value: string.isRequired,
+  }).isRequired,
   setSelectedField: func.isRequired,
 };
 
