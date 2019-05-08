@@ -1,8 +1,9 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Item } from 'semantic-ui-react';
+import { Item, Loader, Button } from 'semantic-ui-react';
 import styled from 'styled-components';
+import produce from 'immer';
 
 import Product from './Product';
 
@@ -12,12 +13,17 @@ const Wrapper = styled.section`
 `;
 
 const INDEX_QUERY = gql`
-  query products {
+  query products($after: String) {
     productsConnection(
       where: { alkoholilitrahinta_not: null }
       first: 5
       orderBy: alkoholilitrahinta_ASC
+      after: $after
     ) {
+      pageInfo {
+        startCursor
+        endCursor
+      }
       edges {
         node {
           id
@@ -60,20 +66,45 @@ const INDEX_QUERY = gql`
 const ProductList = () => {
   return (
     <Wrapper>
-      <Query query={INDEX_QUERY}>
-        {({ data, loading, error }) => {
+      <Query query={INDEX_QUERY} variables={{ cursor: null }}>
+        {({ data, loading, error, fetchMore }) => {
           if (loading) {
-            return <p>Loading...</p>;
+            return <Loader active />;
           }
           if (error) {
             return <p>{error}</p>;
           }
           return (
-            <Item.Group>
-              {data.productsConnection.edges.map(edge => (
-                <Product key={edge.node.id} product={edge.node} />
-              ))}
-            </Item.Group>
+            <>
+              <Item.Group>
+                {data.productsConnection.edges.map(edge => (
+                  <Product key={edge.node.id} product={edge.node} />
+                ))}
+              </Item.Group>
+              <Button
+                onClick={() => {
+                  fetchMore({
+                    variables: {
+                      after: data.productsConnection.pageInfo.endCursor,
+                    },
+                    updateQuery: (prev, { fetchMoreResult }) => {
+                      if (!fetchMoreResult) {
+                        return prev;
+                      }
+                      const nextState = produce(prev, draft => {
+                        draft.productsConnection.edges.push(
+                          ...fetchMoreResult.productsConnection.edges
+                        );
+                      });
+
+                      return nextState;
+                    },
+                  });
+                }}
+              >
+                Lisää halpaa viinaa
+              </Button>
+            </>
           );
         }}
       </Query>
