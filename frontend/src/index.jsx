@@ -6,11 +6,13 @@ import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
 import { ApolloProvider } from 'react-apollo';
+import { Provider as ReduxProvider } from 'react-redux';
 import 'normalize.css';
 import 'semantic-ui-css/semantic.min.css';
 
 import App from './App';
 import GlobalStyle from './GlobalStyle';
+import store from './store';
 
 const client = new ApolloClient({
   link: ApolloLink.from([
@@ -37,10 +39,12 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <GlobalStyle />
-    <App />
-  </ApolloProvider>,
+  <ReduxProvider store={store}>
+    <ApolloProvider client={client}>
+      <GlobalStyle />
+      <App />
+    </ApolloProvider>
+  </ReduxProvider>,
   document.getElementById('root')
 );
 
