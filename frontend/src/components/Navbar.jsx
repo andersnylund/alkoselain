@@ -15,7 +15,7 @@ const Navbar = () => {
         <span role="img" aria-label="drunk">
           🥴
         </span>
-        &nbsp; Billifyllo
+        &nbsp; Halvat Kännit
       </Header>
     </Wrapper>
   );

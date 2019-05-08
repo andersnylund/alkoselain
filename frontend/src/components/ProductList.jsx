@@ -13,12 +13,12 @@ const Wrapper = styled.section`
 `;
 
 const INDEX_QUERY = gql`
-  query products($after: String) {
+  query products($endCursor: String) {
     productsConnection(
       where: { alkoholilitrahinta_not: null }
       first: 5
       orderBy: alkoholilitrahinta_ASC
-      after: $after
+      after: $endCursor
     ) {
       pageInfo {
         startCursor
@@ -66,7 +66,7 @@ const INDEX_QUERY = gql`
 const ProductList = () => {
   return (
     <Wrapper>
-      <Query query={INDEX_QUERY} variables={{ cursor: null }}>
+      <Query query={INDEX_QUERY} variables={{ endCursor: null }}>
         {({ data, loading, error, fetchMore }) => {
           if (loading) {
             return <Loader active />;
@@ -85,13 +85,16 @@ const ProductList = () => {
                 onClick={() => {
                   fetchMore({
                     variables: {
-                      after: data.productsConnection.pageInfo.endCursor,
+                      endCursor: data.productsConnection.pageInfo.endCursor,
                     },
                     updateQuery: (prev, { fetchMoreResult }) => {
                       if (!fetchMoreResult) {
                         return prev;
                       }
                       const nextState = produce(prev, draft => {
+                        // eslint-disable-next-line no-param-reassign
+                        draft.productsConnection.pageInfo.endCursor =
+                          fetchMoreResult.productsConnection.pageInfo.endCursor;
                         draft.productsConnection.edges.push(
                           ...fetchMoreResult.productsConnection.edges
                         );
@@ -102,7 +105,7 @@ const ProductList = () => {
                   });
                 }}
               >
-                Lisää halpaa viinaa
+                Lisää vähemmän alkoholin litrahinnan mukaan halpaa viinaa
               </Button>
             </>
           );

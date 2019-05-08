@@ -20,6 +20,7 @@ const Product = ({ product }) => {
           <p>{`Alkoholiprosentti: ${product.alkoholiprosentti} %`}</p>
           <p>{`Alkoholin litrahinta: ${product.alkoholilitrahinta} €`}</p>
           <p>{`Pakkaustyyppi: ${product.pakkaustyyppi}`}</p>
+          <p>{`Pullon koko: ${product.pullokoko} litraa`}</p>
         </Item.Extra>
       </Item.Content>
     </Item>
