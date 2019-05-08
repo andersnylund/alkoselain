@@ -68,10 +68,10 @@ const run = async () => {
 
   const headersRemoved = products.slice(3);
 
-  headersRemoved.forEach(async p => {
+  const sanitized = headersRemoved.map(p => {
     const product = Object.assign({}, p);
-    // eslint-disable-next-line no-underscore-dangle
-    product._typeName = 'Product';
+    // eslint-disable-next-line dot-notation
+    product['_typeName'] = 'Product';
     if (product.pullokoko) {
       product.pullokoko = Number(
         product.pullokoko.replace(' l', '').replace(',', '.'),
@@ -100,9 +100,10 @@ const run = async () => {
     if (product.hinta) {
       product.hinta = Number(product.hinta);
     }
+    return product;
   });
 
-  const chunked = chunk(headersRemoved, 1000);
+  const chunked = chunk(sanitized, 1000);
 
   chunked.forEach(async (dataChunck, i) => {
     const dataObject = {};
