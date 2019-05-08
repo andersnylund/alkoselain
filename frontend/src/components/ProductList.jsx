@@ -1,7 +1,15 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import { Item } from 'semantic-ui-react';
+import styled from 'styled-components';
+
 import Product from './Product';
+
+const Wrapper = styled.section`
+  max-width: 900px;
+  margin: 2rem auto;
+`;
 
 const INDEX_QUERY = gql`
   query products {
@@ -51,19 +59,25 @@ const INDEX_QUERY = gql`
 
 const ProductList = () => {
   return (
-    <Query query={INDEX_QUERY}>
-      {({ data, loading, error }) => {
-        if (loading) {
-          return <p>Loading...</p>;
-        }
-        if (error) {
-          return <p>{error}</p>;
-        }
-        return data.productsConnection.edges.map(edge => {
-          return <Product key={edge.node.id} product={edge.node} />;
-        });
-      }}
-    </Query>
+    <Wrapper>
+      <Query query={INDEX_QUERY}>
+        {({ data, loading, error }) => {
+          if (loading) {
+            return <p>Loading...</p>;
+          }
+          if (error) {
+            return <p>{error}</p>;
+          }
+          return (
+            <Item.Group>
+              {data.productsConnection.edges.map(edge => (
+                <Product key={edge.node.id} product={edge.node} />
+              ))}
+            </Item.Group>
+          );
+        }}
+      </Query>
+    </Wrapper>
   );
 };
 

@@ -1,32 +1,28 @@
 import React from 'react';
 import { shape, string, number } from 'prop-types';
-import { Card, Image } from 'semantic-ui-react';
+import { Item } from 'semantic-ui-react';
 
 const Product = ({ product }) => {
   return (
-    <Card>
-      <Image
-        src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${
+    <Item>
+      <Item.Image
+        src={`https://images.alko.fi/images/cs_srgb,f_auto,t_products/cdn/${
           product.id
         }/${product.nimi}.jpg`}
       />
-      <Card.Content>
-        <Card.Header>{product.nimi}</Card.Header>
-        <Card.Meta>{product.valmistaja}</Card.Meta>
-        <Card.Description>{product.luonnehdinta}</Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        <Card.Meta>{`Tyyppi: ${product.tyyppi}`}</Card.Meta>
-        <Card.Meta>{`Hinta: ${product.hinta} €`}</Card.Meta>
-        <Card.Meta>
-          {`Alkoholiprosentti: ${product.alkoholiprosentti} %`}
-        </Card.Meta>
-        <Card.Meta>
-          {`Alkoholin litrahinta: ${product.alkoholilitrahinta} €`}
-        </Card.Meta>
-        <Card.Meta>{`Pakkaustyyppi: ${product.pakkaustyyppi}`}</Card.Meta>
-      </Card.Content>
-    </Card>
+      <Item.Content>
+        <Item.Header>{product.nimi}</Item.Header>
+        <Item.Meta>{product.valmistaja}</Item.Meta>
+        <Item.Description>{product.luonnehdinta}</Item.Description>
+        <Item.Extra>
+          <p>{`Tyyppi: ${product.tyyppi}`}</p>
+          <p>{`Hinta: ${product.hinta} €`}</p>
+          <p>{`Alkoholiprosentti: ${product.alkoholiprosentti} %`}</p>
+          <p>{`Alkoholin litrahinta: ${product.alkoholilitrahinta} €`}</p>
+          <p>{`Pakkaustyyppi: ${product.pakkaustyyppi}`}</p>
+        </Item.Extra>
+      </Item.Content>
+    </Item>
   );
 };
 
