@@ -82,7 +82,7 @@ const run = async () => {
         const alcoholLiterPrice = product.hinta / alcoholAmount;
         product.alkoholilitrahinta = alcoholLiterPrice;
       } else {
-        product.alkoholilitrahinta = 9999;
+        product.alkoholilitrahinta = 9999999999;
       }
     }
     if (product.alkoholiprosentti) {

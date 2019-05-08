@@ -69,14 +69,14 @@ const INDEX_QUERY = gql`
   }
 `;
 
-const ProductList = ({ selectedField }) => {
+const ProductList = ({ selectedField, sort }) => {
   return (
     <Wrapper>
       <Query
         query={INDEX_QUERY}
         variables={{
           endCursor: null,
-          orderBy: `${selectedField.key}_ASC`,
+          orderBy: `${selectedField.key}_${sort}`,
           where: { [`${selectedField.key}_not`]: null },
         }}
       >
@@ -118,7 +118,7 @@ const ProductList = ({ selectedField }) => {
                   });
                 }}
               >
-                Lisää enemmän vähemmän halpaa viinaa
+                Lisää
               </Button>
             </>
           );
@@ -130,6 +130,7 @@ const ProductList = ({ selectedField }) => {
 
 const mapStateToProps = state => ({
   selectedField: state.filter.selectedField,
+  sort: state.filter.sort,
 });
 
 ProductList.propTypes = {
@@ -137,6 +138,7 @@ ProductList.propTypes = {
     key: string.isRequired,
     value: string.isRequired,
   }).isRequired,
+  sort: string.isRequired,
 };
 
 export default connect(mapStateToProps)(ProductList);

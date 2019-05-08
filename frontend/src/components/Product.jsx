@@ -21,7 +21,10 @@ const Product = ({ product }) => {
             <p>{`Alkoholiprosentti: ${product.alkoholiprosentti} %`}</p>
           )}
           {product.alkoholilitrahinta !== null && (
-            <p>{`Alkoholin litrahinta: ${product.alkoholilitrahinta} €`}</p>
+            <p>{`Alkoholin litrahinta: ${product.alkoholilitrahinta} €/l`}</p>
+          )}
+          {product.litrahinta !== null && (
+            <p>{`Litrahinta: ${product.litrahinta} €/l`}</p>
           )}
           {product.pakkaustyyppi && (
             <p>{`Pakkaustyyppi: ${product.pakkaustyyppi}`}</p>
