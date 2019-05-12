@@ -45,7 +45,7 @@ type Product {
   valmistaja: String
   pullokoko: Float
   hinta: Float
-  litrahinta: String
+  litrahinta: Float
   uutuus: String
   hinnastojarjestys: String
   tyyppi: String
@@ -85,7 +85,7 @@ input ProductCreateInput {
   valmistaja: String
   pullokoko: Float
   hinta: Float
-  litrahinta: String
+  litrahinta: Float
   uutuus: String
   hinnastojarjestys: String
   tyyppi: String
@@ -189,7 +189,7 @@ type ProductPreviousValues {
   valmistaja: String
   pullokoko: Float
   hinta: Float
-  litrahinta: String
+  litrahinta: Float
   uutuus: String
   hinnastojarjestys: String
   tyyppi: String
@@ -240,7 +240,7 @@ input ProductUpdateInput {
   valmistaja: String
   pullokoko: Float
   hinta: Float
-  litrahinta: String
+  litrahinta: Float
   uutuus: String
   hinnastojarjestys: String
   tyyppi: String
@@ -273,7 +273,7 @@ input ProductUpdateManyMutationInput {
   valmistaja: String
   pullokoko: Float
   hinta: Float
-  litrahinta: String
+  litrahinta: Float
   uutuus: String
   hinnastojarjestys: String
   tyyppi: String
@@ -360,20 +360,14 @@ input ProductWhereInput {
   hinta_lte: Float
   hinta_gt: Float
   hinta_gte: Float
-  litrahinta: String
-  litrahinta_not: String
-  litrahinta_in: [String!]
-  litrahinta_not_in: [String!]
-  litrahinta_lt: String
-  litrahinta_lte: String
-  litrahinta_gt: String
-  litrahinta_gte: String
-  litrahinta_contains: String
-  litrahinta_not_contains: String
-  litrahinta_starts_with: String
-  litrahinta_not_starts_with: String
-  litrahinta_ends_with: String
-  litrahinta_not_ends_with: String
+  litrahinta: Float
+  litrahinta_not: Float
+  litrahinta_in: [Float!]
+  litrahinta_not_in: [Float!]
+  litrahinta_lt: Float
+  litrahinta_lte: Float
+  litrahinta_gt: Float
+  litrahinta_gte: Float
   uutuus: String
   uutuus_not: String
   uutuus_in: [String!]

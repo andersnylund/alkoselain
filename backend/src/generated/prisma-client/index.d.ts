@@ -173,7 +173,7 @@ export interface ProductCreateInput {
   valmistaja?: Maybe<String>;
   pullokoko?: Maybe<Float>;
   hinta?: Maybe<Float>;
-  litrahinta?: Maybe<String>;
+  litrahinta?: Maybe<Float>;
   uutuus?: Maybe<String>;
   hinnastojarjestys?: Maybe<String>;
   tyyppi?: Maybe<String>;
@@ -260,20 +260,14 @@ export interface ProductWhereInput {
   hinta_lte?: Maybe<Float>;
   hinta_gt?: Maybe<Float>;
   hinta_gte?: Maybe<Float>;
-  litrahinta?: Maybe<String>;
-  litrahinta_not?: Maybe<String>;
-  litrahinta_in?: Maybe<String[] | String>;
-  litrahinta_not_in?: Maybe<String[] | String>;
-  litrahinta_lt?: Maybe<String>;
-  litrahinta_lte?: Maybe<String>;
-  litrahinta_gt?: Maybe<String>;
-  litrahinta_gte?: Maybe<String>;
-  litrahinta_contains?: Maybe<String>;
-  litrahinta_not_contains?: Maybe<String>;
-  litrahinta_starts_with?: Maybe<String>;
-  litrahinta_not_starts_with?: Maybe<String>;
-  litrahinta_ends_with?: Maybe<String>;
-  litrahinta_not_ends_with?: Maybe<String>;
+  litrahinta?: Maybe<Float>;
+  litrahinta_not?: Maybe<Float>;
+  litrahinta_in?: Maybe<Float[] | Float>;
+  litrahinta_not_in?: Maybe<Float[] | Float>;
+  litrahinta_lt?: Maybe<Float>;
+  litrahinta_lte?: Maybe<Float>;
+  litrahinta_gt?: Maybe<Float>;
+  litrahinta_gte?: Maybe<Float>;
   uutuus?: Maybe<String>;
   uutuus_not?: Maybe<String>;
   uutuus_in?: Maybe<String[] | String>;
@@ -592,7 +586,7 @@ export interface ProductUpdateInput {
   valmistaja?: Maybe<String>;
   pullokoko?: Maybe<Float>;
   hinta?: Maybe<Float>;
-  litrahinta?: Maybe<String>;
+  litrahinta?: Maybe<Float>;
   uutuus?: Maybe<String>;
   hinnastojarjestys?: Maybe<String>;
   tyyppi?: Maybe<String>;
@@ -625,7 +619,7 @@ export interface ProductUpdateManyMutationInput {
   valmistaja?: Maybe<String>;
   pullokoko?: Maybe<Float>;
   hinta?: Maybe<Float>;
-  litrahinta?: Maybe<String>;
+  litrahinta?: Maybe<Float>;
   uutuus?: Maybe<String>;
   hinnastojarjestys?: Maybe<String>;
   tyyppi?: Maybe<String>;
@@ -711,7 +705,7 @@ export interface Product {
   valmistaja?: String;
   pullokoko?: Float;
   hinta?: Float;
-  litrahinta?: String;
+  litrahinta?: Float;
   uutuus?: String;
   hinnastojarjestys?: String;
   tyyppi?: String;
@@ -745,7 +739,7 @@ export interface ProductPromise extends Promise<Product>, Fragmentable {
   valmistaja: () => Promise<String>;
   pullokoko: () => Promise<Float>;
   hinta: () => Promise<Float>;
-  litrahinta: () => Promise<String>;
+  litrahinta: () => Promise<Float>;
   uutuus: () => Promise<String>;
   hinnastojarjestys: () => Promise<String>;
   tyyppi: () => Promise<String>;
@@ -781,7 +775,7 @@ export interface ProductSubscription
   valmistaja: () => Promise<AsyncIterator<String>>;
   pullokoko: () => Promise<AsyncIterator<Float>>;
   hinta: () => Promise<AsyncIterator<Float>>;
-  litrahinta: () => Promise<AsyncIterator<String>>;
+  litrahinta: () => Promise<AsyncIterator<Float>>;
   uutuus: () => Promise<AsyncIterator<String>>;
   hinnastojarjestys: () => Promise<AsyncIterator<String>>;
   tyyppi: () => Promise<AsyncIterator<String>>;
@@ -817,7 +811,7 @@ export interface ProductNullablePromise
   valmistaja: () => Promise<String>;
   pullokoko: () => Promise<Float>;
   hinta: () => Promise<Float>;
-  litrahinta: () => Promise<String>;
+  litrahinta: () => Promise<Float>;
   uutuus: () => Promise<String>;
   hinnastojarjestys: () => Promise<String>;
   tyyppi: () => Promise<String>;
@@ -936,7 +930,7 @@ export interface ProductPreviousValues {
   valmistaja?: String;
   pullokoko?: Float;
   hinta?: Float;
-  litrahinta?: String;
+  litrahinta?: Float;
   uutuus?: String;
   hinnastojarjestys?: String;
   tyyppi?: String;
@@ -972,7 +966,7 @@ export interface ProductPreviousValuesPromise
   valmistaja: () => Promise<String>;
   pullokoko: () => Promise<Float>;
   hinta: () => Promise<Float>;
-  litrahinta: () => Promise<String>;
+  litrahinta: () => Promise<Float>;
   uutuus: () => Promise<String>;
   hinnastojarjestys: () => Promise<String>;
   tyyppi: () => Promise<String>;
@@ -1008,7 +1002,7 @@ export interface ProductPreviousValuesSubscription
   valmistaja: () => Promise<AsyncIterator<String>>;
   pullokoko: () => Promise<AsyncIterator<Float>>;
   hinta: () => Promise<AsyncIterator<Float>>;
-  litrahinta: () => Promise<AsyncIterator<String>>;
+  litrahinta: () => Promise<AsyncIterator<Float>>;
   uutuus: () => Promise<AsyncIterator<String>>;
   hinnastojarjestys: () => Promise<AsyncIterator<String>>;
   tyyppi: () => Promise<AsyncIterator<String>>;

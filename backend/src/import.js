@@ -101,6 +101,9 @@ const run = async () => {
     if (product.hinta) {
       product.hinta = Number(product.hinta);
     }
+    if (product.litrahinta) {
+      product.litrahinta = Number(product.litrahinta);
+    }
     return product;
   });
 

@@ -4,7 +4,7 @@ type Product {
   valmistaja: String
   pullokoko: Float
   hinta: Float
-  litrahinta: String
+  litrahinta: Float
   uutuus: String
   hinnastojarjestys: String
   tyyppi: String

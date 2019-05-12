@@ -1,5 +1,5 @@
 # source: https://billifyllo-dea580848b.herokuapp.com
-# timestamp: Sun May 12 2019 11:49:43 GMT+0300 (Eastern European Summer Time)
+# timestamp: Sun May 12 2019 12:39:17 GMT+0300 (Eastern European Summer Time)
 
 type AggregateProduct {
   count: Int!
@@ -58,7 +58,7 @@ type Product implements Node {
   valmistaja: String
   pullokoko: Float
   hinta: Float
-  litrahinta: String
+  litrahinta: Float
   uutuus: String
   hinnastojarjestys: String
   tyyppi: String
@@ -102,7 +102,7 @@ input ProductCreateInput {
   valmistaja: String
   pullokoko: Float
   hinta: Float
-  litrahinta: String
+  litrahinta: Float
   uutuus: String
   hinnastojarjestys: String
   tyyppi: String
@@ -210,7 +210,7 @@ type ProductPreviousValues {
   valmistaja: String
   pullokoko: Float
   hinta: Float
-  litrahinta: String
+  litrahinta: Float
   uutuus: String
   hinnastojarjestys: String
   tyyppi: String
@@ -280,7 +280,7 @@ input ProductUpdateInput {
   valmistaja: String
   pullokoko: Float
   hinta: Float
-  litrahinta: String
+  litrahinta: Float
   uutuus: String
   hinnastojarjestys: String
   tyyppi: String
@@ -313,7 +313,7 @@ input ProductUpdateManyMutationInput {
   valmistaja: String
   pullokoko: Float
   hinta: Float
-  litrahinta: String
+  litrahinta: Float
   uutuus: String
   hinnastojarjestys: String
   tyyppi: String
@@ -514,46 +514,28 @@ input ProductWhereInput {
 
   """All values greater than or equal the given value."""
   hinta_gte: Float
-  litrahinta: String
+  litrahinta: Float
 
   """All values that are not equal to given value."""
-  litrahinta_not: String
+  litrahinta_not: Float
 
   """All values that are contained in given list."""
-  litrahinta_in: [String!]
+  litrahinta_in: [Float!]
 
   """All values that are not contained in given list."""
-  litrahinta_not_in: [String!]
+  litrahinta_not_in: [Float!]
 
   """All values less than the given value."""
-  litrahinta_lt: String
+  litrahinta_lt: Float
 
   """All values less than or equal the given value."""
-  litrahinta_lte: String
+  litrahinta_lte: Float
 
   """All values greater than the given value."""
-  litrahinta_gt: String
+  litrahinta_gt: Float
 
   """All values greater than or equal the given value."""
-  litrahinta_gte: String
-
-  """All values containing the given string."""
-  litrahinta_contains: String
-
-  """All values not containing the given string."""
-  litrahinta_not_contains: String
-
-  """All values starting with the given string."""
-  litrahinta_starts_with: String
-
-  """All values not starting with the given string."""
-  litrahinta_not_starts_with: String
-
-  """All values ending with the given string."""
-  litrahinta_ends_with: String
-
-  """All values not ending with the given string."""
-  litrahinta_not_ends_with: String
+  litrahinta_gte: Float
   uutuus: String
 
   """All values that are not equal to given value."""
