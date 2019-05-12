@@ -1,18 +1,22 @@
 import React from 'react';
 import { Container } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 import ProductList from './components/ProductList';
-import Navbar from './components/Navbar';
-import Filters from './components/Filters';
+import Background from './images/background.svg';
+import Header from './components/Header';
+
+const Wrapper = styled.div`
+  background-image: url(${Background});
+`;
 
 const App = () => (
-  <>
-    <Navbar />
+  <Wrapper>
+    <Header />
     <Container>
-      <Filters />
       <ProductList />
     </Container>
-  </>
+  </Wrapper>
 );
 
 export default App;
