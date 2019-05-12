@@ -7,7 +7,7 @@
     "backend": "cd backend && yarn dev-start",
     "frontend": "cd frontend && yarn start",
     "dev-start": "concurrently --kill-others-on-fail \"yarn backend\" \"yarn frontend\"",
-    "build": "cd frontend && yarn install && yarn build && cd ../backend && yarn install && yarn build && yarn import-data",
+    "build": "cd frontend && yarn install && yarn build && cd ../backend && yarn install && yarn build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "yarn build"
   },
