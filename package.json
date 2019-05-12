@@ -11,6 +11,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "yarn build"
   },
+  "engines": {
+    "node": "10.x.x"
+  },
   "author": "Anders Nylund",
   "license": "MIT",
   "devDependencies": {
