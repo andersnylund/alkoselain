@@ -1,47 +1,22 @@
 import React from 'react';
-import { Menu } from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import { string, func, shape } from 'prop-types';
+import styled from 'styled-components';
 
-import { filterableFields } from '../constants';
-import { setSelectedFieldAction } from '../actions/filterActions';
+import SelectField from './SelectField';
+import ToggleOrderDirection from './ToggleOrderDirection';
 
-const Filters = ({ selectedField, setSelectedField }) => {
-  return (
-    <Menu>
-      {filterableFields.map(field => (
-        <Menu.Item
-          key={field.key}
-          name={field.key}
-          active={selectedField.key === field.key}
-          onClick={(e, { name }) =>
-            setSelectedField(filterableFields.find(f => f.key === name))
-          }
-        >
-          {field.value}
-        </Menu.Item>
-      ))}
-    </Menu>
-  );
-};
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 8fr 1fr;
+  grid-gap: 1rem;
+  max-width: 20rem;
+  margin: 0 auto;
+`;
 
-Filters.propTypes = {
-  selectedField: shape({
-    key: string.isRequired,
-    value: string.isRequired,
-  }).isRequired,
-  setSelectedField: func.isRequired,
-};
+const Filters = () => (
+  <Wrapper>
+    <SelectField />
+    <ToggleOrderDirection />
+  </Wrapper>
+);
 
-const mapStateToProps = state => ({
-  selectedField: state.filter.selectedField,
-});
-
-const mapDispatchToProps = {
-  setSelectedField: setSelectedFieldAction,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Filters);
+export default Filters;

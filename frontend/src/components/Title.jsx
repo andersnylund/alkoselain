@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-const Navbar = () => {
+const Title = () => {
   return (
     <Wrapper>
       <Header size="huge">
@@ -21,4 +21,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Title;
