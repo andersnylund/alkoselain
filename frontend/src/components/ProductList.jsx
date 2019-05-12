@@ -5,7 +5,7 @@ import { Item, Loader, Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 import produce from 'immer';
 import { connect } from 'react-redux';
-import { shape, string } from 'prop-types';
+import { string } from 'prop-types';
 
 import Product from './Product';
 
@@ -76,8 +76,8 @@ const ProductList = ({ selectedField, sort }) => {
         query={INDEX_QUERY}
         variables={{
           endCursor: null,
-          orderBy: `${selectedField.key}_${sort}`,
-          where: { [`${selectedField.key}_not`]: null },
+          orderBy: `${selectedField}_${sort}`,
+          where: { [`${selectedField}_not`]: null },
         }}
       >
         {({ data, loading, error, fetchMore }) => {
@@ -134,10 +134,7 @@ const mapStateToProps = state => ({
 });
 
 ProductList.propTypes = {
-  selectedField: shape({
-    key: string.isRequired,
-    value: string.isRequired,
-  }).isRequired,
+  selectedField: string.isRequired,
   sort: string.isRequired,
 };
 
