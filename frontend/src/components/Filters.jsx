@@ -1,39 +1,20 @@
 import React from 'react';
-import { Select } from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import { string, func } from 'prop-types';
+import styled from 'styled-components';
 
-import { filterableFields } from '../constants';
-import { setSelectedFieldAction } from '../actions/filterActions';
+import SelectField from './SelectField';
+import ToggleOrderDirection from './ToggleOrderDirection';
 
-const options = filterableFields.map(field => ({
-  key: field.key,
-  text: field.value,
-  value: field.key,
-}));
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 8fr 1fr;
+  grid-gap: 1rem;
+`;
 
-const Filters = ({ selectedField, setSelectedField }) => (
-  <Select
-    value={selectedField}
-    options={options}
-    onChange={(event, { value }) => setSelectedField(value)}
-  />
+const Filters = () => (
+  <Wrapper>
+    <SelectField />
+    <ToggleOrderDirection />
+  </Wrapper>
 );
 
-Filters.propTypes = {
-  selectedField: string.isRequired,
-  setSelectedField: func.isRequired,
-};
-
-const mapStateToProps = state => ({
-  selectedField: state.filter.selectedField,
-});
-
-const mapDispatchToProps = {
-  setSelectedField: setSelectedFieldAction,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Filters);
+export default Filters;

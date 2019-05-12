@@ -12,6 +12,9 @@ import Product from './Product';
 const Wrapper = styled.section`
   max-width: 900px;
   margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const INDEX_QUERY = gql`
