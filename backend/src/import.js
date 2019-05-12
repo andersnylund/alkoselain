@@ -2,6 +2,7 @@ import xlsx from 'xlsx';
 import axios from 'axios';
 import fs from 'fs';
 
+import './env';
 import { prisma } from './generated/prisma-client';
 
 const chunk = (array, size) => {

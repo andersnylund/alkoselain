@@ -1,0 +1,19 @@
+{
+  "name": "billifyllo",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "cd backend && yarn start",
+    "backend": "cd backend && yarn dev-start",
+    "frontend": "cd frontend && yarn start",
+    "dev-start": "concurrently --kill-others-on-fail \"yarn backend\" \"yarn frontend\"",
+    "build": "cd frontend && yarn install && yarn build && cd ../backend && yarn install && yarn build && yarn import-data",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "yarn build"
+  },
+  "author": "Anders Nylund",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
+}

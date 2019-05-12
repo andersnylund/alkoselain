@@ -1,13 +1,15 @@
 {
   "name": "billifyllo",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "backend/src/index.js",
   "repository": "git@github.com:andersnylund/billifyllo.git",
-  "author": "Anders Nylund <anders.nylund.an@gmail.com>",
+  "author": "Anders Nylund",
   "license": "MIT",
   "private": true,
   "scripts": {
+    "start": "node build/index.js",
     "dev-start": "nodemon --exec babel-node src/index.js",
+    "build": "rm -rf build && mkdir build && babel src --out-dir build",
     "import-data": "prisma deploy --force && prisma generate && rm -rf data && mkdir -p data/nodes && mkdir -p data/lists && mkdir -p data/relations && babel-node src/import.js && prisma import -d data"
   },
   "dependencies": {
@@ -24,6 +26,7 @@
     "xlsx": "^0.14.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.4.4",
