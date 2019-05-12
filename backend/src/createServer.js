@@ -1,6 +1,7 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from 'prisma-binding';
 
+import './env';
 import resolvers from './resolvers';
 
 const createServer = () =>
@@ -14,7 +15,7 @@ const createServer = () =>
       ...req,
       db: new Prisma({
         typeDefs: 'src/generated/prisma.graphql',
-        endpoint: 'http://localhost:4466',
+        endpoint: process.env.PRISMA_ENDPOINT,
       }),
     }),
   });
