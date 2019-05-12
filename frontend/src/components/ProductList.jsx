@@ -4,6 +4,8 @@ import gql from 'graphql-tag';
 import { Item, Loader, Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 import produce from 'immer';
+import { connect } from 'react-redux';
+import { shape, string } from 'prop-types';
 
 import Product from './Product';
 
@@ -13,11 +15,15 @@ const Wrapper = styled.section`
 `;
 
 const INDEX_QUERY = gql`
-  query products($endCursor: String) {
+  query products(
+    $endCursor: String
+    $orderBy: ProductOrderByInput
+    $where: ProductWhereInput
+  ) {
     productsConnection(
-      where: { alkoholilitrahinta_not: null }
+      where: $where
       first: 5
-      orderBy: alkoholilitrahinta_ASC
+      orderBy: $orderBy
       after: $endCursor
     ) {
       pageInfo {
@@ -63,16 +69,23 @@ const INDEX_QUERY = gql`
   }
 `;
 
-const ProductList = () => {
+const ProductList = ({ selectedField, sort }) => {
   return (
     <Wrapper>
-      <Query query={INDEX_QUERY} variables={{ endCursor: null }}>
+      <Query
+        query={INDEX_QUERY}
+        variables={{
+          endCursor: null,
+          orderBy: `${selectedField.key}_${sort}`,
+          where: { [`${selectedField.key}_not`]: null },
+        }}
+      >
         {({ data, loading, error, fetchMore }) => {
           if (loading) {
             return <Loader active />;
           }
           if (error) {
-            return <p>{error}</p>;
+            return <p>{error.message}</p>;
           }
           return (
             <>
@@ -105,7 +118,7 @@ const ProductList = () => {
                   });
                 }}
               >
-                Lisää vähemmän alkoholin litrahinnan mukaan halpaa viinaa
+                Lisää
               </Button>
             </>
           );
@@ -115,4 +128,17 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+const mapStateToProps = state => ({
+  selectedField: state.filter.selectedField,
+  sort: state.filter.sort,
+});
+
+ProductList.propTypes = {
+  selectedField: shape({
+    key: string.isRequired,
+    value: string.isRequired,
+  }).isRequired,
+  sort: string.isRequired,
+};
+
+export default connect(mapStateToProps)(ProductList);

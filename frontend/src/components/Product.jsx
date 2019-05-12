@@ -17,10 +17,21 @@ const Product = ({ product }) => {
         <Item.Extra>
           <p>{`Tyyppi: ${product.tyyppi}`}</p>
           <p>{`Hinta: ${product.hinta} €`}</p>
-          <p>{`Alkoholiprosentti: ${product.alkoholiprosentti} %`}</p>
-          <p>{`Alkoholin litrahinta: ${product.alkoholilitrahinta} €`}</p>
-          <p>{`Pakkaustyyppi: ${product.pakkaustyyppi}`}</p>
-          <p>{`Pullon koko: ${product.pullokoko} litraa`}</p>
+          {product.alkoholiprosentti !== null && (
+            <p>{`Alkoholiprosentti: ${product.alkoholiprosentti} %`}</p>
+          )}
+          {product.alkoholilitrahinta !== null && (
+            <p>{`Alkoholin litrahinta: ${product.alkoholilitrahinta} €/l`}</p>
+          )}
+          {product.litrahinta !== null && (
+            <p>{`Litrahinta: ${product.litrahinta} €/l`}</p>
+          )}
+          {product.pakkaustyyppi && (
+            <p>{`Pakkaustyyppi: ${product.pakkaustyyppi}`}</p>
+          )}
+          {product.pakkaustyyppi && (
+            <p>{`Pullon koko: ${product.pullokoko} litraa`}</p>
+          )}
         </Item.Extra>
       </Item.Content>
     </Item>
@@ -30,13 +41,14 @@ const Product = ({ product }) => {
 Product.propTypes = {
   product: shape({
     nimi: string.isRequired,
+    valmistaja: string,
     luonnehdinta: string.isRequired,
-    hinta: number.isRequired,
-    alkoholilitrahinta: number.isRequired,
-    pakkaustyyppi: string.isRequired,
     tyyppi: string.isRequired,
-    valmistaja: string.isRequired,
-    alkoholiprosentti: number.isRequired,
+    hinta: number.isRequired,
+    alkoholiprosentti: number,
+    alkoholilitrahinta: number,
+    pakkaustyyppi: string,
+    pullokoko: number,
   }).isRequired,
 };
 
