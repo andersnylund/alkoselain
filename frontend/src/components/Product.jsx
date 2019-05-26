@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   margin: var(--size-6);
   border-radius: var(--size-5);
   display: flex;
+  overflow: hidden;
 `;
 
 const Image = styled.div`

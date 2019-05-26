@@ -8,8 +8,8 @@ import Filters from './Filters';
 const Wrapper = styled.div`
   background-image: linear-gradient(
     to right,
-    rgb(225, 210, 210),
-    rgb(255, 240, 240)
+    hsl(0, 50%, 85%),
+    hsl(0, 50%, 70%)
   );
   padding: 0 0 var(--size-5);
   box-shadow: var(--box-shadow-2xl);
