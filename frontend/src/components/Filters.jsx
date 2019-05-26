@@ -7,8 +7,8 @@ import ToggleOrderDirection from './ToggleOrderDirection';
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 8fr 1fr;
-  grid-gap: 1rem;
-  max-width: 20rem;
+  grid-gap: var(--size-5);
+  max-width: var(--size-13);
   margin: 0 auto;
 `;
 

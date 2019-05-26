@@ -1,7 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Item, Loader, Button } from 'semantic-ui-react';
+import { Loader, Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 import produce from 'immer';
 import { connect } from 'react-redux';
@@ -11,7 +11,7 @@ import Product from './Product';
 
 const Wrapper = styled.section`
   max-width: 900px;
-  margin: 2rem auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,11 +92,9 @@ const ProductList = ({ selectedField, sort }) => {
           }
           return (
             <>
-              <Item.Group>
-                {data.productsConnection.edges.map(edge => (
-                  <Product key={edge.node.id} product={edge.node} />
-                ))}
-              </Item.Group>
+              {data.productsConnection.edges.map(edge => (
+                <Product key={edge.node.id} product={edge.node} />
+              ))}
               <Button
                 onClick={() => {
                   fetchMore({

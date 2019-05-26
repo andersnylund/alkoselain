@@ -8,14 +8,19 @@ import Header from './components/Header';
 
 const Wrapper = styled.div`
   background-image: url(${Background});
+  min-height: 100vh;
+`;
+
+const StyledContainer = styled(Container)`
+  padding: var(--size-8) 0;
 `;
 
 const App = () => (
   <Wrapper>
     <Header />
-    <Container>
+    <StyledContainer>
       <ProductList />
-    </Container>
+    </StyledContainer>
   </Wrapper>
 );
 

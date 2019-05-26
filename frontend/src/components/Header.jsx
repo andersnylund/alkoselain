@@ -11,9 +11,8 @@ const Wrapper = styled.div`
     rgb(225, 210, 210),
     rgb(255, 240, 240)
   );
-  /* background-color: rgb(255, 240, 240); */
-  padding: 0 0 2rem;
-  box-shadow: 0px -60px 60px 30px rgba(15, 0, 0, 0.75);
+  padding: 0 0 var(--size-5);
+  box-shadow: var(--box-shadow-2xl);
 `;
 
 const Header = () => (
