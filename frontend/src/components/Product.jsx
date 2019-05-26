@@ -1,42 +1,114 @@
 import React from 'react';
 import { shape, string, number } from 'prop-types';
-import { Item } from 'semantic-ui-react';
+import styled from 'styled-components';
 
-const Product = ({ product }) => {
-  return (
-    <Item>
-      <Item.Image
-        src={`https://images.alko.fi/images/cs_srgb,f_auto,t_products/cdn/${
+const Wrapper = styled.div`
+  background-color: var(--background-white);
+  box-shadow: var(--box-shadow-lg);
+  max-width: var(--size-15);
+  margin: var(--size-6);
+  border-radius: var(--size-5);
+  display: flex;
+`;
+
+const Image = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--size-8);
+  /* border-right: 2px solid var(--grey-9); */
+  img {
+    max-height: var(--size-12);
+    height: auto;
+  }
+`;
+
+const Content = styled.div`
+  background-color: hsl(0, 0%, 98%);
+  p {
+    color: var(--grey-5);
+  }
+`;
+
+const MainContent = styled.div`
+  padding: var(--size-6) var(--size-6);
+`;
+
+const Extra = styled.div`
+  font-size: var(--size-4);
+  padding: var(--size-6) var(--size-6);
+  border-top: 2px solid var(--grey-9);
+  tbody {
+    width: 100%;
+  }
+  tr :nth-child(1) {
+    color: var(--grey-3);
+    padding-right: var(--size-4);
+  }
+  tr :nth-child(2) {
+    color: var(--grey-7);
+  }
+  line-height: var(--size-5);
+`;
+
+const Product = ({ product }) => (
+  <Wrapper>
+    <Image>
+      <img
+        src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${
           product.id
         }/${product.nimi}.jpg`}
+        alt={product.nimi}
       />
-      <Item.Content>
-        <Item.Header>{product.nimi}</Item.Header>
-        <Item.Meta>{product.valmistaja}</Item.Meta>
-        <Item.Description>{product.luonnehdinta}</Item.Description>
-        <Item.Extra>
-          <p>{`Tyyppi: ${product.tyyppi}`}</p>
-          <p>{`Hinta: ${product.hinta} €`}</p>
-          {product.alkoholiprosentti !== null && (
-            <p>{`Alkoholiprosentti: ${product.alkoholiprosentti} %`}</p>
+    </Image>
+    <Content>
+      <MainContent>
+        <h3>{product.nimi}</h3>
+        <p>{product.luonnehdinta}</p>
+      </MainContent>
+      <Extra>
+        <p>{product.tyyppi}</p>
+
+        <tbody>
+          {product.valmistaja !== null && (
+            <tr>
+              <td>Valmistaja</td>
+              <td>{product.valmistaja}</td>
+            </tr>
           )}
+          <tr>
+            <td>Hinta</td>
+            <td>{`${product.hinta} €`}</td>
+          </tr>
           {product.alkoholilitrahinta !== null && (
-            <p>{`Alkoholin litrahinta: ${product.alkoholilitrahinta} €/l`}</p>
+            <tr>
+              <td>Alkoholin litrahinta</td>
+              <td>{`${product.alkoholilitrahinta} €/l`}</td>
+            </tr>
           )}
           {product.litrahinta !== null && (
-            <p>{`Litrahinta: ${product.litrahinta} €/l`}</p>
+            <tr>
+              <td>Litrahinta</td>
+              <td>{`${product.litrahinta} €/l`}</td>
+            </tr>
           )}
-          {product.pakkaustyyppi && (
-            <p>{`Pakkaustyyppi: ${product.pakkaustyyppi}`}</p>
+          {product.pakkaustyyppi !== null && (
+            <tr>
+              <td>Pakkaustyyppi</td>
+              <td>{product.pakkaustyyppi}</td>
+            </tr>
           )}
-          {product.pakkaustyyppi && (
-            <p>{`Pullon koko: ${product.pullokoko} litraa`}</p>
+          {product.pullokoko !== null && (
+            <tr>
+              <td>Pullokoko</td>
+              <td>{`${product.pullokoko} litraa`}</td>
+            </tr>
           )}
-        </Item.Extra>
-      </Item.Content>
-    </Item>
-  );
-};
+        </tbody>
+      </Extra>
+    </Content>
+  </Wrapper>
+);
 
 Product.propTypes = {
   product: shape({
