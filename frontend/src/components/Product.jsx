@@ -8,8 +8,13 @@ const Wrapper = styled.div`
   max-width: var(--size-15);
   margin: var(--size-6);
   border-radius: var(--size-5);
+  border: 0.5px solid var(--grey-9);
   display: flex;
   overflow: hidden;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 const Image = styled.div`
@@ -17,7 +22,6 @@ const Image = styled.div`
   align-items: center;
   justify-content: center;
   padding: var(--size-8);
-  /* border-right: 2px solid var(--grey-9); */
   img {
     max-height: var(--size-12);
     height: auto;
@@ -69,43 +73,44 @@ const Product = ({ product }) => (
       </MainContent>
       <Extra>
         <p>{product.tyyppi}</p>
-
-        <tbody>
-          {product.valmistaja !== null && (
+        <table>
+          <tbody>
+            {product.valmistaja !== null && (
+              <tr>
+                <td>Valmistaja</td>
+                <td>{product.valmistaja}</td>
+              </tr>
+            )}
             <tr>
-              <td>Valmistaja</td>
-              <td>{product.valmistaja}</td>
+              <td>Hinta</td>
+              <td>{`${product.hinta} €`}</td>
             </tr>
-          )}
-          <tr>
-            <td>Hinta</td>
-            <td>{`${product.hinta} €`}</td>
-          </tr>
-          {product.alkoholilitrahinta !== null && (
-            <tr>
-              <td>Alkoholin litrahinta</td>
-              <td>{`${product.alkoholilitrahinta} €/l`}</td>
-            </tr>
-          )}
-          {product.litrahinta !== null && (
-            <tr>
-              <td>Litrahinta</td>
-              <td>{`${product.litrahinta} €/l`}</td>
-            </tr>
-          )}
-          {product.pakkaustyyppi !== null && (
-            <tr>
-              <td>Pakkaustyyppi</td>
-              <td>{product.pakkaustyyppi}</td>
-            </tr>
-          )}
-          {product.pullokoko !== null && (
-            <tr>
-              <td>Pullokoko</td>
-              <td>{`${product.pullokoko} litraa`}</td>
-            </tr>
-          )}
-        </tbody>
+            {product.alkoholilitrahinta !== null && (
+              <tr>
+                <td>Alkoholin litrahinta</td>
+                <td>{`${product.alkoholilitrahinta} €/l`}</td>
+              </tr>
+            )}
+            {product.litrahinta !== null && (
+              <tr>
+                <td>Litrahinta</td>
+                <td>{`${product.litrahinta} €/l`}</td>
+              </tr>
+            )}
+            {product.pakkaustyyppi !== null && (
+              <tr>
+                <td>Pakkaustyyppi</td>
+                <td>{product.pakkaustyyppi}</td>
+              </tr>
+            )}
+            {product.pullokoko !== null && (
+              <tr>
+                <td>Pullokoko</td>
+                <td>{`${product.pullokoko} litraa`}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </Extra>
     </Content>
   </Wrapper>
