@@ -1,12 +1,13 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Loader, Button } from 'semantic-ui-react';
+import { Loader, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 import produce from 'immer';
 import { connect } from 'react-redux';
 import { string } from 'prop-types';
 
+import Button from './Button';
 import Product from './Product';
 
 const Wrapper = styled.section`
@@ -119,6 +120,7 @@ const ProductList = ({ selectedField, sort }) => {
                   });
                 }}
               >
+                <Icon name="plus" />
                 Lisää
               </Button>
             </>

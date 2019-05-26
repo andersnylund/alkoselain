@@ -1,16 +1,18 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { string, func } from 'prop-types';
 
+import Button from './Button';
 import { toggleSortAction } from '../actions/filterActions';
 
 const ToggleOrderDirection = ({ sort, toggleSort }) => {
   return (
-    <Button
-      icon={`sort content ${sort === 'ASC' ? 'ascending' : 'descending'}`}
-      onClick={toggleSort}
-    />
+    <Button onClick={toggleSort}>
+      <Icon
+        name={`sort content ${sort === 'ASC' ? 'ascending' : 'descending'}`}
+      />
+    </Button>
   );
 };
 
