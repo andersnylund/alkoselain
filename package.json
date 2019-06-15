@@ -1,7 +1,8 @@
 {
-  "name": "billifyllo",
+  "name": "alkobrowser",
   "version": "1.0.0",
-  "description": "",
+  "private": true,
+  "description": "A browser of Alko's products",
   "scripts": {
     "start": "cd backend && yarn start",
     "backend": "cd backend && yarn dev-start",
