@@ -1,7 +1,6 @@
 import React from 'react';
 import { Select } from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import { string, func } from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { filterableFields } from '../constants';
 import { setSelectedFieldAction } from '../actions/filterActions';
@@ -12,28 +11,17 @@ const options = filterableFields.map(field => ({
   value: field.key,
 }));
 
-const Filters = ({ selectedField, setSelectedField }) => (
-  <Select
-    value={selectedField}
-    options={options}
-    onChange={(event, { value }) => setSelectedField(value)}
-  />
-);
+const Filters = () => {
+  const selectedField = useSelector(state => state.filter.selectedField);
+  const dispatch = useDispatch();
 
-Filters.propTypes = {
-  selectedField: string.isRequired,
-  setSelectedField: func.isRequired,
+  return (
+    <Select
+      value={selectedField}
+      options={options}
+      onChange={(event, { value }) => dispatch(setSelectedFieldAction(value))}
+    />
+  );
 };
 
-const mapStateToProps = state => ({
-  selectedField: state.filter.selectedField,
-});
-
-const mapDispatchToProps = {
-  setSelectedField: setSelectedFieldAction,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Filters);
+export default Filters;

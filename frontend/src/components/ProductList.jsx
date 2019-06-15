@@ -4,8 +4,7 @@ import gql from 'graphql-tag';
 import { Loader, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 import produce from 'immer';
-import { connect } from 'react-redux';
-import { string } from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import Button from './Button';
 import Product from './Product';
@@ -73,7 +72,19 @@ const INDEX_QUERY = gql`
   }
 `;
 
-const ProductList = ({ selectedField, sort }) => {
+const titleCase = str => {
+  const stringArray = str.toLowerCase().split(' ');
+  const titleCased = stringArray.map(
+    s => s.charAt(0).toUpperCase() + s.slice(1)
+  );
+  return titleCased.join(' ');
+};
+
+const ProductList = () => {
+  const selectedField = useSelector(state => state.filter.selectedField);
+  const sort = useSelector(state => state.filter.sort);
+  const search = useSelector(state => state.filter.search);
+
   return (
     <Wrapper>
       <Query
@@ -81,7 +92,28 @@ const ProductList = ({ selectedField, sort }) => {
         variables={{
           endCursor: null,
           orderBy: `${selectedField}_${sort}`,
-          where: { [`${selectedField}_not`]: null },
+          where: {
+            [`${selectedField}_not`]: null,
+            OR: [
+              // TODO fix hack
+              { nimi_contains: search },
+              { nimi_contains: search.toUpperCase() },
+              { nimi_contains: search.toLowerCase() },
+              { nimi_contains: titleCase(search) },
+              { luonnehdinta_contains: search },
+              { luonnehdinta_contains: search.toUpperCase() },
+              { luonnehdinta_contains: search.toLowerCase() },
+              { luonnehdinta_contains: titleCase(search) },
+              { tyyppi_contains: search },
+              { tyyppi_contains: search.toUpperCase() },
+              { tyyppi_contains: search.toLowerCase() },
+              { tyyppi_contains: titleCase(search) },
+              { valmistaja_contains: search },
+              { valmistaja_contains: search.toUpperCase() },
+              { valmistaja_contains: search.toLowerCase() },
+              { valmistaja_contains: titleCase(search) },
+            ],
+          },
         }}
       >
         {({ data, loading, error, fetchMore }) => {
@@ -96,33 +128,35 @@ const ProductList = ({ selectedField, sort }) => {
               {data.productsConnection.edges.map(edge => (
                 <Product key={edge.node.id} product={edge.node} />
               ))}
-              <Button
-                onClick={() => {
-                  fetchMore({
-                    variables: {
-                      endCursor: data.productsConnection.pageInfo.endCursor,
-                    },
-                    updateQuery: (prev, { fetchMoreResult }) => {
-                      if (!fetchMoreResult) {
-                        return prev;
-                      }
-                      const nextState = produce(prev, draft => {
-                        // eslint-disable-next-line no-param-reassign
-                        draft.productsConnection.pageInfo.endCursor =
-                          fetchMoreResult.productsConnection.pageInfo.endCursor;
-                        draft.productsConnection.edges.push(
-                          ...fetchMoreResult.productsConnection.edges
-                        );
-                      });
+              {data.productsConnection.pageInfo.endCursor && (
+                <Button
+                  onClick={() => {
+                    fetchMore({
+                      variables: {
+                        endCursor: data.productsConnection.pageInfo.endCursor,
+                      },
+                      updateQuery: (prev, { fetchMoreResult }) => {
+                        if (!fetchMoreResult) {
+                          return prev;
+                        }
+                        const nextState = produce(prev, draft => {
+                          // eslint-disable-next-line no-param-reassign
+                          draft.productsConnection.pageInfo.endCursor =
+                            fetchMoreResult.productsConnection.pageInfo.endCursor;
+                          draft.productsConnection.edges.push(
+                            ...fetchMoreResult.productsConnection.edges
+                          );
+                        });
 
-                      return nextState;
-                    },
-                  });
-                }}
-              >
-                <Icon name="plus" />
-                Lisää
-              </Button>
+                        return nextState;
+                      },
+                    });
+                  }}
+                >
+                  <Icon name="plus" />
+                  Lisää
+                </Button>
+              )}
             </>
           );
         }}
@@ -131,14 +165,4 @@ const ProductList = ({ selectedField, sort }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  selectedField: state.filter.selectedField,
-  sort: state.filter.sort,
-});
-
-ProductList.propTypes = {
-  selectedField: string.isRequired,
-  sort: string.isRequired,
-};
-
-export default connect(mapStateToProps)(ProductList);
+export default ProductList;
