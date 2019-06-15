@@ -72,9 +72,18 @@ const INDEX_QUERY = gql`
   }
 `;
 
+const titleCase = str => {
+  const stringArray = str.toLowerCase().split(' ');
+  const titleCased = stringArray.map(
+    s => s.charAt(0).toUpperCase() + s.slice(1)
+  );
+  return titleCased.join(' ');
+};
+
 const ProductList = () => {
   const selectedField = useSelector(state => state.filter.selectedField);
   const sort = useSelector(state => state.filter.sort);
+  const search = useSelector(state => state.filter.search);
 
   return (
     <Wrapper>
@@ -83,7 +92,15 @@ const ProductList = () => {
         variables={{
           endCursor: null,
           orderBy: `${selectedField}_${sort}`,
-          where: { [`${selectedField}_not`]: null },
+          where: {
+            [`${selectedField}_not`]: null,
+            OR: [
+              { nimi_contains: search },
+              { nimi_contains: search.toUpperCase() },
+              { nimi_contains: search.toLowerCase() },
+              { nimi_contains: titleCase(search) },
+            ],
+          },
         }}
       >
         {({ data, loading, error, fetchMore }) => {
@@ -98,33 +115,35 @@ const ProductList = () => {
               {data.productsConnection.edges.map(edge => (
                 <Product key={edge.node.id} product={edge.node} />
               ))}
-              <Button
-                onClick={() => {
-                  fetchMore({
-                    variables: {
-                      endCursor: data.productsConnection.pageInfo.endCursor,
-                    },
-                    updateQuery: (prev, { fetchMoreResult }) => {
-                      if (!fetchMoreResult) {
-                        return prev;
-                      }
-                      const nextState = produce(prev, draft => {
-                        // eslint-disable-next-line no-param-reassign
-                        draft.productsConnection.pageInfo.endCursor =
-                          fetchMoreResult.productsConnection.pageInfo.endCursor;
-                        draft.productsConnection.edges.push(
-                          ...fetchMoreResult.productsConnection.edges
-                        );
-                      });
+              {data.productsConnection.pageInfo.endCursor && (
+                <Button
+                  onClick={() => {
+                    fetchMore({
+                      variables: {
+                        endCursor: data.productsConnection.pageInfo.endCursor,
+                      },
+                      updateQuery: (prev, { fetchMoreResult }) => {
+                        if (!fetchMoreResult) {
+                          return prev;
+                        }
+                        const nextState = produce(prev, draft => {
+                          // eslint-disable-next-line no-param-reassign
+                          draft.productsConnection.pageInfo.endCursor =
+                            fetchMoreResult.productsConnection.pageInfo.endCursor;
+                          draft.productsConnection.edges.push(
+                            ...fetchMoreResult.productsConnection.edges
+                          );
+                        });
 
-                      return nextState;
-                    },
-                  });
-                }}
-              >
-                <Icon name="plus" />
-                Lisää
-              </Button>
+                        return nextState;
+                      },
+                    });
+                  }}
+                >
+                  <Icon name="plus" />
+                  Lisää
+                </Button>
+              )}
             </>
           );
         }}
