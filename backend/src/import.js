@@ -15,6 +15,10 @@ const chunk = (array, size) => {
   return chunkedArray;
 };
 
+const capitalizeFirstChar = string => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 const run = async () => {
   await prisma.deleteManyProducts({
     id_not: '',
@@ -73,6 +77,9 @@ const run = async () => {
     const product = Object.assign({}, p);
     // eslint-disable-next-line dot-notation
     product['_typeName'] = 'Product';
+    if (product.tyyppi) {
+      product.tyyppi = capitalizeFirstChar(product.tyyppi);
+    }
     if (product.pullokoko) {
       product.pullokoko = Number(
         product.pullokoko.replace(' l', '').replace(',', '.'),
@@ -80,11 +87,15 @@ const run = async () => {
       const alcoholAmount =
         (product.pullokoko * product.alkoholiprosentti) / 100;
       if (alcoholAmount > 0) {
-        const alcoholLiterPrice = product.hinta / alcoholAmount;
+        const alcoholLiterPrice =
+          Math.round((product.hinta / alcoholAmount) * 100) / 100;
         product.alkoholilitrahinta = alcoholLiterPrice;
       } else {
-        product.alkoholilitrahinta = 9999999999;
+        product.alkoholilitrahinta = undefined;
       }
+    }
+    if (product.pakkaustyyppi) {
+      product.pakkaustyyppi = capitalizeFirstChar(product.pakkaustyyppi);
     }
     if (product.alkoholiprosentti) {
       product.alkoholiprosentti = Number(product.alkoholiprosentti);

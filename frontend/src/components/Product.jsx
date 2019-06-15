@@ -5,14 +5,13 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   background-color: var(--background-white);
   box-shadow: var(--box-shadow-lg);
-  max-width: var(--size-15);
   margin: var(--size-6);
   border-radius: var(--size-5);
   border: 0.5px solid var(--grey-9);
   display: flex;
   overflow: hidden;
 
-  @media (max-width: 600px) {
+  @media (max-width: 900px) {
     flex-direction: column;
   }
 `;
