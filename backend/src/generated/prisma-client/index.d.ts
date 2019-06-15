@@ -167,9 +167,39 @@ export type ProductOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export type ProductWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
+export interface ProductCreateInput {
+  id?: Maybe<ID_Input>;
+  nimi?: Maybe<String>;
+  valmistaja?: Maybe<String>;
+  pullokoko?: Maybe<Float>;
+  hinta?: Maybe<Float>;
+  litrahinta?: Maybe<Float>;
+  uutuus?: Maybe<String>;
+  hinnastojarjestys?: Maybe<String>;
+  tyyppi?: Maybe<String>;
+  erityisryhma?: Maybe<String>;
+  oluttyyppi?: Maybe<String>;
+  valmistusmaa?: Maybe<String>;
+  alue?: Maybe<String>;
+  vuosikerta?: Maybe<Int>;
+  etikettimerkintoja?: Maybe<String>;
+  huomautus?: Maybe<String>;
+  rypaleet?: Maybe<String>;
+  luonnehdinta?: Maybe<String>;
+  pakkaustyyppi?: Maybe<String>;
+  suljentatyyppi?: Maybe<String>;
+  alkoholiprosentti?: Maybe<Float>;
+  hapot?: Maybe<Float>;
+  sokeri?: Maybe<Float>;
+  kantavierreprosentti?: Maybe<Float>;
+  vari?: Maybe<String>;
+  ebc?: Maybe<String>;
+  katkerot?: Maybe<String>;
+  ebu?: Maybe<String>;
+  energia?: Maybe<Float>;
+  valikoima?: Maybe<String>;
+  alkoholilitrahinta?: Maybe<Float>;
+}
 
 export interface ProductWhereInput {
   id?: Maybe<ID_Input>;
@@ -551,40 +581,6 @@ export interface ProductWhereInput {
   NOT?: Maybe<ProductWhereInput[] | ProductWhereInput>;
 }
 
-export interface ProductCreateInput {
-  id?: Maybe<ID_Input>;
-  nimi?: Maybe<String>;
-  valmistaja?: Maybe<String>;
-  pullokoko?: Maybe<Float>;
-  hinta?: Maybe<Float>;
-  litrahinta?: Maybe<Float>;
-  uutuus?: Maybe<String>;
-  hinnastojarjestys?: Maybe<String>;
-  tyyppi?: Maybe<String>;
-  erityisryhma?: Maybe<String>;
-  oluttyyppi?: Maybe<String>;
-  valmistusmaa?: Maybe<String>;
-  alue?: Maybe<String>;
-  vuosikerta?: Maybe<Int>;
-  etikettimerkintoja?: Maybe<String>;
-  huomautus?: Maybe<String>;
-  rypaleet?: Maybe<String>;
-  luonnehdinta?: Maybe<String>;
-  pakkaustyyppi?: Maybe<String>;
-  suljentatyyppi?: Maybe<String>;
-  alkoholiprosentti?: Maybe<Float>;
-  hapot?: Maybe<Float>;
-  sokeri?: Maybe<Float>;
-  kantavierreprosentti?: Maybe<Float>;
-  vari?: Maybe<String>;
-  ebc?: Maybe<String>;
-  katkerot?: Maybe<String>;
-  ebu?: Maybe<String>;
-  energia?: Maybe<Float>;
-  valikoima?: Maybe<String>;
-  alkoholilitrahinta?: Maybe<Float>;
-}
-
 export interface ProductUpdateInput {
   nimi?: Maybe<String>;
   valmistaja?: Maybe<String>;
@@ -662,8 +658,45 @@ export interface ProductSubscriptionWhereInput {
   NOT?: Maybe<ProductSubscriptionWhereInput[] | ProductSubscriptionWhereInput>;
 }
 
+export type ProductWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
 export interface NodeNode {
   id: ID_Output;
+}
+
+export interface ProductEdge {
+  node: Product;
+  cursor: String;
+}
+
+export interface ProductEdgePromise extends Promise<ProductEdge>, Fragmentable {
+  node: <T = ProductPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ProductEdgeSubscription
+  extends Promise<AsyncIterator<ProductEdge>>,
+    Fragmentable {
+  node: <T = ProductSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface BatchPayload {
+  count: Long;
+}
+
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
+    Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
 }
 
 export interface Product {
@@ -806,6 +839,31 @@ export interface ProductNullablePromise
   alkoholilitrahinta: () => Promise<Float>;
 }
 
+export interface ProductSubscriptionPayload {
+  mutation: MutationType;
+  node: Product;
+  updatedFields: String[];
+  previousValues: ProductPreviousValues;
+}
+
+export interface ProductSubscriptionPayloadPromise
+  extends Promise<ProductSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ProductPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ProductPreviousValuesPromise>() => T;
+}
+
+export interface ProductSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ProductSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ProductSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ProductPreviousValuesSubscription>() => T;
+}
+
 export interface ProductConnection {
   pageInfo: PageInfo;
   edges: ProductEdge[];
@@ -850,23 +908,6 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface ProductEdge {
-  node: Product;
-  cursor: String;
-}
-
-export interface ProductEdgePromise extends Promise<ProductEdge>, Fragmentable {
-  node: <T = ProductPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ProductEdgeSubscription
-  extends Promise<AsyncIterator<ProductEdge>>,
-    Fragmentable {
-  node: <T = ProductSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
 export interface AggregateProduct {
   count: Int;
 }
@@ -881,47 +922,6 @@ export interface AggregateProductSubscription
   extends Promise<AsyncIterator<AggregateProduct>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface ProductSubscriptionPayload {
-  mutation: MutationType;
-  node: Product;
-  updatedFields: String[];
-  previousValues: ProductPreviousValues;
-}
-
-export interface ProductSubscriptionPayloadPromise
-  extends Promise<ProductSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ProductPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ProductPreviousValuesPromise>() => T;
-}
-
-export interface ProductSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ProductSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ProductSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ProductPreviousValuesSubscription>() => T;
 }
 
 export interface ProductPreviousValues {
@@ -1031,6 +1031,21 @@ export interface ProductPreviousValuesSubscription
 }
 
 /*
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point). 
+*/
+export type Float = number;
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+*/
+export type Int = number;
+
+/*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
 export type ID_Input = string | number;
@@ -1040,21 +1055,6 @@ export type ID_Output = string;
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
 export type String = string;
-
-/*
-The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point). 
-*/
-export type Float = number;
-
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number;
-
-/*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
 
 export type Long = string;
 

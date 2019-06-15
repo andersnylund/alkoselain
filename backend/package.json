@@ -10,7 +10,8 @@
     "start": "node build/index.js",
     "dev-start": "nodemon --exec babel-node src/index.js",
     "build": "rm -rf build && mkdir build && babel src --out-dir build",
-    "import-data": "prisma deploy --force && prisma generate && rm -rf data && mkdir -p data/nodes && mkdir -p data/lists && mkdir -p data/relations && babel-node src/import.js && prisma import -d data"
+    "import-data": "prisma deploy --force && prisma generate && rm -rf data && mkdir -p data/nodes && mkdir -p data/lists && mkdir -p data/relations && babel-node src/import.js && prisma import -d data",
+    "prod-import-data": "prisma deploy --force -e .env.prod && rm -rf data && mkdir -p data/nodes && mkdir -p data/lists && mkdir -p data/relations && babel-node src/import.js && prisma import -d data -e .env.prod"
   },
   "dependencies": {
     "axios": "^0.18.0",

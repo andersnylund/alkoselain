@@ -1,5 +1,5 @@
-# source: http://localhost:4466
-# timestamp: Sun May 12 2019 12:40:53 GMT+0300 (Eastern European Summer Time)
+# source: https://alkobrowser-ac8be18417.herokuapp.com
+# timestamp: Sat Jun 15 2019 10:17:24 GMT+0300 (Eastern European Summer Time)
 
 type AggregateProduct {
   count: Int!
@@ -9,9 +9,6 @@ type BatchPayload {
   """The number of nodes that have been affected by the Batch operation."""
   count: Long!
 }
-
-"""Raw JSON value"""
-scalar Json
 
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
@@ -26,7 +23,6 @@ type Mutation {
   upsertProduct(where: ProductWhereUniqueInput!, create: ProductCreateInput!, update: ProductUpdateInput!): Product!
   updateManyProducts(data: ProductUpdateManyMutationInput!, where: ProductWhereInput): BatchPayload!
   deleteManyProducts(where: ProductWhereInput): BatchPayload!
-  executeRaw(database: PrismaDatabase, query: String!): Json!
 }
 
 enum MutationType {
@@ -54,10 +50,6 @@ type PageInfo {
 
   """When paginating forwards, the cursor to continue."""
   endCursor: String
-}
-
-enum PrismaDatabase {
-  default
 }
 
 type Product implements Node {
