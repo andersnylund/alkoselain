@@ -13,6 +13,9 @@ const Wrapper = styled.div`
   );
   padding: 0 0 var(--size-5);
   box-shadow: var(--box-shadow-2xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Header = () => (

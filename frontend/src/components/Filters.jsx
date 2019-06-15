@@ -3,19 +3,37 @@ import styled from 'styled-components';
 
 import SelectField from './SelectField';
 import ToggleOrderDirection from './ToggleOrderDirection';
+import SearchField from './SearchField';
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 8fr 1fr;
-  grid-gap: var(--size-5);
-  max-width: var(--size-13);
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border-radius: var(--size-5);
+  padding: var(--size-5);
+  max-width: var(--size-14);
+  .upper {
+    display: grid;
+    grid-template-columns: 8fr 1fr;
+    grid-gap: var(--size-5);
+    margin: var(--size-5) 0;
+  }
+  .lower {
+    margin-bottom: var(--size-5);
+  }
 `;
 
 const Filters = () => (
   <Wrapper>
-    <SelectField />
-    <ToggleOrderDirection />
+    <div className="upper">
+      <SelectField />
+      <ToggleOrderDirection />
+    </div>
+    <div className="lower">
+      <SearchField />
+    </div>
   </Wrapper>
 );
 
