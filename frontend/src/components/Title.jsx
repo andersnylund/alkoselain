@@ -21,9 +21,9 @@ const Title = () => {
     <Wrapper>
       <h1>
         <span role="img" aria-label="drunk">
-          🥴
+          🍷
         </span>
-        &nbsp; Billifyllo
+        &nbsp; Alkobrowser
       </h1>
     </Wrapper>
   );

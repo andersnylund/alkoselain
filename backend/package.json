@@ -1,8 +1,8 @@
 {
-  "name": "billifyllo",
+  "name": "alkobrowser-backend",
   "version": "1.0.0",
   "main": "backend/src/index.js",
-  "repository": "git@github.com:andersnylund/billifyllo.git",
+  "repository": "git@github.com:andersnylund/alkobrowser.git",
   "author": "Anders Nylund",
   "license": "MIT",
   "private": true,
