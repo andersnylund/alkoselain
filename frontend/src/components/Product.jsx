@@ -80,6 +80,12 @@ const Product = ({ product }) => (
                 <td>{product.valmistaja}</td>
               </tr>
             )}
+            {product.alkoholiprosentti !== null && (
+              <tr>
+                <td>Alkoholiprosentti</td>
+                <td>{`${product.alkoholiprosentti} %`}</td>
+              </tr>
+            )}
             <tr>
               <td>Hinta</td>
               <td>{`${product.hinta} €`}</td>
