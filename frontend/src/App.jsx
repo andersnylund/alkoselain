@@ -10,6 +10,15 @@ import Filters from './components/Filters';
 const Page = styled.div`
   background-image: url(${Background});
   min-height: 100vh;
+
+  a {
+    color: hsl(0, 50%, 50%);
+  }
+
+  p {
+    text-align: center;
+    margin-bottom: var(--size-4);
+  }
 `;
 
 const Content = styled.div`
@@ -39,6 +48,18 @@ const App = () => (
         <ProductList />
       </ProductContainer>
     </Content>
+    <p>
+      Made with&nbsp;
+      <span role="img" aria-label="love">
+        🧡
+      </span>
+      and&nbsp;
+      <span role="img" aria-label="beer">
+        🍺
+      </span>
+      by&nbsp;
+      <a href="https://github.com/andersnylund/">Anders Nylund</a>
+    </p>
   </Page>
 );
 
