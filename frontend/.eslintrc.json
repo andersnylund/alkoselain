@@ -9,7 +9,8 @@
         "prettier"
     ],
     "plugins": [
-        "prettier"
+        "prettier",
+        "react-hooks"
     ],
     "rules": {
         "prettier/prettier": [
@@ -17,6 +18,8 @@
         ],
         "react/prop-types": [
             "error"
-        ]
+        ],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn"
     }
 }
