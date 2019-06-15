@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Title from './Title';
-import Filters from './Filters';
 
 const Wrapper = styled.div`
   background-image: linear-gradient(
@@ -11,7 +10,7 @@ const Wrapper = styled.div`
     hsl(0, 50%, 85%),
     hsl(0, 50%, 70%)
   );
-  padding: 0 0 var(--size-5);
+  padding: 0 0 var(--size-8);
   box-shadow: var(--box-shadow-2xl);
   display: flex;
   flex-direction: column;
@@ -21,7 +20,6 @@ const Wrapper = styled.div`
 const Header = () => (
   <Wrapper>
     <Title />
-    <Filters />
   </Wrapper>
 );
 

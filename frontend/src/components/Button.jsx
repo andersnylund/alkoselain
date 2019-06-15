@@ -4,8 +4,8 @@ import posed from 'react-pose';
 
 const Button = styled.button`
   background-color: hsl(0, 100%, 90%);
-  padding: var(--size-3);
-  border-radius: var(--size-1);
+  padding: var(--size-4);
+  border-radius: var(--size-2);
   border: none;
   :focus {
     outline: none;

@@ -95,10 +95,23 @@ const ProductList = () => {
           where: {
             [`${selectedField}_not`]: null,
             OR: [
+              // TODO fix hack
               { nimi_contains: search },
               { nimi_contains: search.toUpperCase() },
               { nimi_contains: search.toLowerCase() },
               { nimi_contains: titleCase(search) },
+              { luonnehdinta_contains: search },
+              { luonnehdinta_contains: search.toUpperCase() },
+              { luonnehdinta_contains: search.toLowerCase() },
+              { luonnehdinta_contains: titleCase(search) },
+              { tyyppi_contains: search },
+              { tyyppi_contains: search.toUpperCase() },
+              { tyyppi_contains: search.toLowerCase() },
+              { tyyppi_contains: titleCase(search) },
+              { valmistaja_contains: search },
+              { valmistaja_contains: search.toUpperCase() },
+              { valmistaja_contains: search.toLowerCase() },
+              { valmistaja_contains: titleCase(search) },
             ],
           },
         }}
