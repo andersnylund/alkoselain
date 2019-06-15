@@ -4,8 +4,7 @@ import gql from 'graphql-tag';
 import { Loader, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 import produce from 'immer';
-import { connect } from 'react-redux';
-import { string } from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import Button from './Button';
 import Product from './Product';
@@ -73,7 +72,10 @@ const INDEX_QUERY = gql`
   }
 `;
 
-const ProductList = ({ selectedField, sort }) => {
+const ProductList = () => {
+  const selectedField = useSelector(state => state.filter.selectedField);
+  const sort = useSelector(state => state.filter.sort);
+
   return (
     <Wrapper>
       <Query
@@ -131,14 +133,4 @@ const ProductList = ({ selectedField, sort }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  selectedField: state.filter.selectedField,
-  sort: state.filter.sort,
-});
-
-ProductList.propTypes = {
-  selectedField: string.isRequired,
-  sort: string.isRequired,
-};
-
-export default connect(mapStateToProps)(ProductList);
+export default ProductList;

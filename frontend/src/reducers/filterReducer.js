@@ -7,6 +7,7 @@ import { SET_SELECTED_FIELD, TOGGLE_SORT } from '../actions/filterActions';
 const initialState = {
   selectedField: filterableFields[0].key,
   sort: 'ASC',
+  search: '',
 };
 
 const reducer = (state = initialState, action) => {
