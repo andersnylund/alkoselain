@@ -43,7 +43,9 @@ const INDEX_QUERY = gql`
           litrahinta
           uutuus
           hinnastojarjestys
-          tyyppi
+          tyyppi {
+            tyyppi
+          }
           erityisryhma
           oluttyyppi
           valmistusmaa
@@ -104,10 +106,10 @@ const ProductList = () => {
               { luonnehdinta_contains: search.toUpperCase() },
               { luonnehdinta_contains: search.toLowerCase() },
               { luonnehdinta_contains: titleCase(search) },
-              { tyyppi_contains: search },
-              { tyyppi_contains: search.toUpperCase() },
-              { tyyppi_contains: search.toLowerCase() },
-              { tyyppi_contains: titleCase(search) },
+              { tyyppi: { tyyppi_contains: search } },
+              { tyyppi: { tyyppi_contains: search.toUpperCase() } },
+              { tyyppi: { tyyppi_contains: search.toLowerCase() } },
+              { tyyppi: { tyyppi_contains: titleCase(search) } },
               { valmistaja_contains: search },
               { valmistaja_contains: search.toUpperCase() },
               { valmistaja_contains: search.toLowerCase() },

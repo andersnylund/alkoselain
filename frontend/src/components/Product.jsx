@@ -71,7 +71,7 @@ const Product = ({ product }) => (
         <p>{product.luonnehdinta}</p>
       </MainContent>
       <Extra>
-        <p>{product.tyyppi}</p>
+        <p>{product.tyyppi.tyyppi}</p>
         <table>
           <tbody>
             {product.valmistaja !== null && (
