@@ -14,21 +14,12 @@
     "prod-import-data": "prisma deploy --force -e .env.prod && rm -rf data && mkdir -p data/nodes && mkdir -p data/lists && mkdir -p data/relations && babel-node src/import.js && prisma import -d data -e .env.prod"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "dotenv": "^8.0.0",
-    "express": "^4.16.4",
-    "graphql": "^14.2.1",
-    "graphql-cli": "^3.0.11",
-    "graphql-yoga": "^1.17.4",
-    "merge-graphql-schemas": "^1.5.8",
-    "prisma": "^1.32.2",
-    "prisma-binding": "^2.3.10",
-    "prisma-client-lib": "^1.30.4",
-    "xlsx": "^0.14.3",
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.4.4",
+    "axios": "^0.18.0",
+    "dotenv": "^8.0.0",
     "eslint": "5.3.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-config-prettier": "^4.2.0",
@@ -36,7 +27,17 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.11.0",
+    "express": "^4.16.4",
+    "graphql": "^14.2.1",
+    "graphql-cli": "^3.0.11",
+    "graphql-yoga": "^1.17.4",
+    "merge-graphql-schemas": "^1.5.8",
     "nodemon": "^1.19.0",
-    "prettier": "^1.17.0"
+    "prettier": "^1.17.0",
+    "prisma": "^1.34.0",
+    "prisma-binding": "^2.3.10",
+    "prisma-client-lib": "^1.30.4",
+    "uuid": "^3.3.2",
+    "xlsx": "^0.14.3"
   }
 }

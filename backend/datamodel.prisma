@@ -7,7 +7,7 @@ type Product {
   litrahinta: Float
   uutuus: String
   hinnastojarjestys: String
-  tyyppi: String
+  tyyppi: Category
   erityisryhma: String
   oluttyyppi: String
   valmistusmaa: String
@@ -30,4 +30,10 @@ type Product {
   energia: Float
   valikoima: String
   alkoholilitrahinta: Float
+}
+
+type Category {
+  id: UUID! @id
+  tyyppi: String
+  products: [Product]
 }

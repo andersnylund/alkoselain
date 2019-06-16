@@ -71,7 +71,7 @@ const Product = ({ product }) => (
         <p>{product.luonnehdinta}</p>
       </MainContent>
       <Extra>
-        <p>{product.tyyppi}</p>
+        <p>{product.tyyppi.tyyppi}</p>
         <table>
           <tbody>
             {product.valmistaja !== null && (
@@ -126,7 +126,9 @@ Product.propTypes = {
     nimi: string.isRequired,
     valmistaja: string,
     luonnehdinta: string.isRequired,
-    tyyppi: string.isRequired,
+    tyyppi: shape({
+      tyyppi: string.isRequired,
+    }).isRequired,
     hinta: number.isRequired,
     alkoholiprosentti: number,
     alkoholilitrahinta: number,

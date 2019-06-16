@@ -1,5 +1,9 @@
 # source: http://localhost:4466
-# timestamp: Sat Jun 15 2019 10:54:08 GMT+0300 (Eastern European Summer Time)
+# timestamp: Sun Jun 16 2019 09:38:00 GMT+0300 (Eastern European Summer Time)
+
+type AggregateCategory {
+  count: Int!
+}
 
 type AggregateProduct {
   count: Int!
@@ -8,6 +12,191 @@ type AggregateProduct {
 type BatchPayload {
   """The number of nodes that have been affected by the Batch operation."""
   count: Long!
+}
+
+type Category {
+  id: UUID!
+  tyyppi: String
+  products(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Product!]
+}
+
+"""A connection to a list of items."""
+type CategoryConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CategoryEdge]!
+  aggregate: AggregateCategory!
+}
+
+input CategoryCreateInput {
+  id: UUID
+  tyyppi: String
+  products: ProductCreateManyWithoutTyyppiInput
+}
+
+input CategoryCreateOneWithoutProductsInput {
+  create: CategoryCreateWithoutProductsInput
+  connect: CategoryWhereUniqueInput
+}
+
+input CategoryCreateWithoutProductsInput {
+  id: UUID
+  tyyppi: String
+}
+
+"""An edge in a connection."""
+type CategoryEdge {
+  """The item at the end of the edge."""
+  node: Category!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CategoryOrderByInput {
+  id_ASC
+  id_DESC
+  tyyppi_ASC
+  tyyppi_DESC
+}
+
+type CategoryPreviousValues {
+  id: UUID!
+  tyyppi: String
+}
+
+type CategorySubscriptionPayload {
+  mutation: MutationType!
+  node: Category
+  updatedFields: [String!]
+  previousValues: CategoryPreviousValues
+}
+
+input CategorySubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CategorySubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CategorySubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CategorySubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CategoryWhereInput
+}
+
+input CategoryUpdateInput {
+  tyyppi: String
+  products: ProductUpdateManyWithoutTyyppiInput
+}
+
+input CategoryUpdateManyMutationInput {
+  tyyppi: String
+}
+
+input CategoryUpdateOneWithoutProductsInput {
+  create: CategoryCreateWithoutProductsInput
+  connect: CategoryWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: CategoryUpdateWithoutProductsDataInput
+  upsert: CategoryUpsertWithoutProductsInput
+}
+
+input CategoryUpdateWithoutProductsDataInput {
+  tyyppi: String
+}
+
+input CategoryUpsertWithoutProductsInput {
+  update: CategoryUpdateWithoutProductsDataInput!
+  create: CategoryCreateWithoutProductsInput!
+}
+
+input CategoryWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CategoryWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CategoryWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CategoryWhereInput!]
+  id: UUID
+
+  """All values that are not equal to given value."""
+  id_not: UUID
+
+  """All values that are contained in given list."""
+  id_in: [UUID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [UUID!]
+  tyyppi: String
+
+  """All values that are not equal to given value."""
+  tyyppi_not: String
+
+  """All values that are contained in given list."""
+  tyyppi_in: [String!]
+
+  """All values that are not contained in given list."""
+  tyyppi_not_in: [String!]
+
+  """All values less than the given value."""
+  tyyppi_lt: String
+
+  """All values less than or equal the given value."""
+  tyyppi_lte: String
+
+  """All values greater than the given value."""
+  tyyppi_gt: String
+
+  """All values greater than or equal the given value."""
+  tyyppi_gte: String
+
+  """All values containing the given string."""
+  tyyppi_contains: String
+
+  """All values not containing the given string."""
+  tyyppi_not_contains: String
+
+  """All values starting with the given string."""
+  tyyppi_starts_with: String
+
+  """All values not starting with the given string."""
+  tyyppi_not_starts_with: String
+
+  """All values ending with the given string."""
+  tyyppi_ends_with: String
+
+  """All values not ending with the given string."""
+  tyyppi_not_ends_with: String
+  products_every: ProductWhereInput
+  products_some: ProductWhereInput
+  products_none: ProductWhereInput
+}
+
+input CategoryWhereUniqueInput {
+  id: UUID
 }
 
 """Raw JSON value"""
@@ -21,11 +210,17 @@ scalar Long
 
 type Mutation {
   createProduct(data: ProductCreateInput!): Product!
+  createCategory(data: CategoryCreateInput!): Category!
   updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
+  updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
   deleteProduct(where: ProductWhereUniqueInput!): Product
+  deleteCategory(where: CategoryWhereUniqueInput!): Category
   upsertProduct(where: ProductWhereUniqueInput!, create: ProductCreateInput!, update: ProductUpdateInput!): Product!
+  upsertCategory(where: CategoryWhereUniqueInput!, create: CategoryCreateInput!, update: CategoryUpdateInput!): Category!
   updateManyProducts(data: ProductUpdateManyMutationInput!, where: ProductWhereInput): BatchPayload!
+  updateManyCategories(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): BatchPayload!
   deleteManyProducts(where: ProductWhereInput): BatchPayload!
+  deleteManyCategories(where: CategoryWhereInput): BatchPayload!
   executeRaw(database: PrismaDatabase, query: String!): Json!
 }
 
@@ -69,7 +264,7 @@ type Product implements Node {
   litrahinta: Float
   uutuus: String
   hinnastojarjestys: String
-  tyyppi: String
+  tyyppi: Category
   erityisryhma: String
   oluttyyppi: String
   valmistusmaa: String
@@ -113,7 +308,45 @@ input ProductCreateInput {
   litrahinta: Float
   uutuus: String
   hinnastojarjestys: String
-  tyyppi: String
+  erityisryhma: String
+  oluttyyppi: String
+  valmistusmaa: String
+  alue: String
+  vuosikerta: Int
+  etikettimerkintoja: String
+  huomautus: String
+  rypaleet: String
+  luonnehdinta: String
+  pakkaustyyppi: String
+  suljentatyyppi: String
+  alkoholiprosentti: Float
+  hapot: Float
+  sokeri: Float
+  kantavierreprosentti: Float
+  vari: String
+  ebc: String
+  katkerot: String
+  ebu: String
+  energia: Float
+  valikoima: String
+  alkoholilitrahinta: Float
+  tyyppi: CategoryCreateOneWithoutProductsInput
+}
+
+input ProductCreateManyWithoutTyyppiInput {
+  create: [ProductCreateWithoutTyyppiInput!]
+  connect: [ProductWhereUniqueInput!]
+}
+
+input ProductCreateWithoutTyyppiInput {
+  id: ID
+  nimi: String
+  valmistaja: String
+  pullokoko: Float
+  hinta: Float
+  litrahinta: Float
+  uutuus: String
+  hinnastojarjestys: String
   erityisryhma: String
   oluttyyppi: String
   valmistusmaa: String
@@ -164,8 +397,6 @@ enum ProductOrderByInput {
   uutuus_DESC
   hinnastojarjestys_ASC
   hinnastojarjestys_DESC
-  tyyppi_ASC
-  tyyppi_DESC
   erityisryhma_ASC
   erityisryhma_DESC
   oluttyyppi_ASC
@@ -221,7 +452,6 @@ type ProductPreviousValues {
   litrahinta: Float
   uutuus: String
   hinnastojarjestys: String
-  tyyppi: String
   erityisryhma: String
   oluttyyppi: String
   valmistusmaa: String
@@ -246,118 +476,15 @@ type ProductPreviousValues {
   alkoholilitrahinta: Float
 }
 
-type ProductSubscriptionPayload {
-  mutation: MutationType!
-  node: Product
-  updatedFields: [String!]
-  previousValues: ProductPreviousValues
-}
-
-input ProductSubscriptionWhereInput {
+input ProductScalarWhereInput {
   """Logical AND on all given filters."""
-  AND: [ProductSubscriptionWhereInput!]
+  AND: [ProductScalarWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [ProductSubscriptionWhereInput!]
+  OR: [ProductScalarWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [ProductSubscriptionWhereInput!]
-
-  """The subscription event gets dispatched when it's listed in mutation_in"""
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: ProductWhereInput
-}
-
-input ProductUpdateInput {
-  nimi: String
-  valmistaja: String
-  pullokoko: Float
-  hinta: Float
-  litrahinta: Float
-  uutuus: String
-  hinnastojarjestys: String
-  tyyppi: String
-  erityisryhma: String
-  oluttyyppi: String
-  valmistusmaa: String
-  alue: String
-  vuosikerta: Int
-  etikettimerkintoja: String
-  huomautus: String
-  rypaleet: String
-  luonnehdinta: String
-  pakkaustyyppi: String
-  suljentatyyppi: String
-  alkoholiprosentti: Float
-  hapot: Float
-  sokeri: Float
-  kantavierreprosentti: Float
-  vari: String
-  ebc: String
-  katkerot: String
-  ebu: String
-  energia: Float
-  valikoima: String
-  alkoholilitrahinta: Float
-}
-
-input ProductUpdateManyMutationInput {
-  nimi: String
-  valmistaja: String
-  pullokoko: Float
-  hinta: Float
-  litrahinta: Float
-  uutuus: String
-  hinnastojarjestys: String
-  tyyppi: String
-  erityisryhma: String
-  oluttyyppi: String
-  valmistusmaa: String
-  alue: String
-  vuosikerta: Int
-  etikettimerkintoja: String
-  huomautus: String
-  rypaleet: String
-  luonnehdinta: String
-  pakkaustyyppi: String
-  suljentatyyppi: String
-  alkoholiprosentti: Float
-  hapot: Float
-  sokeri: Float
-  kantavierreprosentti: Float
-  vari: String
-  ebc: String
-  katkerot: String
-  ebu: String
-  energia: Float
-  valikoima: String
-  alkoholilitrahinta: Float
-}
-
-input ProductWhereInput {
-  """Logical AND on all given filters."""
-  AND: [ProductWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [ProductWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [ProductWhereInput!]
+  NOT: [ProductScalarWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -624,46 +751,6 @@ input ProductWhereInput {
 
   """All values not ending with the given string."""
   hinnastojarjestys_not_ends_with: String
-  tyyppi: String
-
-  """All values that are not equal to given value."""
-  tyyppi_not: String
-
-  """All values that are contained in given list."""
-  tyyppi_in: [String!]
-
-  """All values that are not contained in given list."""
-  tyyppi_not_in: [String!]
-
-  """All values less than the given value."""
-  tyyppi_lt: String
-
-  """All values less than or equal the given value."""
-  tyyppi_lte: String
-
-  """All values greater than the given value."""
-  tyyppi_gt: String
-
-  """All values greater than or equal the given value."""
-  tyyppi_gte: String
-
-  """All values containing the given string."""
-  tyyppi_contains: String
-
-  """All values not containing the given string."""
-  tyyppi_not_contains: String
-
-  """All values starting with the given string."""
-  tyyppi_starts_with: String
-
-  """All values not starting with the given string."""
-  tyyppi_not_starts_with: String
-
-  """All values ending with the given string."""
-  tyyppi_ends_with: String
-
-  """All values not ending with the given string."""
-  tyyppi_not_ends_with: String
   erityisryhma: String
 
   """All values that are not equal to given value."""
@@ -1420,14 +1507,1243 @@ input ProductWhereInput {
   alkoholilitrahinta_gte: Float
 }
 
+type ProductSubscriptionPayload {
+  mutation: MutationType!
+  node: Product
+  updatedFields: [String!]
+  previousValues: ProductPreviousValues
+}
+
+input ProductSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ProductSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ProductSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ProductSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ProductWhereInput
+}
+
+input ProductUpdateInput {
+  nimi: String
+  valmistaja: String
+  pullokoko: Float
+  hinta: Float
+  litrahinta: Float
+  uutuus: String
+  hinnastojarjestys: String
+  erityisryhma: String
+  oluttyyppi: String
+  valmistusmaa: String
+  alue: String
+  vuosikerta: Int
+  etikettimerkintoja: String
+  huomautus: String
+  rypaleet: String
+  luonnehdinta: String
+  pakkaustyyppi: String
+  suljentatyyppi: String
+  alkoholiprosentti: Float
+  hapot: Float
+  sokeri: Float
+  kantavierreprosentti: Float
+  vari: String
+  ebc: String
+  katkerot: String
+  ebu: String
+  energia: Float
+  valikoima: String
+  alkoholilitrahinta: Float
+  tyyppi: CategoryUpdateOneWithoutProductsInput
+}
+
+input ProductUpdateManyDataInput {
+  nimi: String
+  valmistaja: String
+  pullokoko: Float
+  hinta: Float
+  litrahinta: Float
+  uutuus: String
+  hinnastojarjestys: String
+  erityisryhma: String
+  oluttyyppi: String
+  valmistusmaa: String
+  alue: String
+  vuosikerta: Int
+  etikettimerkintoja: String
+  huomautus: String
+  rypaleet: String
+  luonnehdinta: String
+  pakkaustyyppi: String
+  suljentatyyppi: String
+  alkoholiprosentti: Float
+  hapot: Float
+  sokeri: Float
+  kantavierreprosentti: Float
+  vari: String
+  ebc: String
+  katkerot: String
+  ebu: String
+  energia: Float
+  valikoima: String
+  alkoholilitrahinta: Float
+}
+
+input ProductUpdateManyMutationInput {
+  nimi: String
+  valmistaja: String
+  pullokoko: Float
+  hinta: Float
+  litrahinta: Float
+  uutuus: String
+  hinnastojarjestys: String
+  erityisryhma: String
+  oluttyyppi: String
+  valmistusmaa: String
+  alue: String
+  vuosikerta: Int
+  etikettimerkintoja: String
+  huomautus: String
+  rypaleet: String
+  luonnehdinta: String
+  pakkaustyyppi: String
+  suljentatyyppi: String
+  alkoholiprosentti: Float
+  hapot: Float
+  sokeri: Float
+  kantavierreprosentti: Float
+  vari: String
+  ebc: String
+  katkerot: String
+  ebu: String
+  energia: Float
+  valikoima: String
+  alkoholilitrahinta: Float
+}
+
+input ProductUpdateManyWithoutTyyppiInput {
+  create: [ProductCreateWithoutTyyppiInput!]
+  connect: [ProductWhereUniqueInput!]
+  set: [ProductWhereUniqueInput!]
+  disconnect: [ProductWhereUniqueInput!]
+  delete: [ProductWhereUniqueInput!]
+  update: [ProductUpdateWithWhereUniqueWithoutTyyppiInput!]
+  updateMany: [ProductUpdateManyWithWhereNestedInput!]
+  deleteMany: [ProductScalarWhereInput!]
+  upsert: [ProductUpsertWithWhereUniqueWithoutTyyppiInput!]
+}
+
+input ProductUpdateManyWithWhereNestedInput {
+  where: ProductScalarWhereInput!
+  data: ProductUpdateManyDataInput!
+}
+
+input ProductUpdateWithoutTyyppiDataInput {
+  nimi: String
+  valmistaja: String
+  pullokoko: Float
+  hinta: Float
+  litrahinta: Float
+  uutuus: String
+  hinnastojarjestys: String
+  erityisryhma: String
+  oluttyyppi: String
+  valmistusmaa: String
+  alue: String
+  vuosikerta: Int
+  etikettimerkintoja: String
+  huomautus: String
+  rypaleet: String
+  luonnehdinta: String
+  pakkaustyyppi: String
+  suljentatyyppi: String
+  alkoholiprosentti: Float
+  hapot: Float
+  sokeri: Float
+  kantavierreprosentti: Float
+  vari: String
+  ebc: String
+  katkerot: String
+  ebu: String
+  energia: Float
+  valikoima: String
+  alkoholilitrahinta: Float
+}
+
+input ProductUpdateWithWhereUniqueWithoutTyyppiInput {
+  where: ProductWhereUniqueInput!
+  data: ProductUpdateWithoutTyyppiDataInput!
+}
+
+input ProductUpsertWithWhereUniqueWithoutTyyppiInput {
+  where: ProductWhereUniqueInput!
+  update: ProductUpdateWithoutTyyppiDataInput!
+  create: ProductCreateWithoutTyyppiInput!
+}
+
+input ProductWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ProductWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ProductWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ProductWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  nimi: String
+
+  """All values that are not equal to given value."""
+  nimi_not: String
+
+  """All values that are contained in given list."""
+  nimi_in: [String!]
+
+  """All values that are not contained in given list."""
+  nimi_not_in: [String!]
+
+  """All values less than the given value."""
+  nimi_lt: String
+
+  """All values less than or equal the given value."""
+  nimi_lte: String
+
+  """All values greater than the given value."""
+  nimi_gt: String
+
+  """All values greater than or equal the given value."""
+  nimi_gte: String
+
+  """All values containing the given string."""
+  nimi_contains: String
+
+  """All values not containing the given string."""
+  nimi_not_contains: String
+
+  """All values starting with the given string."""
+  nimi_starts_with: String
+
+  """All values not starting with the given string."""
+  nimi_not_starts_with: String
+
+  """All values ending with the given string."""
+  nimi_ends_with: String
+
+  """All values not ending with the given string."""
+  nimi_not_ends_with: String
+  valmistaja: String
+
+  """All values that are not equal to given value."""
+  valmistaja_not: String
+
+  """All values that are contained in given list."""
+  valmistaja_in: [String!]
+
+  """All values that are not contained in given list."""
+  valmistaja_not_in: [String!]
+
+  """All values less than the given value."""
+  valmistaja_lt: String
+
+  """All values less than or equal the given value."""
+  valmistaja_lte: String
+
+  """All values greater than the given value."""
+  valmistaja_gt: String
+
+  """All values greater than or equal the given value."""
+  valmistaja_gte: String
+
+  """All values containing the given string."""
+  valmistaja_contains: String
+
+  """All values not containing the given string."""
+  valmistaja_not_contains: String
+
+  """All values starting with the given string."""
+  valmistaja_starts_with: String
+
+  """All values not starting with the given string."""
+  valmistaja_not_starts_with: String
+
+  """All values ending with the given string."""
+  valmistaja_ends_with: String
+
+  """All values not ending with the given string."""
+  valmistaja_not_ends_with: String
+  pullokoko: Float
+
+  """All values that are not equal to given value."""
+  pullokoko_not: Float
+
+  """All values that are contained in given list."""
+  pullokoko_in: [Float!]
+
+  """All values that are not contained in given list."""
+  pullokoko_not_in: [Float!]
+
+  """All values less than the given value."""
+  pullokoko_lt: Float
+
+  """All values less than or equal the given value."""
+  pullokoko_lte: Float
+
+  """All values greater than the given value."""
+  pullokoko_gt: Float
+
+  """All values greater than or equal the given value."""
+  pullokoko_gte: Float
+  hinta: Float
+
+  """All values that are not equal to given value."""
+  hinta_not: Float
+
+  """All values that are contained in given list."""
+  hinta_in: [Float!]
+
+  """All values that are not contained in given list."""
+  hinta_not_in: [Float!]
+
+  """All values less than the given value."""
+  hinta_lt: Float
+
+  """All values less than or equal the given value."""
+  hinta_lte: Float
+
+  """All values greater than the given value."""
+  hinta_gt: Float
+
+  """All values greater than or equal the given value."""
+  hinta_gte: Float
+  litrahinta: Float
+
+  """All values that are not equal to given value."""
+  litrahinta_not: Float
+
+  """All values that are contained in given list."""
+  litrahinta_in: [Float!]
+
+  """All values that are not contained in given list."""
+  litrahinta_not_in: [Float!]
+
+  """All values less than the given value."""
+  litrahinta_lt: Float
+
+  """All values less than or equal the given value."""
+  litrahinta_lte: Float
+
+  """All values greater than the given value."""
+  litrahinta_gt: Float
+
+  """All values greater than or equal the given value."""
+  litrahinta_gte: Float
+  uutuus: String
+
+  """All values that are not equal to given value."""
+  uutuus_not: String
+
+  """All values that are contained in given list."""
+  uutuus_in: [String!]
+
+  """All values that are not contained in given list."""
+  uutuus_not_in: [String!]
+
+  """All values less than the given value."""
+  uutuus_lt: String
+
+  """All values less than or equal the given value."""
+  uutuus_lte: String
+
+  """All values greater than the given value."""
+  uutuus_gt: String
+
+  """All values greater than or equal the given value."""
+  uutuus_gte: String
+
+  """All values containing the given string."""
+  uutuus_contains: String
+
+  """All values not containing the given string."""
+  uutuus_not_contains: String
+
+  """All values starting with the given string."""
+  uutuus_starts_with: String
+
+  """All values not starting with the given string."""
+  uutuus_not_starts_with: String
+
+  """All values ending with the given string."""
+  uutuus_ends_with: String
+
+  """All values not ending with the given string."""
+  uutuus_not_ends_with: String
+  hinnastojarjestys: String
+
+  """All values that are not equal to given value."""
+  hinnastojarjestys_not: String
+
+  """All values that are contained in given list."""
+  hinnastojarjestys_in: [String!]
+
+  """All values that are not contained in given list."""
+  hinnastojarjestys_not_in: [String!]
+
+  """All values less than the given value."""
+  hinnastojarjestys_lt: String
+
+  """All values less than or equal the given value."""
+  hinnastojarjestys_lte: String
+
+  """All values greater than the given value."""
+  hinnastojarjestys_gt: String
+
+  """All values greater than or equal the given value."""
+  hinnastojarjestys_gte: String
+
+  """All values containing the given string."""
+  hinnastojarjestys_contains: String
+
+  """All values not containing the given string."""
+  hinnastojarjestys_not_contains: String
+
+  """All values starting with the given string."""
+  hinnastojarjestys_starts_with: String
+
+  """All values not starting with the given string."""
+  hinnastojarjestys_not_starts_with: String
+
+  """All values ending with the given string."""
+  hinnastojarjestys_ends_with: String
+
+  """All values not ending with the given string."""
+  hinnastojarjestys_not_ends_with: String
+  erityisryhma: String
+
+  """All values that are not equal to given value."""
+  erityisryhma_not: String
+
+  """All values that are contained in given list."""
+  erityisryhma_in: [String!]
+
+  """All values that are not contained in given list."""
+  erityisryhma_not_in: [String!]
+
+  """All values less than the given value."""
+  erityisryhma_lt: String
+
+  """All values less than or equal the given value."""
+  erityisryhma_lte: String
+
+  """All values greater than the given value."""
+  erityisryhma_gt: String
+
+  """All values greater than or equal the given value."""
+  erityisryhma_gte: String
+
+  """All values containing the given string."""
+  erityisryhma_contains: String
+
+  """All values not containing the given string."""
+  erityisryhma_not_contains: String
+
+  """All values starting with the given string."""
+  erityisryhma_starts_with: String
+
+  """All values not starting with the given string."""
+  erityisryhma_not_starts_with: String
+
+  """All values ending with the given string."""
+  erityisryhma_ends_with: String
+
+  """All values not ending with the given string."""
+  erityisryhma_not_ends_with: String
+  oluttyyppi: String
+
+  """All values that are not equal to given value."""
+  oluttyyppi_not: String
+
+  """All values that are contained in given list."""
+  oluttyyppi_in: [String!]
+
+  """All values that are not contained in given list."""
+  oluttyyppi_not_in: [String!]
+
+  """All values less than the given value."""
+  oluttyyppi_lt: String
+
+  """All values less than or equal the given value."""
+  oluttyyppi_lte: String
+
+  """All values greater than the given value."""
+  oluttyyppi_gt: String
+
+  """All values greater than or equal the given value."""
+  oluttyyppi_gte: String
+
+  """All values containing the given string."""
+  oluttyyppi_contains: String
+
+  """All values not containing the given string."""
+  oluttyyppi_not_contains: String
+
+  """All values starting with the given string."""
+  oluttyyppi_starts_with: String
+
+  """All values not starting with the given string."""
+  oluttyyppi_not_starts_with: String
+
+  """All values ending with the given string."""
+  oluttyyppi_ends_with: String
+
+  """All values not ending with the given string."""
+  oluttyyppi_not_ends_with: String
+  valmistusmaa: String
+
+  """All values that are not equal to given value."""
+  valmistusmaa_not: String
+
+  """All values that are contained in given list."""
+  valmistusmaa_in: [String!]
+
+  """All values that are not contained in given list."""
+  valmistusmaa_not_in: [String!]
+
+  """All values less than the given value."""
+  valmistusmaa_lt: String
+
+  """All values less than or equal the given value."""
+  valmistusmaa_lte: String
+
+  """All values greater than the given value."""
+  valmistusmaa_gt: String
+
+  """All values greater than or equal the given value."""
+  valmistusmaa_gte: String
+
+  """All values containing the given string."""
+  valmistusmaa_contains: String
+
+  """All values not containing the given string."""
+  valmistusmaa_not_contains: String
+
+  """All values starting with the given string."""
+  valmistusmaa_starts_with: String
+
+  """All values not starting with the given string."""
+  valmistusmaa_not_starts_with: String
+
+  """All values ending with the given string."""
+  valmistusmaa_ends_with: String
+
+  """All values not ending with the given string."""
+  valmistusmaa_not_ends_with: String
+  alue: String
+
+  """All values that are not equal to given value."""
+  alue_not: String
+
+  """All values that are contained in given list."""
+  alue_in: [String!]
+
+  """All values that are not contained in given list."""
+  alue_not_in: [String!]
+
+  """All values less than the given value."""
+  alue_lt: String
+
+  """All values less than or equal the given value."""
+  alue_lte: String
+
+  """All values greater than the given value."""
+  alue_gt: String
+
+  """All values greater than or equal the given value."""
+  alue_gte: String
+
+  """All values containing the given string."""
+  alue_contains: String
+
+  """All values not containing the given string."""
+  alue_not_contains: String
+
+  """All values starting with the given string."""
+  alue_starts_with: String
+
+  """All values not starting with the given string."""
+  alue_not_starts_with: String
+
+  """All values ending with the given string."""
+  alue_ends_with: String
+
+  """All values not ending with the given string."""
+  alue_not_ends_with: String
+  vuosikerta: Int
+
+  """All values that are not equal to given value."""
+  vuosikerta_not: Int
+
+  """All values that are contained in given list."""
+  vuosikerta_in: [Int!]
+
+  """All values that are not contained in given list."""
+  vuosikerta_not_in: [Int!]
+
+  """All values less than the given value."""
+  vuosikerta_lt: Int
+
+  """All values less than or equal the given value."""
+  vuosikerta_lte: Int
+
+  """All values greater than the given value."""
+  vuosikerta_gt: Int
+
+  """All values greater than or equal the given value."""
+  vuosikerta_gte: Int
+  etikettimerkintoja: String
+
+  """All values that are not equal to given value."""
+  etikettimerkintoja_not: String
+
+  """All values that are contained in given list."""
+  etikettimerkintoja_in: [String!]
+
+  """All values that are not contained in given list."""
+  etikettimerkintoja_not_in: [String!]
+
+  """All values less than the given value."""
+  etikettimerkintoja_lt: String
+
+  """All values less than or equal the given value."""
+  etikettimerkintoja_lte: String
+
+  """All values greater than the given value."""
+  etikettimerkintoja_gt: String
+
+  """All values greater than or equal the given value."""
+  etikettimerkintoja_gte: String
+
+  """All values containing the given string."""
+  etikettimerkintoja_contains: String
+
+  """All values not containing the given string."""
+  etikettimerkintoja_not_contains: String
+
+  """All values starting with the given string."""
+  etikettimerkintoja_starts_with: String
+
+  """All values not starting with the given string."""
+  etikettimerkintoja_not_starts_with: String
+
+  """All values ending with the given string."""
+  etikettimerkintoja_ends_with: String
+
+  """All values not ending with the given string."""
+  etikettimerkintoja_not_ends_with: String
+  huomautus: String
+
+  """All values that are not equal to given value."""
+  huomautus_not: String
+
+  """All values that are contained in given list."""
+  huomautus_in: [String!]
+
+  """All values that are not contained in given list."""
+  huomautus_not_in: [String!]
+
+  """All values less than the given value."""
+  huomautus_lt: String
+
+  """All values less than or equal the given value."""
+  huomautus_lte: String
+
+  """All values greater than the given value."""
+  huomautus_gt: String
+
+  """All values greater than or equal the given value."""
+  huomautus_gte: String
+
+  """All values containing the given string."""
+  huomautus_contains: String
+
+  """All values not containing the given string."""
+  huomautus_not_contains: String
+
+  """All values starting with the given string."""
+  huomautus_starts_with: String
+
+  """All values not starting with the given string."""
+  huomautus_not_starts_with: String
+
+  """All values ending with the given string."""
+  huomautus_ends_with: String
+
+  """All values not ending with the given string."""
+  huomautus_not_ends_with: String
+  rypaleet: String
+
+  """All values that are not equal to given value."""
+  rypaleet_not: String
+
+  """All values that are contained in given list."""
+  rypaleet_in: [String!]
+
+  """All values that are not contained in given list."""
+  rypaleet_not_in: [String!]
+
+  """All values less than the given value."""
+  rypaleet_lt: String
+
+  """All values less than or equal the given value."""
+  rypaleet_lte: String
+
+  """All values greater than the given value."""
+  rypaleet_gt: String
+
+  """All values greater than or equal the given value."""
+  rypaleet_gte: String
+
+  """All values containing the given string."""
+  rypaleet_contains: String
+
+  """All values not containing the given string."""
+  rypaleet_not_contains: String
+
+  """All values starting with the given string."""
+  rypaleet_starts_with: String
+
+  """All values not starting with the given string."""
+  rypaleet_not_starts_with: String
+
+  """All values ending with the given string."""
+  rypaleet_ends_with: String
+
+  """All values not ending with the given string."""
+  rypaleet_not_ends_with: String
+  luonnehdinta: String
+
+  """All values that are not equal to given value."""
+  luonnehdinta_not: String
+
+  """All values that are contained in given list."""
+  luonnehdinta_in: [String!]
+
+  """All values that are not contained in given list."""
+  luonnehdinta_not_in: [String!]
+
+  """All values less than the given value."""
+  luonnehdinta_lt: String
+
+  """All values less than or equal the given value."""
+  luonnehdinta_lte: String
+
+  """All values greater than the given value."""
+  luonnehdinta_gt: String
+
+  """All values greater than or equal the given value."""
+  luonnehdinta_gte: String
+
+  """All values containing the given string."""
+  luonnehdinta_contains: String
+
+  """All values not containing the given string."""
+  luonnehdinta_not_contains: String
+
+  """All values starting with the given string."""
+  luonnehdinta_starts_with: String
+
+  """All values not starting with the given string."""
+  luonnehdinta_not_starts_with: String
+
+  """All values ending with the given string."""
+  luonnehdinta_ends_with: String
+
+  """All values not ending with the given string."""
+  luonnehdinta_not_ends_with: String
+  pakkaustyyppi: String
+
+  """All values that are not equal to given value."""
+  pakkaustyyppi_not: String
+
+  """All values that are contained in given list."""
+  pakkaustyyppi_in: [String!]
+
+  """All values that are not contained in given list."""
+  pakkaustyyppi_not_in: [String!]
+
+  """All values less than the given value."""
+  pakkaustyyppi_lt: String
+
+  """All values less than or equal the given value."""
+  pakkaustyyppi_lte: String
+
+  """All values greater than the given value."""
+  pakkaustyyppi_gt: String
+
+  """All values greater than or equal the given value."""
+  pakkaustyyppi_gte: String
+
+  """All values containing the given string."""
+  pakkaustyyppi_contains: String
+
+  """All values not containing the given string."""
+  pakkaustyyppi_not_contains: String
+
+  """All values starting with the given string."""
+  pakkaustyyppi_starts_with: String
+
+  """All values not starting with the given string."""
+  pakkaustyyppi_not_starts_with: String
+
+  """All values ending with the given string."""
+  pakkaustyyppi_ends_with: String
+
+  """All values not ending with the given string."""
+  pakkaustyyppi_not_ends_with: String
+  suljentatyyppi: String
+
+  """All values that are not equal to given value."""
+  suljentatyyppi_not: String
+
+  """All values that are contained in given list."""
+  suljentatyyppi_in: [String!]
+
+  """All values that are not contained in given list."""
+  suljentatyyppi_not_in: [String!]
+
+  """All values less than the given value."""
+  suljentatyyppi_lt: String
+
+  """All values less than or equal the given value."""
+  suljentatyyppi_lte: String
+
+  """All values greater than the given value."""
+  suljentatyyppi_gt: String
+
+  """All values greater than or equal the given value."""
+  suljentatyyppi_gte: String
+
+  """All values containing the given string."""
+  suljentatyyppi_contains: String
+
+  """All values not containing the given string."""
+  suljentatyyppi_not_contains: String
+
+  """All values starting with the given string."""
+  suljentatyyppi_starts_with: String
+
+  """All values not starting with the given string."""
+  suljentatyyppi_not_starts_with: String
+
+  """All values ending with the given string."""
+  suljentatyyppi_ends_with: String
+
+  """All values not ending with the given string."""
+  suljentatyyppi_not_ends_with: String
+  alkoholiprosentti: Float
+
+  """All values that are not equal to given value."""
+  alkoholiprosentti_not: Float
+
+  """All values that are contained in given list."""
+  alkoholiprosentti_in: [Float!]
+
+  """All values that are not contained in given list."""
+  alkoholiprosentti_not_in: [Float!]
+
+  """All values less than the given value."""
+  alkoholiprosentti_lt: Float
+
+  """All values less than or equal the given value."""
+  alkoholiprosentti_lte: Float
+
+  """All values greater than the given value."""
+  alkoholiprosentti_gt: Float
+
+  """All values greater than or equal the given value."""
+  alkoholiprosentti_gte: Float
+  hapot: Float
+
+  """All values that are not equal to given value."""
+  hapot_not: Float
+
+  """All values that are contained in given list."""
+  hapot_in: [Float!]
+
+  """All values that are not contained in given list."""
+  hapot_not_in: [Float!]
+
+  """All values less than the given value."""
+  hapot_lt: Float
+
+  """All values less than or equal the given value."""
+  hapot_lte: Float
+
+  """All values greater than the given value."""
+  hapot_gt: Float
+
+  """All values greater than or equal the given value."""
+  hapot_gte: Float
+  sokeri: Float
+
+  """All values that are not equal to given value."""
+  sokeri_not: Float
+
+  """All values that are contained in given list."""
+  sokeri_in: [Float!]
+
+  """All values that are not contained in given list."""
+  sokeri_not_in: [Float!]
+
+  """All values less than the given value."""
+  sokeri_lt: Float
+
+  """All values less than or equal the given value."""
+  sokeri_lte: Float
+
+  """All values greater than the given value."""
+  sokeri_gt: Float
+
+  """All values greater than or equal the given value."""
+  sokeri_gte: Float
+  kantavierreprosentti: Float
+
+  """All values that are not equal to given value."""
+  kantavierreprosentti_not: Float
+
+  """All values that are contained in given list."""
+  kantavierreprosentti_in: [Float!]
+
+  """All values that are not contained in given list."""
+  kantavierreprosentti_not_in: [Float!]
+
+  """All values less than the given value."""
+  kantavierreprosentti_lt: Float
+
+  """All values less than or equal the given value."""
+  kantavierreprosentti_lte: Float
+
+  """All values greater than the given value."""
+  kantavierreprosentti_gt: Float
+
+  """All values greater than or equal the given value."""
+  kantavierreprosentti_gte: Float
+  vari: String
+
+  """All values that are not equal to given value."""
+  vari_not: String
+
+  """All values that are contained in given list."""
+  vari_in: [String!]
+
+  """All values that are not contained in given list."""
+  vari_not_in: [String!]
+
+  """All values less than the given value."""
+  vari_lt: String
+
+  """All values less than or equal the given value."""
+  vari_lte: String
+
+  """All values greater than the given value."""
+  vari_gt: String
+
+  """All values greater than or equal the given value."""
+  vari_gte: String
+
+  """All values containing the given string."""
+  vari_contains: String
+
+  """All values not containing the given string."""
+  vari_not_contains: String
+
+  """All values starting with the given string."""
+  vari_starts_with: String
+
+  """All values not starting with the given string."""
+  vari_not_starts_with: String
+
+  """All values ending with the given string."""
+  vari_ends_with: String
+
+  """All values not ending with the given string."""
+  vari_not_ends_with: String
+  ebc: String
+
+  """All values that are not equal to given value."""
+  ebc_not: String
+
+  """All values that are contained in given list."""
+  ebc_in: [String!]
+
+  """All values that are not contained in given list."""
+  ebc_not_in: [String!]
+
+  """All values less than the given value."""
+  ebc_lt: String
+
+  """All values less than or equal the given value."""
+  ebc_lte: String
+
+  """All values greater than the given value."""
+  ebc_gt: String
+
+  """All values greater than or equal the given value."""
+  ebc_gte: String
+
+  """All values containing the given string."""
+  ebc_contains: String
+
+  """All values not containing the given string."""
+  ebc_not_contains: String
+
+  """All values starting with the given string."""
+  ebc_starts_with: String
+
+  """All values not starting with the given string."""
+  ebc_not_starts_with: String
+
+  """All values ending with the given string."""
+  ebc_ends_with: String
+
+  """All values not ending with the given string."""
+  ebc_not_ends_with: String
+  katkerot: String
+
+  """All values that are not equal to given value."""
+  katkerot_not: String
+
+  """All values that are contained in given list."""
+  katkerot_in: [String!]
+
+  """All values that are not contained in given list."""
+  katkerot_not_in: [String!]
+
+  """All values less than the given value."""
+  katkerot_lt: String
+
+  """All values less than or equal the given value."""
+  katkerot_lte: String
+
+  """All values greater than the given value."""
+  katkerot_gt: String
+
+  """All values greater than or equal the given value."""
+  katkerot_gte: String
+
+  """All values containing the given string."""
+  katkerot_contains: String
+
+  """All values not containing the given string."""
+  katkerot_not_contains: String
+
+  """All values starting with the given string."""
+  katkerot_starts_with: String
+
+  """All values not starting with the given string."""
+  katkerot_not_starts_with: String
+
+  """All values ending with the given string."""
+  katkerot_ends_with: String
+
+  """All values not ending with the given string."""
+  katkerot_not_ends_with: String
+  ebu: String
+
+  """All values that are not equal to given value."""
+  ebu_not: String
+
+  """All values that are contained in given list."""
+  ebu_in: [String!]
+
+  """All values that are not contained in given list."""
+  ebu_not_in: [String!]
+
+  """All values less than the given value."""
+  ebu_lt: String
+
+  """All values less than or equal the given value."""
+  ebu_lte: String
+
+  """All values greater than the given value."""
+  ebu_gt: String
+
+  """All values greater than or equal the given value."""
+  ebu_gte: String
+
+  """All values containing the given string."""
+  ebu_contains: String
+
+  """All values not containing the given string."""
+  ebu_not_contains: String
+
+  """All values starting with the given string."""
+  ebu_starts_with: String
+
+  """All values not starting with the given string."""
+  ebu_not_starts_with: String
+
+  """All values ending with the given string."""
+  ebu_ends_with: String
+
+  """All values not ending with the given string."""
+  ebu_not_ends_with: String
+  energia: Float
+
+  """All values that are not equal to given value."""
+  energia_not: Float
+
+  """All values that are contained in given list."""
+  energia_in: [Float!]
+
+  """All values that are not contained in given list."""
+  energia_not_in: [Float!]
+
+  """All values less than the given value."""
+  energia_lt: Float
+
+  """All values less than or equal the given value."""
+  energia_lte: Float
+
+  """All values greater than the given value."""
+  energia_gt: Float
+
+  """All values greater than or equal the given value."""
+  energia_gte: Float
+  valikoima: String
+
+  """All values that are not equal to given value."""
+  valikoima_not: String
+
+  """All values that are contained in given list."""
+  valikoima_in: [String!]
+
+  """All values that are not contained in given list."""
+  valikoima_not_in: [String!]
+
+  """All values less than the given value."""
+  valikoima_lt: String
+
+  """All values less than or equal the given value."""
+  valikoima_lte: String
+
+  """All values greater than the given value."""
+  valikoima_gt: String
+
+  """All values greater than or equal the given value."""
+  valikoima_gte: String
+
+  """All values containing the given string."""
+  valikoima_contains: String
+
+  """All values not containing the given string."""
+  valikoima_not_contains: String
+
+  """All values starting with the given string."""
+  valikoima_starts_with: String
+
+  """All values not starting with the given string."""
+  valikoima_not_starts_with: String
+
+  """All values ending with the given string."""
+  valikoima_ends_with: String
+
+  """All values not ending with the given string."""
+  valikoima_not_ends_with: String
+  alkoholilitrahinta: Float
+
+  """All values that are not equal to given value."""
+  alkoholilitrahinta_not: Float
+
+  """All values that are contained in given list."""
+  alkoholilitrahinta_in: [Float!]
+
+  """All values that are not contained in given list."""
+  alkoholilitrahinta_not_in: [Float!]
+
+  """All values less than the given value."""
+  alkoholilitrahinta_lt: Float
+
+  """All values less than or equal the given value."""
+  alkoholilitrahinta_lte: Float
+
+  """All values greater than the given value."""
+  alkoholilitrahinta_gt: Float
+
+  """All values greater than or equal the given value."""
+  alkoholilitrahinta_gte: Float
+  tyyppi: CategoryWhereInput
+}
+
 input ProductWhereUniqueInput {
   id: ID
 }
 
 type Query {
   products(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Product]!
+  categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category]!
   product(where: ProductWhereUniqueInput!): Product
+  category(where: CategoryWhereUniqueInput!): Category
   productsConnection(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProductConnection!
+  categoriesConnection(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CategoryConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -1438,4 +2754,8 @@ type Query {
 
 type Subscription {
   product(where: ProductSubscriptionWhereInput): ProductSubscriptionPayload
+  category(where: CategorySubscriptionWhereInput): CategorySubscriptionPayload
 }
+
+"""A type 4 UUID according to IETF RFC 4122."""
+scalar UUID

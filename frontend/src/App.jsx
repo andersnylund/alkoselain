@@ -15,7 +15,7 @@ const Page = styled.div`
     color: hsl(0, 50%, 50%);
   }
 
-  p {
+  .footer {
     text-align: center;
     margin-bottom: var(--size-4);
   }
@@ -48,7 +48,7 @@ const App = () => (
         <ProductList />
       </ProductContainer>
     </Content>
-    <p>
+    <p className="footer">
       Made with&nbsp;
       <span role="img" aria-label="love">
         🧡
