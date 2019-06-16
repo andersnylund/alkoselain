@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import SelectField from './SelectField';
 import ToggleOrderDirection from './ToggleOrderDirection';
 import SearchField from './SearchField';
+import CategorySelect from './CategorySelect';
 
 const Wrapper = styled.div`
   display: flex;
@@ -22,6 +23,9 @@ const Wrapper = styled.div`
   }
   .lower {
     margin-bottom: var(--size-5);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: var(--size-5);
   }
 `;
 
@@ -32,6 +36,7 @@ const Filters = () => (
       <ToggleOrderDirection />
     </div>
     <div className="lower">
+      <CategorySelect />
       <SearchField />
     </div>
   </Wrapper>

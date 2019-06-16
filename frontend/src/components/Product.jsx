@@ -126,7 +126,9 @@ Product.propTypes = {
     nimi: string.isRequired,
     valmistaja: string,
     luonnehdinta: string.isRequired,
-    tyyppi: string.isRequired,
+    tyyppi: shape({
+      tyyppi: string.isRequired,
+    }).isRequired,
     hinta: number.isRequired,
     alkoholiprosentti: number,
     alkoholilitrahinta: number,

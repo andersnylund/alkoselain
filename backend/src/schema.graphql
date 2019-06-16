@@ -12,4 +12,13 @@ type Query {
     first: Int
     last: Int
   ): ProductConnection!
+  categories(
+    where: CategoryWhereInput
+    orderBy: CategoryOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Category]!
 }

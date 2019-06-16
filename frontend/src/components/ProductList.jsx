@@ -84,8 +84,38 @@ const titleCase = str => {
 
 const ProductList = () => {
   const selectedField = useSelector(state => state.filter.selectedField);
+  const selectedCategory = useSelector(state => state.filter.selectedCategory);
   const sort = useSelector(state => state.filter.sort);
   const search = useSelector(state => state.filter.search);
+
+  const where = {
+    [`${selectedField}_not`]: null,
+    OR: [
+      // TODO fix hack
+      { nimi_contains: search },
+      { nimi_contains: search.toUpperCase() },
+      { nimi_contains: search.toLowerCase() },
+      { nimi_contains: titleCase(search) },
+      { luonnehdinta_contains: search },
+      { luonnehdinta_contains: search.toUpperCase() },
+      { luonnehdinta_contains: search.toLowerCase() },
+      { luonnehdinta_contains: titleCase(search) },
+      { tyyppi: { tyyppi_contains: search } },
+      { tyyppi: { tyyppi_contains: search.toUpperCase() } },
+      { tyyppi: { tyyppi_contains: search.toLowerCase() } },
+      { tyyppi: { tyyppi_contains: titleCase(search) } },
+      { valmistaja_contains: search },
+      { valmistaja_contains: search.toUpperCase() },
+      { valmistaja_contains: search.toLowerCase() },
+      { valmistaja_contains: titleCase(search) },
+    ],
+  };
+
+  if (selectedCategory !== 1) {
+    where.tyyppi = {
+      id: selectedCategory,
+    };
+  }
 
   return (
     <Wrapper>
@@ -94,28 +124,7 @@ const ProductList = () => {
         variables={{
           endCursor: null,
           orderBy: `${selectedField}_${sort}`,
-          where: {
-            [`${selectedField}_not`]: null,
-            OR: [
-              // TODO fix hack
-              { nimi_contains: search },
-              { nimi_contains: search.toUpperCase() },
-              { nimi_contains: search.toLowerCase() },
-              { nimi_contains: titleCase(search) },
-              { luonnehdinta_contains: search },
-              { luonnehdinta_contains: search.toUpperCase() },
-              { luonnehdinta_contains: search.toLowerCase() },
-              { luonnehdinta_contains: titleCase(search) },
-              { tyyppi: { tyyppi_contains: search } },
-              { tyyppi: { tyyppi_contains: search.toUpperCase() } },
-              { tyyppi: { tyyppi_contains: search.toLowerCase() } },
-              { tyyppi: { tyyppi_contains: titleCase(search) } },
-              { valmistaja_contains: search },
-              { valmistaja_contains: search.toUpperCase() },
-              { valmistaja_contains: search.toLowerCase() },
-              { valmistaja_contains: titleCase(search) },
-            ],
-          },
+          where,
         }}
       >
         {({ data, loading, error, fetchMore }) => {
