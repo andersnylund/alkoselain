@@ -1,6 +1,7 @@
 import xlsx from 'xlsx';
 import axios from 'axios';
 import fs from 'fs';
+import uuid from 'uuid/v4';
 
 import './env';
 import { prisma } from './generated/prisma-client';
@@ -22,6 +23,10 @@ const capitalizeFirstChar = string => {
 const run = async () => {
   await prisma.deleteManyProducts({
     id_not: '',
+  });
+
+  await prisma.deleteManyCategories({
+    id_not: uuid(),
   });
 
   const alkoHeaders = [
@@ -73,12 +78,12 @@ const run = async () => {
 
   const headersRemoved = products.slice(3);
 
-  const sanitized = headersRemoved.map(p => {
+  const sanitizedProducts = headersRemoved.map(p => {
     const product = Object.assign({}, p);
     // eslint-disable-next-line dot-notation
     product['_typeName'] = 'Product';
     if (product.tyyppi) {
-      product.tyyppi = capitalizeFirstChar(product.tyyppi);
+      product.tyyppi = undefined;
     }
     if (product.pullokoko) {
       product.pullokoko = Number(
@@ -118,7 +123,31 @@ const run = async () => {
     return product;
   });
 
-  const chunked = chunk(sanitized, 1000);
+  const categorySet = new Set(
+    products
+      .filter(p => p.tyyppi !== undefined)
+      .filter(p => p.tyyppi !== 'Tyyppi')
+      .map(p => capitalizeFirstChar(p.tyyppi)),
+  );
+
+  const categoriesArray = [...categorySet].map(tyyppi => ({
+    _typeName: 'Category',
+    id: uuid(),
+    tyyppi,
+  }));
+
+  const categories = {
+    valueType: 'nodes',
+    values: categoriesArray,
+  };
+
+  await fs.writeFile(
+    './data/nodes/010.json',
+    JSON.stringify(categories),
+    () => {},
+  );
+
+  const chunked = chunk(sanitizedProducts, 1000);
 
   chunked.forEach(async (dataChunck, i) => {
     const dataObject = {};
@@ -126,8 +155,37 @@ const run = async () => {
     dataObject.values = dataChunck;
 
     await fs.writeFile(
-      `./data/nodes/0${i + 1}.json`,
+      `./data/nodes/00${i + 1}.json`,
       JSON.stringify(dataObject),
+      () => {},
+    );
+
+    const relationObject = {
+      valueType: 'relations',
+      values: [],
+    };
+
+    dataChunck.forEach(product => {
+      const { tyyppi } = headersRemoved.find(p => p.id === product.id);
+
+      if (tyyppi !== undefined && tyyppi !== null) {
+        const capitalizedTyyppi = capitalizeFirstChar(tyyppi);
+
+        const categoryId = categoriesArray.find(
+          c => c.tyyppi === capitalizedTyyppi,
+        ).id;
+
+        const relation = [
+          { _typeName: 'Product', id: product.id, fieldName: 'tyyppi' },
+          { _typeName: 'Category', id: categoryId, fieldName: 'products' },
+        ];
+        relationObject.values = [...relationObject.values, relation];
+      }
+    });
+
+    await fs.writeFile(
+      `./data/relations/00${i + 1}.json`,
+      JSON.stringify(relationObject),
       () => {},
     );
   });
