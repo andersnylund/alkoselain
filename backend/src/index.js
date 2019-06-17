@@ -34,18 +34,21 @@ server.express.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, relativeFrontendBuildPath, '/index.html'));
 });
 
-// eslint-disable-next-line no-new
-new CronJob(
-  '0 */10 7-23 * * *',
-  async () => {
-    const url = 'https://alkoselain.herokuapp.com';
-    // eslint-disable-next-line no-console
-    console.log(`Pinging ${url}`);
-    https.get(url, res => {
-      console.log(res.statusCode);
-    });
-  },
-  null,
-  true,
-  'Europe/Helsinki',
-);
+setTimeout(() => {
+  // eslint-disable-next-line no-new
+  new CronJob(
+    '0 */10 0,7-23 * * *',
+    async () => {
+      const url = 'https://alkoselain.herokuapp.com';
+      // eslint-disable-next-line no-console
+      console.log(`Pinging ${url}`);
+      https.get(url, res => {
+        // eslint-disable-next-line no-console
+        console.log(res.statusCode);
+      });
+    },
+    null,
+    true,
+    'Europe/Helsinki',
+  );
+}, 300000);
