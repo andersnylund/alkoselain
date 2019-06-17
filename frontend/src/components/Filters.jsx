@@ -8,35 +8,31 @@ import CategorySelect from './CategorySelect';
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   background: white;
   border-radius: var(--size-5);
   padding: var(--size-5);
   max-width: var(--size-14);
-  .upper {
-    display: grid;
-    grid-template-columns: 8fr 1fr;
-    grid-gap: var(--size-5);
-    margin: var(--size-5) 0;
-  }
-  .lower {
-    margin-bottom: var(--size-5);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: var(--size-5);
+  .filter-item {
+    margin: var(--size-3);
   }
 `;
 
 const Filters = () => (
   <Wrapper>
-    <div className="upper">
+    <div className="filter-item">
       <SelectField />
+    </div>
+    <div className="filter-item">
       <ToggleOrderDirection />
     </div>
-    <div className="lower">
+    <div className="filter-item">
       <CategorySelect />
+    </div>
+    <div className="filter-item">
       <SearchField />
     </div>
   </Wrapper>

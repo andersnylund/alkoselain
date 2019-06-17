@@ -13,6 +13,14 @@ const Wrapper = styled.div`
     font-size: var(--size-8);
     color: var(--grey-3);
     text-shadow: 1px 1px 3px hsl(0, 100%, 10%);
+
+    @media (max-width: 600px) {
+      font-size: var(--size-7);
+    }
+
+    @media (max-width: 400px) {
+      font-size: var(--size-6);
+    }
   }
 `;
 
@@ -23,7 +31,7 @@ const Title = () => {
         <span role="img" aria-label="drunk">
           🍷
         </span>
-        &nbsp; Alkobrowser
+        &nbsp; Alkoselain
       </h1>
     </Wrapper>
   );
