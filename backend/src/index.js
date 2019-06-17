@@ -38,7 +38,7 @@ setTimeout(() => {
   // eslint-disable-next-line no-new
   new CronJob(
     '0 */10 0,7-23 * * *',
-    async () => {
+    () => {
       const url = 'https://alkoselain.herokuapp.com';
       // eslint-disable-next-line no-console
       console.log(`Pinging ${url}`);
