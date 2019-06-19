@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 import { CronJob } from 'cron';
-import https from 'https';
+import axios from 'axios';
 
 import './env';
 import createServer from './createServer';
@@ -39,13 +39,21 @@ setTimeout(() => {
   new CronJob(
     '0 */10 0,7-23 * * *',
     () => {
-      const url = 'https://alkoselain.herokuapp.com';
-      // eslint-disable-next-line no-console
-      console.log(`Pinging ${url}`);
-      https.get(url, res => {
+      const frontend = 'https://alkoselain.herokuapp.com';
+      const backend = 'https://alkoselain.herokuapp.com/graphql';
+      axios
+        .get(frontend)
         // eslint-disable-next-line no-console
-        console.log(res.statusCode);
-      });
+        .then(res => console.log('frontend status ping: ', res.status));
+
+      axios
+        .post(backend, {
+          operationName: null,
+          variables: {},
+          query: '{ categories(orderBy: tyyppi_ASC) { id tyyppi __typename } }',
+        })
+        // eslint-disable-next-line no-console
+        .then(res => console.log('backend status ping: ', res.status));
     },
     null,
     true,
