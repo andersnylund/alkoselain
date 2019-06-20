@@ -1,16 +1,14 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
-import { useSelector, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
+import { string, func } from 'prop-types';
 
 import Button from './Button';
 import { toggleSortAction } from '../actions/filterActions';
 
-const ToggleOrderDirection = () => {
-  const sort = useSelector(state => state.filter.sort);
-  const dispatch = useDispatch();
-
+export const ToggleOrderDirection = ({ sort, toggleSort }) => {
   return (
-    <Button onClick={() => dispatch(toggleSortAction())}>
+    <Button onClick={() => toggleSort()} data-testid="toggle-sort">
       <Icon
         name={`sort content ${sort === 'ASC' ? 'ascending' : 'descending'}`}
       />
@@ -18,4 +16,20 @@ const ToggleOrderDirection = () => {
   );
 };
 
-export default ToggleOrderDirection;
+ToggleOrderDirection.propTypes = {
+  sort: string.isRequired,
+  toggleSort: func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  sort: state.filter.sort,
+});
+
+const mapDispatchToProps = {
+  toggleSort: toggleSortAction,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ToggleOrderDirection);
