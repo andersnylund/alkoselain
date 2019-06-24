@@ -22,9 +22,12 @@ const CategorySelect = () => {
 
   return (
     <Query query={CATEGORIES}>
-      {({ data, loading }) => {
+      {({ data, loading, error }) => {
         if (loading) {
           return <Select options={[]} />;
+        }
+        if (error) {
+          return null;
         }
         const options = [
           allCategories,
