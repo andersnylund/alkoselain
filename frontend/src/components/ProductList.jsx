@@ -80,7 +80,7 @@ export const createWhere = (selectedField, search, selectedCategory) => {
     ],
   };
 
-  if (selectedCategory !== 1) {
+  if (selectedCategory !== '1') {
     where.tyyppi = {
       id: selectedCategory,
     };

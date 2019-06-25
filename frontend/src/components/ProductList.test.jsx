@@ -67,4 +67,100 @@ describe('<ProductList />', () => {
       'Network error: Testing error'
     );
   });
+
+  it('should not show any products', async () => {
+    const productMock = {
+      request: {
+        query: PRODUCT_QUERY,
+        variables: {
+          endCursor: null,
+          orderBy: 'hinta_ASC',
+          where: createWhere('hinta', '', '1'),
+        },
+      },
+      result: {
+        data: {
+          productsConnection: {
+            edges: [],
+            pageInfo: {
+              endCursor: null,
+              startCursor: null,
+            },
+          },
+        },
+      },
+    };
+
+    const { queryByTestId } = render(
+      <MockedProvider mocks={[productMock]} addTypename={false}>
+        <ProductList
+          selectedField="hinta"
+          selectedCategory="1"
+          search=""
+          sort="ASC"
+        />
+      </MockedProvider>
+    );
+
+    await wait(0);
+
+    expect(queryByTestId('product')).toBeNull();
+  });
+
+  it('should show a list of products', async () => {
+    const productMock = {
+      request: {
+        query: PRODUCT_QUERY,
+        variables: {
+          endCursor: null,
+          orderBy: 'hinta_ASC',
+          where: createWhere('hinta', '', '1'),
+        },
+      },
+      result: {
+        data: {
+          productsConnection: {
+            edges: [
+              {
+                node: {
+                  id: '1',
+                  nimi: 'nimi',
+                  valmistaja: 'valmistaja',
+                  pullokoko: 0.56,
+                  hinta: 123,
+                  litrahinta: 'litrahinta',
+                  tyyppi: {
+                    tyyppi: 'tyyppi',
+                  },
+                  luonnehdinta: 'luonnehdinta',
+                  pakkaustyyppi: 'pakkaustyyppi',
+                  alkoholiprosentti: 3.1,
+                  alkoholilitrahinta: 123.123,
+                },
+              },
+            ],
+            pageInfo: {
+              endCursor: null,
+              startCursor: null,
+            },
+          },
+        },
+      },
+    };
+
+    const { container } = render(
+      <MockedProvider mocks={[productMock]} addTypename={false}>
+        <ProductList
+          selectedField="hinta"
+          selectedCategory="1"
+          search=""
+          sort="ASC"
+        />
+      </MockedProvider>
+    );
+
+    await wait(0);
+
+    expect(container).toMatchSnapshot();
+  });
 });
