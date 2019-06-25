@@ -28,7 +28,7 @@ const Title = () => {
   return (
     <Wrapper>
       <h1>
-        <span role="img" aria-label="drunk">
+        <span role="img" aria-label="wine glass">
           🍷
         </span>
         &nbsp; Alkoselain
