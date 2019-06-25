@@ -8,7 +8,7 @@ import { toggleSortAction } from '../actions/filterActions';
 
 export const ToggleOrderDirection = ({ sort, toggleSort }) => {
   return (
-    <Button onClick={() => toggleSort()} data-testid="toggle-sort">
+    <Button onClick={() => toggleSort()} data-testid="toggle-sort-button">
       <Icon
         name={`sort content ${sort === 'ASC' ? 'ascending' : 'descending'}`}
       />
