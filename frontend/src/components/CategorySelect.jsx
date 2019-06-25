@@ -2,12 +2,13 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Select } from 'semantic-ui-react';
-import { useSelector, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
+import { func, string } from 'prop-types';
 
 import { allCategories } from '../constants';
 import { setSelectedCategoryAction } from '../actions/filterActions';
 
-const CATEGORIES = gql`
+export const CATEGORY_QUERY = gql`
   query {
     categories(orderBy: tyyppi_ASC) {
       id
@@ -16,12 +17,9 @@ const CATEGORIES = gql`
   }
 `;
 
-const CategorySelect = () => {
-  const selectedCategory = useSelector(state => state.filter.selectedCategory);
-  const dispatch = useDispatch();
-
+export const CategorySelect = ({ selectedCategory, setSelectedCategory }) => {
   return (
-    <Query query={CATEGORIES}>
+    <Query query={CATEGORY_QUERY}>
       {({ data, loading, error }) => {
         if (loading) {
           return <Select options={[]} />;
@@ -41,9 +39,7 @@ const CategorySelect = () => {
           <Select
             options={options}
             value={selectedCategory}
-            onChange={(event, { value }) =>
-              dispatch(setSelectedCategoryAction(value))
-            }
+            onChange={(event, { value }) => setSelectedCategory(value)}
           />
         );
       }}
@@ -51,4 +47,20 @@ const CategorySelect = () => {
   );
 };
 
-export default CategorySelect;
+CategorySelect.propTypes = {
+  selectedCategory: string.isRequired,
+  setSelectedCategory: func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  selectedCategory: state.filter.selectedCategory,
+});
+
+const mapDispatchToProps = {
+  setSelectedCategory: setSelectedCategoryAction,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CategorySelect);
