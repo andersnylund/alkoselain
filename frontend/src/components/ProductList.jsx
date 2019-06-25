@@ -1,13 +1,15 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Loader, Icon } from 'semantic-ui-react';
+import { Loader, Icon, Message } from 'semantic-ui-react';
 import styled from 'styled-components';
 import produce from 'immer';
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
+import { string } from 'prop-types';
 
 import Button from './Button';
 import Product from './Product';
+import { titleCase } from '../helpers';
 
 const Wrapper = styled.section`
   max-width: 900px;
@@ -17,7 +19,7 @@ const Wrapper = styled.section`
   align-items: center;
 `;
 
-const INDEX_QUERY = gql`
+export const PRODUCT_QUERY = gql`
   query products(
     $endCursor: String
     $orderBy: ProductOrderByInput
@@ -41,32 +43,12 @@ const INDEX_QUERY = gql`
           pullokoko
           hinta
           litrahinta
-          uutuus
-          hinnastojarjestys
           tyyppi {
             tyyppi
           }
-          erityisryhma
-          oluttyyppi
-          valmistusmaa
-          alue
-          vuosikerta
-          etikettimerkintoja
-          huomautus
-          rypaleet
           luonnehdinta
           pakkaustyyppi
-          suljentatyyppi
           alkoholiprosentti
-          hapot
-          sokeri
-          kantavierreprosentti
-          vari
-          ebc
-          katkerot
-          ebu
-          energia
-          valikoima
           alkoholilitrahinta
         }
       }
@@ -74,20 +56,7 @@ const INDEX_QUERY = gql`
   }
 `;
 
-const titleCase = str => {
-  const stringArray = str.toLowerCase().split(' ');
-  const titleCased = stringArray.map(
-    s => s.charAt(0).toUpperCase() + s.slice(1)
-  );
-  return titleCased.join(' ');
-};
-
-const ProductList = () => {
-  const selectedField = useSelector(state => state.filter.selectedField);
-  const selectedCategory = useSelector(state => state.filter.selectedCategory);
-  const sort = useSelector(state => state.filter.sort);
-  const search = useSelector(state => state.filter.search);
-
+export const createWhere = (selectedField, search, selectedCategory) => {
   const where = {
     [`${selectedField}_not`]: null,
     OR: [
@@ -111,28 +80,34 @@ const ProductList = () => {
     ],
   };
 
-  if (selectedCategory !== 1) {
+  if (selectedCategory !== '1') {
     where.tyyppi = {
       id: selectedCategory,
     };
   }
+  return where;
+};
 
+export const ProductList = ({
+  selectedField,
+  selectedCategory,
+  sort,
+  search,
+}) => {
+  const variables = {
+    endCursor: null,
+    orderBy: `${selectedField}_${sort}`,
+    where: createWhere(selectedField, search, selectedCategory),
+  };
   return (
     <Wrapper>
-      <Query
-        query={INDEX_QUERY}
-        variables={{
-          endCursor: null,
-          orderBy: `${selectedField}_${sort}`,
-          where,
-        }}
-      >
+      <Query query={PRODUCT_QUERY} variables={variables}>
         {({ data, loading, error, fetchMore }) => {
           if (loading) {
-            return <Loader active />;
+            return <Loader active data-testid="loader" />;
           }
           if (error) {
-            return <p>{error.message}</p>;
+            return <Message negative>{error.message}</Message>;
           }
           return (
             <>
@@ -176,4 +151,18 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+ProductList.propTypes = {
+  selectedField: string.isRequired,
+  selectedCategory: string.isRequired,
+  sort: string.isRequired,
+  search: string.isRequired,
+};
+
+const mapStateToProps = state => ({
+  selectedField: state.filter.selectedField,
+  selectedCategory: state.filter.selectedCategory,
+  sort: state.filter.sort,
+  search: state.filter.search,
+});
+
+export default connect(mapStateToProps)(ProductList);

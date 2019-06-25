@@ -8,9 +8,9 @@ export const filterableFields = [
 ];
 
 export const allCategories = {
-  key: 1,
+  key: '1',
   text: 'Kaikki juomatyypit',
-  value: 1,
+  value: '1',
 };
 
 export default {
