@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ToggleOrderDirection /> should be clickable and sort ascending 1`] = `
+<button
+  class="sc-bdVaJa cHEScy"
+  data-testid="toggle-sort-button"
+  style="transform: none;"
+>
+  <i
+    aria-hidden="true"
+    class="sort content ascending icon"
+  />
+</button>
+`;
+
+exports[`<ToggleOrderDirection /> should sort descending 1`] = `
+<button
+  class="sc-bdVaJa cHEScy"
+  data-testid="toggle-sort-button"
+  style="transform: none;"
+>
+  <i
+    aria-hidden="true"
+    class="sort content descending icon"
+  />
+</button>
+`;
