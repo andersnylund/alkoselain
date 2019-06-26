@@ -9,7 +9,7 @@
     "frontend": "cd frontend && yarn start",
     "dev-start": "concurrently --kill-others-on-fail \"yarn backend\" \"yarn frontend\"",
     "build": "cd frontend && yarn install && yarn build && cd ../backend && yarn install && yarn build",
-    "test": "cd frontend && yarn test",
+    "test": "cd frontend && CI=true yarn test && cd ../backend && CI=true yarn test",
     "heroku-postbuild": "yarn build"
   },
   "engines": {

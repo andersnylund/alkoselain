@@ -1,86 +1,23 @@
-import xlsx from 'xlsx';
-import axios from 'axios';
 import fs from 'fs';
 import uuid from 'uuid/v4';
 
 import './env';
 import { prisma } from './generated/prisma-client';
-
-const chunk = (array, size) => {
-  const chunkedArray = [];
-  let index = 0;
-  while (index < array.length) {
-    chunkedArray.push(array.slice(index, size + index));
-    index += size;
-  }
-  return chunkedArray;
-};
-
-const capitalizeFirstChar = string => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
-const getFileNumber = fileIndex => fileIndex.toString().padStart(6, '0');
+import {
+  capitalizeFirstChar,
+  chunk,
+  getProducts,
+  getFileNumber,
+} from './helpers';
 
 const run = async () => {
-  await prisma.deleteManyProducts({
-    id_not: '',
-  });
+  await prisma.deleteManyProducts();
 
-  await prisma.deleteManyCategories({
-    id_not: uuid(),
-  });
+  await prisma.deleteManyCategories();
 
-  const alkoHeaders = [
-    'id',
-    'nimi',
-    'valmistaja',
-    'pullokoko',
-    'hinta',
-    'litrahinta',
-    'uutuus',
-    'hinnastojarjestys',
-    'tyyppi',
-    'erityisryhma',
-    'oluttyyppi',
-    'valmistusmaa',
-    'alue',
-    'vuosikerta',
-    'etikettimerkintoja',
-    'huomautus',
-    'rypaleet',
-    'luonnehdinta',
-    'pakkaustyyppi',
-    'suljentatyyppi',
-    'alkoholiprosentti',
-    'hapot',
-    'sokeri',
-    'kantavierreprosentti',
-    'vari',
-    'katkerot',
-    'energia',
-    'valikoima',
-  ];
+  const products = await getProducts();
 
-  const url =
-    'https://www.alko.fi/INTERSHOP/static/WFS/Alko-OnlineShop-Site/-/Alko-OnlineShop/fi_FI/Alkon%20Hinnasto%20Tekstitiedostona/alkon-hinnasto-tekstitiedostona.xls';
-
-  const buffer = await axios.get(url, {
-    responseType: 'arraybuffer',
-  });
-
-  const data = new Uint8Array(buffer.data);
-
-  const workBook = xlsx.read(data, { type: 'array' });
-
-  const products = xlsx.utils.sheet_to_json(
-    workBook.Sheets[workBook.SheetNames[0]],
-    { header: alkoHeaders },
-  );
-
-  const headersRemoved = products.slice(3);
-
-  const sanitizedProducts = headersRemoved.map(p => {
+  const sanitizedProducts = products.map(p => {
     const product = Object.assign({}, p);
     // eslint-disable-next-line dot-notation
     product['_typeName'] = 'Product';
@@ -167,7 +104,7 @@ const run = async () => {
     };
 
     dataChunck.forEach(product => {
-      const { tyyppi } = headersRemoved.find(p => p.id === product.id);
+      const { tyyppi } = products.find(p => p.id === product.id);
 
       if (tyyppi !== undefined && tyyppi !== null) {
         const capitalizedTyyppi = capitalizeFirstChar(tyyppi);

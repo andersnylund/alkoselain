@@ -1,5 +1,5 @@
-# source: https://alkobrowser-ac8be18417.herokuapp.com
-# timestamp: Wed Jun 26 2019 09:46:47 GMT+0300 (Eastern European Summer Time)
+# source: http://localhost:4466
+# timestamp: Wed Jun 26 2019 10:05:59 GMT+0300 (Eastern European Summer Time)
 
 type AggregateCategory {
   count: Int!
@@ -199,6 +199,9 @@ input CategoryWhereUniqueInput {
   id: UUID
 }
 
+"""Raw JSON value"""
+scalar Json
+
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -218,6 +221,7 @@ type Mutation {
   updateManyCategories(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): BatchPayload!
   deleteManyProducts(where: ProductWhereInput): BatchPayload!
   deleteManyCategories(where: CategoryWhereInput): BatchPayload!
+  executeRaw(database: PrismaDatabase, query: String!): Json!
 }
 
 enum MutationType {
@@ -245,6 +249,10 @@ type PageInfo {
 
   """When paginating forwards, the cursor to continue."""
   endCursor: String
+}
+
+enum PrismaDatabase {
+  default
 }
 
 type Product implements Node {
