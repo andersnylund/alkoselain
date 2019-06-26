@@ -1,8 +1,9 @@
 import React from 'react';
 import { shape, string, number } from 'prop-types';
 import styled from 'styled-components';
+import posed from 'react-pose';
 
-const Wrapper = styled.div`
+const Container = styled.div`
   background-color: var(--background-white);
   box-shadow: var(--box-shadow-lg);
   margin: var(--size-6);
@@ -14,7 +15,21 @@ const Wrapper = styled.div`
   @media (max-width: 900px) {
     flex-direction: column;
   }
+
+  :hover {
+    cursor: pointer;
+  }
 `;
+
+const PosedContainer = posed(Container)({
+  hoverable: true,
+  init: {
+    scale: 1,
+  },
+  hover: {
+    scale: 1.03,
+  },
+});
 
 const Image = styled.div`
   display: flex;
@@ -56,7 +71,7 @@ const Extra = styled.div`
 `;
 
 const Product = ({ product }) => (
-  <Wrapper>
+  <PosedContainer>
     <Image>
       <img
         src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${
@@ -118,7 +133,7 @@ const Product = ({ product }) => (
         </table>
       </Extra>
     </Content>
-  </Wrapper>
+  </PosedContainer>
 );
 
 Product.propTypes = {

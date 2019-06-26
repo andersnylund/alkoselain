@@ -6,7 +6,8 @@ exports[`<ProductList /> should show a list of products 1`] = `
     class="sc-bZQynM dqIhmd"
   >
     <div
-      class="sc-bwzfXH gRiDCO"
+      class="sc-bwzfXH liXxLE"
+      style="transform: none;"
     >
       <div
         class="sc-htpNat gkAJbA"

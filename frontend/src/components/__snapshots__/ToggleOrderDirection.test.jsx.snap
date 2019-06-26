@@ -2,7 +2,7 @@
 
 exports[`<ToggleOrderDirection /> should be clickable and sort ascending 1`] = `
 <button
-  class="sc-bdVaJa cHEScy"
+  class="sc-bdVaJa iIHVDB"
   data-testid="toggle-sort-button"
   style="transform: none;"
 >
@@ -15,7 +15,7 @@ exports[`<ToggleOrderDirection /> should be clickable and sort ascending 1`] = `
 
 exports[`<ToggleOrderDirection /> should sort descending 1`] = `
 <button
-  class="sc-bdVaJa cHEScy"
+  class="sc-bdVaJa iIHVDB"
   data-testid="toggle-sort-button"
   style="transform: none;"
 >

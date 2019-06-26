@@ -8,7 +8,7 @@ const Button = styled.button`
   border-radius: var(--size-2);
   border: none;
   :focus {
-    outline: none;
+    background-color: hsl(0, 100%, 85%);
   }
   :hover {
     background-color: hsl(0, 100%, 85%);
