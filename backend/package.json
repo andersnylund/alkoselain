@@ -11,7 +11,9 @@
     "dev-start": "nodemon --exec babel-node src/index.js",
     "build": "rm -rf build && mkdir build && babel src --out-dir build",
     "import-data": "prisma deploy --force && prisma generate && rm -rf data && mkdir -p data/nodes && mkdir -p data/lists && mkdir -p data/relations && babel-node src/import.js && prisma import -d data",
-    "prod-import-data": "prisma deploy --force -e .env.prod && rm -rf data && mkdir -p data/nodes && mkdir -p data/lists && mkdir -p data/relations && babel-node src/import.js && prisma import -d data -e .env.prod"
+    "prod-import-data": "prisma deploy --force -e .env.prod && rm -rf data && mkdir -p data/nodes && mkdir -p data/lists && mkdir -p data/relations && babel-node src/import.js && prisma import -d data -e .env.prod",
+    "debug-import": "babel-node src/import.js",
+    "token": "prisma token"
   },
   "dependencies": {
     "@babel/cli": "^7.4.4",
