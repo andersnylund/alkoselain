@@ -20,6 +20,8 @@ const capitalizeFirstChar = string => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
+const getFileNumber = fileIndex => fileIndex.toString().padStart(6, '0');
+
 const run = async () => {
   await prisma.deleteManyProducts({
     id_not: '',
@@ -141,21 +143,20 @@ const run = async () => {
     values: categoriesArray,
   };
 
-  await fs.writeFile(
-    './data/nodes/010.json',
-    JSON.stringify(categories),
-    () => {},
-  );
-
   const chunked = chunk(sanitizedProducts, 1000);
 
-  chunked.forEach(async (dataChunck, i) => {
+  let fileIndex = 1;
+
+  chunked.forEach(async dataChunck => {
     const dataObject = {};
     dataObject.valueType = 'nodes';
     dataObject.values = dataChunck;
 
+    const fileNumber = getFileNumber(fileIndex);
+    fileIndex += 1;
+
     await fs.writeFile(
-      `./data/nodes/00${i + 1}.json`,
+      `./data/nodes/${fileNumber}.json`,
       JSON.stringify(dataObject),
       () => {},
     );
@@ -184,11 +185,20 @@ const run = async () => {
     });
 
     await fs.writeFile(
-      `./data/relations/00${i + 1}.json`,
+      `./data/relations/${fileNumber}.json`,
       JSON.stringify(relationObject),
       () => {},
     );
   });
+
+  fileIndex += 1;
+  const fileNumber = getFileNumber(fileIndex);
+
+  await fs.writeFile(
+    `./data/nodes/${fileNumber}.json`,
+    JSON.stringify(categories),
+    () => {},
+  );
 };
 
 run();
