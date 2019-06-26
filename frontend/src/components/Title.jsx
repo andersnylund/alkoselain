@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from '@reach/router';
 
 import 'typeface-varela-round';
 
-const Wrapper = styled.div`
+const Container = styled.div`
   display: flex;
   padding: 2rem;
   justify-content: center;
@@ -24,17 +25,17 @@ const Wrapper = styled.div`
   }
 `;
 
-const Title = () => {
-  return (
-    <Wrapper>
+const Title = () => (
+  <Link to="/">
+    <Container>
       <h1>
         <span role="img" aria-label="wine glass">
           🍷
         </span>
         &nbsp; Alkoselain
       </h1>
-    </Wrapper>
-  );
-};
+    </Container>
+  </Link>
+);
 
 export default Title;

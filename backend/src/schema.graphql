@@ -21,4 +21,5 @@ type Query {
     first: Int
     last: Int
   ): [Category]!
+  product(where: ProductWhereUniqueInput!): Product
 }

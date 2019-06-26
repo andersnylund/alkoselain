@@ -12,7 +12,6 @@ import {
 
 const run = async () => {
   await prisma.deleteManyProducts();
-
   await prisma.deleteManyCategories();
 
   const products = await getProducts();
@@ -41,14 +40,35 @@ const run = async () => {
     if (product.pakkaustyyppi) {
       product.pakkaustyyppi = capitalizeFirstChar(product.pakkaustyyppi);
     }
+    if (product.suljentatyyppi) {
+      product.suljentatyyppi = capitalizeFirstChar(product.suljentatyyppi);
+    }
+    if (product.valikoima) {
+      product.valikoima = capitalizeFirstChar(product.valikoima);
+    }
+    if (product.oluttyyppi) {
+      product.oluttyyppi = capitalizeFirstChar(product.oluttyyppi);
+    }
+    if (product.erityisryhma) {
+      product.erityisryhma = capitalizeFirstChar(product.erityisryhma);
+    }
     if (product.alkoholiprosentti) {
       product.alkoholiprosentti = Number(product.alkoholiprosentti);
     }
     if (product.hapot) {
       product.hapot = Number(product.hapot);
+    } else {
+      product.hapot = 0;
+    }
+    if (product.sokeri) {
+      product.sokeri = Number(product.sokeri);
+    } else {
+      product.sokeri = 0;
     }
     if (product.energia) {
       product.energia = Number(product.energia);
+    } else {
+      product.energia = 0;
     }
     if (product.vuosikerta) {
       product.vuosikerta = Number(product.vuosikerta);
@@ -58,6 +78,11 @@ const run = async () => {
     }
     if (product.litrahinta) {
       product.litrahinta = Number(product.litrahinta);
+    }
+    if (product.kantavierreprosentti) {
+      product.kantavierreprosentti = Number(product.kantavierreprosentti);
+    } else {
+      product.kantavierreprosentti = 0;
     }
     return product;
   });

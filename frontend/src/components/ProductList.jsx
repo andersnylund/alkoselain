@@ -19,7 +19,7 @@ const Wrapper = styled.section`
   align-items: center;
 `;
 
-export const PRODUCT_QUERY = gql`
+export const PRODUCTLIST_QUERY = gql`
   query products(
     $endCursor: String
     $orderBy: ProductOrderByInput
@@ -44,6 +44,7 @@ export const PRODUCT_QUERY = gql`
           hinta
           litrahinta
           tyyppi {
+            id
             tyyppi
           }
           luonnehdinta
@@ -101,7 +102,7 @@ export const ProductList = ({
   };
   return (
     <Wrapper>
-      <Query query={PRODUCT_QUERY} variables={variables}>
+      <Query query={PRODUCTLIST_QUERY} variables={variables}>
         {({ data, loading, error, fetchMore }) => {
           if (loading) {
             return <Loader active data-testid="loader" />;
