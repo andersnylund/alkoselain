@@ -5,104 +5,108 @@ exports[`<ProductList /> should show a list of products 1`] = `
   <section
     class="sc-bZQynM dqIhmd"
   >
-    <a
-      href="/products/1"
+    <div
+      style="opacity: 0; transform: none;"
     >
-      <div
-        class="sc-bwzfXH liXxLE"
-        style="transform: none;"
+      <a
+        href="/products/1"
       >
         <div
-          class="sc-htpNat gkAJbA"
-        >
-          <img
-            alt="nimi"
-            src="https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/1/nimi.jpg"
-          />
-        </div>
-        <div
-          class="sc-bxivhb goNXdw"
+          class="sc-bwzfXH liXxLE"
+          style="transform: none;"
         >
           <div
-            class="sc-ifAKCX kQXLog"
+            class="sc-htpNat gkAJbA"
           >
-            <h3>
-              nimi
-            </h3>
-            <p>
-              luonnehdinta
-            </p>
+            <img
+              alt="nimi"
+              src="https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/1/nimi.jpg"
+            />
           </div>
           <div
-            class="sc-EHOje cCuemI"
+            class="sc-bxivhb goNXdw"
           >
-            <p>
-              tyyppi
-            </p>
-            <table>
-              <tbody>
-                <tr>
-                  <td>
-                    Valmistaja
-                  </td>
-                  <td>
-                    valmistaja
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Alkoholiprosentti
-                  </td>
-                  <td>
-                    3.1 %
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Hinta
-                  </td>
-                  <td>
-                    123 €
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Alkoholin litrahinta
-                  </td>
-                  <td>
-                    123.123 €/l
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Litrahinta
-                  </td>
-                  <td>
-                    litrahinta €/l
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Pakkaustyyppi
-                  </td>
-                  <td>
-                    pakkaustyyppi
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Pullokoko
-                  </td>
-                  <td>
-                    0.56 litraa
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div
+              class="sc-ifAKCX kQXLog"
+            >
+              <h3>
+                nimi
+              </h3>
+              <p>
+                luonnehdinta
+              </p>
+            </div>
+            <div
+              class="sc-EHOje cCuemI"
+            >
+              <p>
+                tyyppi
+              </p>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>
+                      Valmistaja
+                    </td>
+                    <td>
+                      valmistaja
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Alkoholiprosentti
+                    </td>
+                    <td>
+                      3.1 %
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Hinta
+                    </td>
+                    <td>
+                      123 €
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Alkoholin litrahinta
+                    </td>
+                    <td>
+                      123.123 €/l
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Litrahinta
+                    </td>
+                    <td>
+                      litrahinta €/l
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Pakkaustyyppi
+                    </td>
+                    <td>
+                      pakkaustyyppi
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Pullokoko
+                    </td>
+                    <td>
+                      0.56 litraa
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
-    </a>
+      </a>
+    </div>
   </section>
 </div>
 `;

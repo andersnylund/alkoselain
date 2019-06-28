@@ -130,6 +130,7 @@ describe('<ProductList />', () => {
                   hinta: 123,
                   litrahinta: 'litrahinta',
                   tyyppi: {
+                    id: 'id',
                     tyyppi: 'tyyppi',
                   },
                   luonnehdinta: 'luonnehdinta',

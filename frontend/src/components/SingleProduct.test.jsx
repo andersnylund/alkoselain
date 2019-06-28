@@ -8,7 +8,11 @@ describe('<SingleProduct />', () => {
   afterEach(cleanup);
 
   it('should render without any error', () => {
-    render(<SingleProduct productId="123" />);
+    render(
+      <MockedProvider addTypename={false}>
+        <SingleProduct productId="123" />
+      </MockedProvider>
+    );
   });
 
   it('should show a loading indicator when loading the product', () => {
@@ -17,5 +21,9 @@ describe('<SingleProduct />', () => {
         <SingleProduct productId="123" />
       </MockedProvider>
     );
+
+    // TODO test loading indicator
   });
+
+  // TODO test showing the product
 });
