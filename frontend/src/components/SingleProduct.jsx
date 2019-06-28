@@ -4,6 +4,9 @@ import { string } from 'prop-types';
 import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import { Loader, Message } from 'semantic-ui-react';
+import { Link } from '@reach/router';
+
+import Button from './Button';
 
 export const SINGLEPRODUCT_QUERY = gql`
   query product($where: ProductWhereUniqueInput!) {
@@ -50,11 +53,23 @@ const Card = styled.div`
   box-shadow: var(--box-shadow-xl);
   padding: var(--size-6);
   margin-bottom: var(--size-10);
+  border: 0.5px solid var(--grey-9);
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const Image = styled.img`
   height: 200px;
 `;
+
+const BackButton = (
+  <Link to="/">
+    <Button>← Takaisin</Button>
+  </Link>
+);
 
 export const SingleProduct = ({ productId }) => (
   <Query query={SINGLEPRODUCT_QUERY} variables={{ where: { id: productId } }}>
@@ -68,12 +83,15 @@ export const SingleProduct = ({ productId }) => (
       const { product } = data;
       return (
         <Card>
-          <Image
-            src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${
-              product.id
-            }/${product.nimi}.jpg`}
-            alt={product.nimi}
-          />
+          {BackButton}
+          <ImageContainer>
+            <Image
+              src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${
+                product.id
+              }/${product.nimi}.jpg`}
+              alt={product.nimi}
+            />
+          </ImageContainer>
           <h2>{product.nimi}</h2>
           <hr />
           <table>
@@ -192,6 +210,8 @@ export const SingleProduct = ({ productId }) => (
               </tr>
             </tbody>
           </table>
+          <hr />
+          {BackButton}
         </Card>
       );
     }}

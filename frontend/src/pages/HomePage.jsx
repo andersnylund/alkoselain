@@ -18,18 +18,19 @@ const Content = styled.div`
   }
 `;
 
-const ProductContainer = styled(Container)`
+const ProductListContainer = styled(Container)`
   padding: var(--size-8) 0;
 `;
+
 const Index = () => (
   <>
     <Content>
       <div className="filters">
         <Filters />
       </div>
-      <ProductContainer>
+      <ProductListContainer>
         <ProductList />
-      </ProductContainer>
+      </ProductListContainer>
     </Content>
   </>
 );

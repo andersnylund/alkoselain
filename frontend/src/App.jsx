@@ -1,6 +1,8 @@
 import React from 'react';
-import { Router } from '@reach/router';
+import { arrayOf, element } from 'prop-types';
+import { Router, Location } from '@reach/router';
 import styled from 'styled-components';
+import posed, { PoseGroup } from 'react-pose';
 
 import Background from './images/background.svg';
 import HomePage from './pages/HomePage';
@@ -17,13 +19,34 @@ const Container = styled.div`
   }
 `;
 
+const RouteContainer = posed.div({
+  enter: { opacity: 1, delay: 0, beforeChildren: 100 },
+  exit: { opacity: 0 },
+});
+
+const PosedRouter = ({ children }) => (
+  <Location>
+    {({ location }) => (
+      <PoseGroup>
+        <RouteContainer key={location.key}>
+          <Router location={location}>{children}</Router>
+        </RouteContainer>
+      </PoseGroup>
+    )}
+  </Location>
+);
+
+PosedRouter.propTypes = {
+  children: arrayOf(element).isRequired,
+};
+
 const App = () => (
   <Container>
     <Header />
-    <Router>
+    <PosedRouter>
       <HomePage path="/" />
       <ProductPage path="/products/:productId" />
-    </Router>
+    </PosedRouter>
     <Footer />
   </Container>
 );
