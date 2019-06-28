@@ -4,7 +4,7 @@ import 'jest-dom/extend-expect';
 import { MockedProvider } from 'react-apollo/test-utils';
 import wait from 'waait';
 
-import { ProductList, PRODUCT_QUERY, createWhere } from './ProductList';
+import { ProductList, PRODUCTLIST_QUERY, createWhere } from './ProductList';
 
 describe('<ProductList />', () => {
   beforeEach(cleanup);
@@ -40,7 +40,7 @@ describe('<ProductList />', () => {
   it('should show an error message', async () => {
     const errorMock = {
       request: {
-        query: PRODUCT_QUERY,
+        query: PRODUCTLIST_QUERY,
         variables: {
           endCursor: null,
           orderBy: 'hinta_ASC',
@@ -71,7 +71,7 @@ describe('<ProductList />', () => {
   it('should not show any products', async () => {
     const productMock = {
       request: {
-        query: PRODUCT_QUERY,
+        query: PRODUCTLIST_QUERY,
         variables: {
           endCursor: null,
           orderBy: 'hinta_ASC',
@@ -110,7 +110,7 @@ describe('<ProductList />', () => {
   it('should show a list of products', async () => {
     const productMock = {
       request: {
-        query: PRODUCT_QUERY,
+        query: PRODUCTLIST_QUERY,
         variables: {
           endCursor: null,
           orderBy: 'hinta_ASC',
@@ -130,6 +130,7 @@ describe('<ProductList />', () => {
                   hinta: 123,
                   litrahinta: 'litrahinta',
                   tyyppi: {
+                    id: 'id',
                     tyyppi: 'tyyppi',
                   },
                   luonnehdinta: 'luonnehdinta',

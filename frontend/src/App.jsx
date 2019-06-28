@@ -1,66 +1,54 @@
 import React from 'react';
-import { Container } from 'semantic-ui-react';
+import { arrayOf, element } from 'prop-types';
+import { Router, Location } from '@reach/router';
 import styled from 'styled-components';
+import posed, { PoseGroup } from 'react-pose';
 
-import ProductList from './components/ProductList';
 import Background from './images/background.svg';
+import HomePage from './pages/HomePage';
+import ProductPage from './pages/ProductPage';
 import Header from './components/Header';
-import Filters from './components/Filters';
+import Footer from './components/Footer';
 
-const Page = styled.div`
+const Container = styled.div`
   background-image: url(${Background});
   min-height: 100vh;
 
   a {
     color: hsl(0, 50%, 50%);
   }
-
-  .footer {
-    text-align: center;
-    margin-bottom: var(--size-4);
-  }
 `;
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const RouteContainer = posed.div({
+  enter: { opacity: 1, delay: 0, beforeChildren: 100 },
+  exit: { opacity: 0 },
+});
 
-  .filters {
-    margin-top: -4rem;
-    box-shadow: var(--box-shadow-md);
-    border-radius: var(--size-5);
-  }
-`;
+const PosedRouter = ({ children }) => (
+  <Location>
+    {({ location }) => (
+      <PoseGroup>
+        <RouteContainer key={location.key}>
+          <Router location={location}>{children}</Router>
+        </RouteContainer>
+      </PoseGroup>
+    )}
+  </Location>
+);
 
-const ProductContainer = styled(Container)`
-  padding: var(--size-8) 0;
-`;
+PosedRouter.propTypes = {
+  children: arrayOf(element).isRequired,
+};
 
 const App = () => (
-  <Page>
+  <Container>
     <Header />
-    <Content>
-      <div className="filters">
-        <Filters />
-      </div>
-      <ProductContainer>
-        <ProductList />
-      </ProductContainer>
-    </Content>
-    <p className="footer">
-      Made with&nbsp;
-      <span role="img" aria-label="love">
-        🧡&nbsp;
-      </span>
-      and&nbsp;
-      <span role="img" aria-label="beer">
-        🍺&nbsp;
-      </span>
-      by&nbsp;
-      <a href="https://github.com/andersnylund/">Anders Nylund</a>
-    </p>
-  </Page>
+    <PosedRouter>
+      <HomePage path="/" />
+      <ProductPage path="/products/:productId" />
+    </PosedRouter>
+    <Footer />
+  </Container>
 );
 
 export default App;

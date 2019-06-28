@@ -6,12 +6,13 @@ import styled from 'styled-components';
 import produce from 'immer';
 import { connect } from 'react-redux';
 import { string } from 'prop-types';
+import posed from 'react-pose';
 
 import Button from './Button';
 import Product from './Product';
 import { titleCase } from '../helpers';
 
-const Wrapper = styled.section`
+const Container = styled.section`
   max-width: 900px;
   margin: 0 auto;
   display: flex;
@@ -19,7 +20,16 @@ const Wrapper = styled.section`
   align-items: center;
 `;
 
-export const PRODUCT_QUERY = gql`
+const PosedContainer = posed(Container)({
+  enter: { staggerChildren: 10 },
+});
+
+const PosedItem = posed.div({
+  enter: { x: 0, opacity: 1 },
+  exit: { x: 50, opacity: 0 },
+});
+
+export const PRODUCTLIST_QUERY = gql`
   query products(
     $endCursor: String
     $orderBy: ProductOrderByInput
@@ -44,6 +54,7 @@ export const PRODUCT_QUERY = gql`
           hinta
           litrahinta
           tyyppi {
+            id
             tyyppi
           }
           luonnehdinta
@@ -100,8 +111,8 @@ export const ProductList = ({
     where: createWhere(selectedField, search, selectedCategory),
   };
   return (
-    <Wrapper>
-      <Query query={PRODUCT_QUERY} variables={variables}>
+    <PosedContainer>
+      <Query query={PRODUCTLIST_QUERY} variables={variables}>
         {({ data, loading, error, fetchMore }) => {
           if (loading) {
             return <Loader active data-testid="loader" />;
@@ -112,7 +123,9 @@ export const ProductList = ({
           return (
             <>
               {data.productsConnection.edges.map(edge => (
-                <Product key={edge.node.id} product={edge.node} />
+                <PosedItem key={edge.node.id}>
+                  <Product product={edge.node} />
+                </PosedItem>
               ))}
               {data.productsConnection.pageInfo.endCursor && (
                 <Button
@@ -147,7 +160,7 @@ export const ProductList = ({
           );
         }}
       </Query>
-    </Wrapper>
+    </PosedContainer>
   );
 };
 

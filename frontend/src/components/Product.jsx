@@ -1,8 +1,10 @@
 import React from 'react';
 import { shape, string, number } from 'prop-types';
 import styled from 'styled-components';
+import posed from 'react-pose';
+import { Link } from '@reach/router';
 
-const Wrapper = styled.div`
+const Card = styled.div`
   background-color: var(--background-white);
   box-shadow: var(--box-shadow-lg);
   margin: var(--size-6);
@@ -14,7 +16,21 @@ const Wrapper = styled.div`
   @media (max-width: 900px) {
     flex-direction: column;
   }
+
+  :hover {
+    cursor: pointer;
+  }
 `;
+
+const PosedCard = posed(Card)({
+  hoverable: true,
+  init: {
+    scale: 1,
+  },
+  hover: {
+    scale: 1.03,
+  },
+});
 
 const Image = styled.div`
   display: flex;
@@ -56,69 +72,71 @@ const Extra = styled.div`
 `;
 
 const Product = ({ product }) => (
-  <Wrapper>
-    <Image>
-      <img
-        src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${
-          product.id
-        }/${product.nimi}.jpg`}
-        alt={product.nimi}
-      />
-    </Image>
-    <Content>
-      <MainContent>
-        <h3>{product.nimi}</h3>
-        <p>{product.luonnehdinta}</p>
-      </MainContent>
-      <Extra>
-        <p>{product.tyyppi.tyyppi}</p>
-        <table>
-          <tbody>
-            {product.valmistaja !== null && (
+  <Link to={`/products/${product.id}`}>
+    <PosedCard>
+      <Image>
+        <img
+          src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${
+            product.id
+          }/${product.nimi}.jpg`}
+          alt={product.nimi}
+        />
+      </Image>
+      <Content>
+        <MainContent>
+          <h3>{product.nimi}</h3>
+          <p>{product.luonnehdinta}</p>
+        </MainContent>
+        <Extra>
+          <p>{product.tyyppi.tyyppi}</p>
+          <table>
+            <tbody>
+              {product.valmistaja !== null && (
+                <tr>
+                  <td>Valmistaja</td>
+                  <td>{product.valmistaja}</td>
+                </tr>
+              )}
+              {product.alkoholiprosentti !== null && (
+                <tr>
+                  <td>Alkoholiprosentti</td>
+                  <td>{`${product.alkoholiprosentti} %`}</td>
+                </tr>
+              )}
               <tr>
-                <td>Valmistaja</td>
-                <td>{product.valmistaja}</td>
+                <td>Hinta</td>
+                <td>{`${product.hinta} €`}</td>
               </tr>
-            )}
-            {product.alkoholiprosentti !== null && (
-              <tr>
-                <td>Alkoholiprosentti</td>
-                <td>{`${product.alkoholiprosentti} %`}</td>
-              </tr>
-            )}
-            <tr>
-              <td>Hinta</td>
-              <td>{`${product.hinta} €`}</td>
-            </tr>
-            {product.alkoholilitrahinta !== null && (
-              <tr>
-                <td>Alkoholin litrahinta</td>
-                <td>{`${product.alkoholilitrahinta} €/l`}</td>
-              </tr>
-            )}
-            {product.litrahinta !== null && (
-              <tr>
-                <td>Litrahinta</td>
-                <td>{`${product.litrahinta} €/l`}</td>
-              </tr>
-            )}
-            {product.pakkaustyyppi !== null && (
-              <tr>
-                <td>Pakkaustyyppi</td>
-                <td>{product.pakkaustyyppi}</td>
-              </tr>
-            )}
-            {product.pullokoko !== null && (
-              <tr>
-                <td>Pullokoko</td>
-                <td>{`${product.pullokoko} litraa`}</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </Extra>
-    </Content>
-  </Wrapper>
+              {product.alkoholilitrahinta !== null && (
+                <tr>
+                  <td>Alkoholin litrahinta</td>
+                  <td>{`${product.alkoholilitrahinta} €/l`}</td>
+                </tr>
+              )}
+              {product.litrahinta !== null && (
+                <tr>
+                  <td>Litrahinta</td>
+                  <td>{`${product.litrahinta} €/l`}</td>
+                </tr>
+              )}
+              {product.pakkaustyyppi !== null && (
+                <tr>
+                  <td>Pakkaustyyppi</td>
+                  <td>{product.pakkaustyyppi}</td>
+                </tr>
+              )}
+              {product.pullokoko !== null && (
+                <tr>
+                  <td>Pullokoko</td>
+                  <td>{`${product.pullokoko} litraa`}</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </Extra>
+      </Content>
+    </PosedCard>
+  </Link>
 );
 
 Product.propTypes = {
