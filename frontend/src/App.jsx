@@ -3,8 +3,8 @@ import { Router } from '@reach/router';
 import styled from 'styled-components';
 
 import Background from './images/background.svg';
-import Home from './pages/Home';
-import Product from './pages/Product';
+import HomePage from './pages/HomePage';
+import ProductPage from './pages/ProductPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -21,8 +21,8 @@ const App = () => (
   <Container>
     <Header />
     <Router>
-      <Home path="/" />
-      <Product path="/products/:productId" />
+      <HomePage path="/" />
+      <ProductPage path="/products/:productId" />
     </Router>
     <Footer />
   </Container>

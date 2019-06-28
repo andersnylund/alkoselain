@@ -45,6 +45,11 @@ export const SINGLEPRODUCT_QUERY = gql`
 
 const Card = styled.div`
   background-color: white;
+  border-radius: var(--size-6);
+  overflow: hidden;
+  box-shadow: var(--box-shadow-xl);
+  padding: var(--size-6);
+  margin-bottom: var(--size-10);
 `;
 
 const Image = styled.img`
@@ -70,7 +75,7 @@ export const SingleProduct = ({ productId }) => (
             alt={product.nimi}
           />
           <h2>{product.nimi}</h2>
-          <h3>Perustiedot</h3>
+          <hr />
           <table>
             <tbody>
               <tr>
