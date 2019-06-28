@@ -12,7 +12,7 @@ const Content = styled.div`
   align-items: center;
 
   .filters {
-    margin-top: -4rem;
+    margin: calc(var(--size-6) * -1) var(--size-6) var(--size-6);
     box-shadow: var(--box-shadow-md);
     border-radius: var(--size-5);
   }
