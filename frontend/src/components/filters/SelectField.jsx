@@ -3,8 +3,8 @@ import { Select } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { string, func } from 'prop-types';
 
-import { filterableFields } from '../constants';
-import { setSelectedFieldAction } from '../actions/filterActions';
+import { filterableFields } from '../../constants';
+import { setSelectedFieldAction } from '../../actions/filterActions';
 
 const options = filterableFields.map(field => ({
   key: field.key,
