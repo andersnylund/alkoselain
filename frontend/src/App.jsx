@@ -7,8 +7,8 @@ import posed, { PoseGroup } from 'react-pose';
 import Background from './images/background.svg';
 import HomePage from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
 
 const Container = styled.div`
   background-image: url(${Background});

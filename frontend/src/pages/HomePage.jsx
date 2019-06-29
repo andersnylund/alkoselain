@@ -3,8 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Container } from 'semantic-ui-react';
 
-import ProductList from '../components/ProductList';
-import Filters from '../components/Filters';
+import ProductList from '../components/home/ProductList';
+import Filters from '../components/filters/Filters';
 
 const Content = styled.div`
   display: flex;

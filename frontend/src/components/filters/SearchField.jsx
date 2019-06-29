@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Search } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux';
 
-import { setSearchAction } from '../actions/filterActions';
+import { setSearchAction } from '../../actions/filterActions';
 
 // Hook from https://usehooks.com/useDebounce/
 function useDebounce(value, delay) {

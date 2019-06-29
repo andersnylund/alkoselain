@@ -5,8 +5,8 @@ import { Select } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { func, string } from 'prop-types';
 
-import { allCategories } from '../constants';
-import { setSelectedCategoryAction } from '../actions/filterActions';
+import { allCategories } from '../../constants';
+import { setSelectedCategoryAction } from '../../actions/filterActions';
 
 export const CATEGORY_QUERY = gql`
   query {
