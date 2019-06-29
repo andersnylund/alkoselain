@@ -6,7 +6,7 @@ import { Query } from 'react-apollo';
 import { Loader, Message } from 'semantic-ui-react';
 import { Link } from '@reach/router';
 
-import Button from './Button';
+import Button from '../common/Button';
 
 export const SINGLEPRODUCT_QUERY = gql`
   query product($where: ProductWhereUniqueInput!) {

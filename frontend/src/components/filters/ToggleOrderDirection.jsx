@@ -3,8 +3,8 @@ import { Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { string, func } from 'prop-types';
 
-import Button from './Button';
-import { toggleSortAction } from '../actions/filterActions';
+import Button from '../common/Button';
+import { toggleSortAction } from '../../actions/filterActions';
 
 export const ToggleOrderDirection = ({ sort, toggleSort }) => {
   return (

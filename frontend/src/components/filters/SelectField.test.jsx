@@ -3,7 +3,7 @@ import { render, cleanup, fireEvent } from '@testing-library/react';
 import 'jest-dom/extend-expect';
 
 import { SelectField } from './SelectField';
-import { filterableFields } from '../constants';
+import { filterableFields } from '../../constants';
 
 describe('<SelectField />', () => {
   afterEach(cleanup);

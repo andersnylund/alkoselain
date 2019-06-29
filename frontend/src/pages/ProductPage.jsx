@@ -4,7 +4,7 @@ import { string } from 'prop-types';
 import styled from 'styled-components';
 import posed from 'react-pose';
 
-import SingleProduct from '../components/SingleProduct';
+import SingleProduct from '../components/singleproduct/SingleProduct';
 
 const ProductContainer = posed(styled.div`
   display: flex;

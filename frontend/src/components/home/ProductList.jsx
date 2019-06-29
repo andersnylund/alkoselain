@@ -8,9 +8,9 @@ import { connect } from 'react-redux';
 import { string } from 'prop-types';
 import posed from 'react-pose';
 
-import Button from './Button';
+import Button from '../common/Button';
 import Product from './Product';
-import { titleCase } from '../helpers';
+import { titleCase } from '../../helpers';
 
 const Container = styled.section`
   max-width: 900px;
