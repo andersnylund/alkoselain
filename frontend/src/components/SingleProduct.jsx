@@ -17,6 +17,7 @@ export const SINGLEPRODUCT_QUERY = gql`
       pullokoko
       hinta
       litrahinta
+      alkoholilitrahinta
       uutuus
       hinnastojarjestys
       tyyppi {
@@ -119,6 +120,10 @@ export const SingleProduct = ({ productId }) => (
               <tr>
                 <td>Litrahinta</td>
                 <td>{`${product.litrahinta} €/l`}</td>
+              </tr>
+              <tr>
+                <td>Alkoholin litrahinta</td>
+                <td>{`${product.alkoholilitrahinta} €/l`}</td>
               </tr>
               <tr>
                 <td>Uutuus</td>
