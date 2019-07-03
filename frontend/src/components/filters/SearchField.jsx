@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search } from 'semantic-ui-react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { setSearchAction } from '../../actions/filterActions';
 
@@ -22,7 +22,8 @@ function useDebounce(value, delay) {
 }
 
 const SearchField = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const search = useSelector(state => state.filter.search);
+  const [searchTerm, setSearchTerm] = useState(search);
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
   const dispatch = useDispatch();
 
