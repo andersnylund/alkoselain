@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
+import NotFound from './pages/NotFound';
 
 const Container = styled.div`
   background-image: url(${Background});
@@ -46,6 +47,7 @@ const App = () => (
     <PosedRouter>
       <HomePage path="/" />
       <ProductPage path="/products/:productId" />
+      <NotFound default />
     </PosedRouter>
     <Footer />
   </Container>

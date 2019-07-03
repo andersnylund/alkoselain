@@ -28,12 +28,6 @@ server.express.use(
   express.static(path.join(__dirname, relativeFrontendBuildPath)),
 );
 
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
-server.express.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, relativeFrontendBuildPath, '/index.html'));
-});
-
 setTimeout(() => {
   // eslint-disable-next-line no-new
   new CronJob(
