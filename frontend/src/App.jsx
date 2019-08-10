@@ -10,6 +10,7 @@ import ProductPage from './pages/ProductPage';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import NotFound from './pages/NotFound';
+import TrackPageViews from './TrackPageViews';
 
 const Container = styled.div`
   background-image: url(${Background});
@@ -43,6 +44,7 @@ PosedRouter.propTypes = {
 
 const App = () => (
   <Container>
+    <TrackPageViews />
     <Header />
     <PosedRouter>
       <HomePage path="/" />
