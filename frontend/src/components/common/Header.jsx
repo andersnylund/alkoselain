@@ -4,14 +4,10 @@ import styled from 'styled-components';
 
 import Title from './Title';
 
+import { ReactComponent as Wave } from './header-wave.svg';
+
 const Wrapper = styled.div`
-  background-image: linear-gradient(
-    to right,
-    hsl(0, 50%, 85%),
-    hsl(0, 50%, 70%)
-  );
   padding: 0 0 var(--size-8);
-  box-shadow: var(--box-shadow-2xl);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,6 +15,7 @@ const Wrapper = styled.div`
 
 const Header = () => (
   <Wrapper>
+    <Wave />
     <Title />
   </Wrapper>
 );

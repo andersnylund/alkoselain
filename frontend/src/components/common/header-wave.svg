@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 280">
+    <defs>
+        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" id="gradient-start" style="stop-color: hsl(0, 50%, 85%)" />
+            <stop offset="100%" id="gradient-stop" style="stop-color: hsl(0, 50%, 70%)" />
+        </linearGradient>
+        <filter id="shadow">
+            <feDropShadow dx="0" dy="-20" stdDeviation="20"/>
+        </filter>
+    </defs>
+    <path fill="url(#grad)" filter="url(#shadow)" fillOpacity="1" d="M0,32L60,69.3C120,107,240,181,360,218.7C480,256,600,256,720,218.7C840,181,960,107,1080,96C1200,85,1320,139,1380,165.3L1440,192L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z" />
+</svg>
