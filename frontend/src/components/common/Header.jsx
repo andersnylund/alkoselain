@@ -4,8 +4,6 @@ import styled from 'styled-components';
 
 import Title from './Title';
 
-import { ReactComponent as Wave } from './header-wave.svg';
-
 const Wrapper = styled.div`
   padding: 0 0 var(--size-8);
   display: flex;
@@ -15,7 +13,6 @@ const Wrapper = styled.div`
 
 const Header = () => (
   <Wrapper>
-    <Wave />
     <Title />
   </Wrapper>
 );

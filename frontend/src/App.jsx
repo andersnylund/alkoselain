@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import posed, { PoseGroup } from 'react-pose';
 
 import Background from './images/background.svg';
+import Wave from './images/header-wave.svg';
 import HomePage from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
 import Header from './components/common/Header';
@@ -13,7 +14,9 @@ import NotFound from './pages/NotFound';
 import TrackPageViews from './TrackPageViews';
 
 const Container = styled.div`
-  background-image: url(${Background});
+  background: url(${Wave}), url(${Background});
+  background-repeat: no-repeat, repeat;
+  background-size: cover, auto;
   min-height: 100vh;
 
   a {
