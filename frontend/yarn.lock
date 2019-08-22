@@ -1092,11 +1092,6 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@reactions/component@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@reactions/component/-/component-2.0.2.tgz#40f8c1c2c37baabe57a0c944edb9310dc1ec6642"
-  integrity sha1-QPjBwsN7qr5XoMlE7bkxDcHsZkI=
-
 "@semantic-ui-react/event-stack@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@semantic-ui-react/event-stack/-/event-stack-3.1.0.tgz#aadbe4a28b0dd7703c5f451640d0fefe66dd9208"
@@ -8475,11 +8470,6 @@ react-error-overlay@^5.1.5:
   version "5.1.5"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.5.tgz#884530fd055476c764eaa8ab13b8ecf1f57bbf2c"
   integrity sha512-O9JRum1Zq/qCPFH5qVEvDDrVun8Jv9vbHtZXCR1EuRj9sKg1xJTlHxBzU6AkCzpvxRLuiY4OKImy3cDLQ+UTdg==
-
-react-ga@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.6.0.tgz#c3fe830ead2ad25117e1d33280d9698de9b28496"
-  integrity sha512-GWHBWZDFjDGMkIk1LzroIn0mNTygKw3adXuqvGvheFZvlbpqMPbHsQsTdQBIxRRdXGQM/Zq+dQLRPKbwIHMTaw==
 
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   version "16.8.6"

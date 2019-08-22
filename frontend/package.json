@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@reach/router": "^1.2.1",
-    "@reactions/component": "^2.0.2",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
     "apollo-link": "^1.2.11",
@@ -18,7 +17,6 @@
     "react": "^16.8.6",
     "react-apollo": "^2.5.5",
     "react-dom": "^16.8.6",
-    "react-ga": "^2.6.0",
     "react-pose": "^4.0.8",
     "react-redux": "^7.1.0",
     "react-scripts": "3.0.0",
