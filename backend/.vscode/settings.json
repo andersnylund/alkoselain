@@ -2,5 +2,11 @@
   "editor.formatOnSave": true,
   "workbench.colorCustomizations": {
     "statusBar.background": "#006600"
-  }
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ]
 }
