@@ -9,5 +9,5 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_USER: alkoselain-dev
+      POSTGRES_USER: alkoselain_dev
       POSTGRES_PASSWORD: password

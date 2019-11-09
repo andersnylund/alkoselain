@@ -1,4 +1,4 @@
-describe('index.ts does not explode', () => {
+describe('jest do not explode', () => {
   it('and works', () => {
     expect(true).toBe(true);
   });
