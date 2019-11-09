@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/all', async (req: Request, res: Response) => {
   const categories = await Category.query();
-  res.json(JSON.stringify(categories));
+  res.json(categories);
 });
 
 export default router;
