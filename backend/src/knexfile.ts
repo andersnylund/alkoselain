@@ -1,7 +1,6 @@
-require('ts-node/register');
-require('./env');
+import './env';
 
-module.exports = {
+const configuration = {
   client: 'pg',
   connection: process.env.DATABASE_URL,
   pool: {
@@ -14,3 +13,5 @@ module.exports = {
   },
   timezone: 'UTC'
 };
+
+export = configuration;

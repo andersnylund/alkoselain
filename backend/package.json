@@ -12,9 +12,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint ./src/**/*",
-    "knex:migrate:make": "knex --knexfile src/knexfile.ts -x ts migrate:make",
-    "knex:migrate:latest": "knex --knexfile src/knexfile.ts migrate:latest",
-    "knex:migrate:rollback": "knex --knexfile src/knexfile.ts migrate:rollback"
+    "knex:migrate:make": "knex migrate:make --cwd src",
+    "knex:migrate:latest": "knex migrate:latest --cwd src",
+    "knex:migrate:rollback": "knex migrate:rollback --cwd src"
   },
   "dependencies": {
     "dotenv": "^8.2.0",

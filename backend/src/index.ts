@@ -2,7 +2,8 @@ import express from 'express';
 import { Model } from 'objection';
 import Knex from 'knex';
 
-const knexConfig = require('./knexfile');
+import './env';
+import knexConfig from './knexfile';
 import categories from './categories/categories';
 
 const knex = Knex(knexConfig);
