@@ -1,0 +1,12 @@
+import express, { Request, Response } from 'express';
+
+import Category from '../models';
+
+const router = express.Router();
+
+router.get('/all', async (req: Request, res: Response) => {
+  const categories = await Category.query();
+  res.json(JSON.stringify(categories));
+});
+
+export default router;
