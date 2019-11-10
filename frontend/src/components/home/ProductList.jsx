@@ -8,7 +8,7 @@ import posed from 'react-pose';
 
 import Button from '../common/Button';
 import Product from './Product';
-import { getProducts as getProductsAction } from '../../actions/productActions';
+import { getProducts as getProductsAction } from '../../actions/productListActions';
 
 const Container = styled.section`
   max-width: 900px;
@@ -67,8 +67,8 @@ const mapStateToProps = state => ({
   selectedCategory: state.filter.selectedCategory,
   sort: state.filter.sort,
   search: state.filter.search,
-  isLoading: state.product.isLoading,
-  products: state.product.products,
+  isLoading: state.productList.isLoading,
+  products: state.productList.products,
 });
 
 const mapDispatchToProps = {
