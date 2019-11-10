@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, FC } from 'react';
 import { Loader, Icon, Message } from 'semantic-ui-react';
 import styled from 'styled-components';
 import produce from 'immer';
@@ -9,6 +9,8 @@ import posed from 'react-pose';
 import Button from '../common/Button';
 import Product from './Product';
 import { getProducts as getProductsAction } from '../../actions/productListActions';
+import { AppState } from '../../store';
+import { Product as ProductType } from '../../../../shared/types';
 
 const Container = styled.section`
   max-width: 900px;
@@ -27,26 +29,26 @@ const PosedItem = posed.div({
   exit: { x: 50, opacity: 0 },
 });
 
-export const ProductList = ({
-  selectedField,
-  selectedCategory,
-  sort,
-  search,
-  getProducts,
-  isLoading,
-  products,
-}) => {
+export interface Props {
+  getProducts: () => void;
+  isLoading: boolean;
+  products?: ProductType[];
+}
+
+export const ProductList: FC<Props> = ({ getProducts, isLoading, products }) => {
   useEffect(() => {
     getProducts();
   }, [getProducts]);
 
-  if (isLoading) {
+  if (isLoading || !products) {
     return <Loader active />;
   }
 
+  // TODO: show error message
+
   return (
     <PosedContainer>
-      {products.map(product => (
+      {products.map((product: ProductType) => (
         <PosedItem key={product.id}>
           <Product product={product} />
         </PosedItem>
@@ -55,18 +57,7 @@ export const ProductList = ({
   );
 };
 
-ProductList.propTypes = {
-  selectedField: string.isRequired,
-  selectedCategory: string.isRequired,
-  sort: string.isRequired,
-  search: string.isRequired,
-};
-
-const mapStateToProps = state => ({
-  selectedField: state.filter.selectedField,
-  selectedCategory: state.filter.selectedCategory,
-  sort: state.filter.sort,
-  search: state.filter.search,
+const mapStateToProps = (state: AppState) => ({
   isLoading: state.productList.isLoading,
   products: state.productList.products,
 });

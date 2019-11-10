@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { shape, string, number } from 'prop-types';
 import styled from 'styled-components';
 import posed from 'react-pose';
 import { Link } from '@reach/router';
+
+import { Product as ProductType } from '../../../../shared/types';
 
 const Card = styled.div`
   background-color: var(--background-white);
@@ -71,14 +73,18 @@ const Extra = styled.div`
   line-height: var(--size-5);
 `;
 
-const Product = ({ product }) => (
+export interface Props {
+  product: ProductType;
+}
+
+const Product: FC<Props> = ({ product }) => (
   <Link to={`/products/${product.id}`}>
     <PosedCard>
       <Image>
         <img
-          src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${
-            product.id
-          }/${product.nimi}.jpg`}
+          src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${product.id}/${
+            product.nimi
+          }.jpg`}
           alt={product.nimi}
         />
       </Image>
@@ -88,7 +94,7 @@ const Product = ({ product }) => (
           <p>{product.luonnehdinta}</p>
         </MainContent>
         <Extra>
-          <p>{product.tyyppi.tyyppi}</p>
+          <p>{product.tyyppi}</p>
           <table>
             <tbody>
               {product.valmistaja !== null && (
@@ -138,21 +144,5 @@ const Product = ({ product }) => (
     </PosedCard>
   </Link>
 );
-
-Product.propTypes = {
-  product: shape({
-    nimi: string.isRequired,
-    valmistaja: string,
-    luonnehdinta: string.isRequired,
-    tyyppi: shape({
-      tyyppi: string.isRequired,
-    }).isRequired,
-    hinta: number.isRequired,
-    alkoholiprosentti: number,
-    alkoholilitrahinta: number,
-    pakkaustyyppi: string,
-    pullokoko: number,
-  }).isRequired,
-};
 
 export default Product;

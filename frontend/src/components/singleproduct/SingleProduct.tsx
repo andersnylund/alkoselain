@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
-import { string } from 'prop-types';
+import React, { useEffect, FC } from 'react';
 import styled from 'styled-components';
-import { Loader, Message } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 import { Link } from '@reach/router';
 import { connect } from 'react-redux';
 
 import Button from '../common/Button';
 import { getProduct as getProductAction } from '../../actions/singleProductActions';
+import { Product } from '../../../../shared/types';
+import { AppState } from '../../store';
 
 const Card = styled.div`
   background-color: white;
@@ -33,14 +34,24 @@ const BackButton = (
   </Link>
 );
 
-export const SingleProduct = ({ productId, product, getProduct, isLoading }) => {
+interface Props {
+  productId: string;
+  product: Product | undefined;
+  getProduct: (productId: string) => void;
+  isLoading: boolean;
+}
+
+export const SingleProduct: FC<Props> = ({ productId, product, getProduct, isLoading }) => {
   useEffect(() => {
     getProduct(productId);
   }, [getProduct, productId]);
 
-  if (isLoading) {
+  if (isLoading || !product) {
     return <Loader active />;
   }
+
+  // TODO: insert error message
+
   return (
     <Card>
       {BackButton}
@@ -180,11 +191,7 @@ export const SingleProduct = ({ productId, product, getProduct, isLoading }) => 
   );
 };
 
-SingleProduct.propTypes = {
-  productId: string.isRequired,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState) => ({
   isLoading: state.product.isLoading,
   product: state.product.product,
 });

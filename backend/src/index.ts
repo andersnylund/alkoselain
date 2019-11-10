@@ -14,7 +14,7 @@ Model.knex(knex);
 
 const app = express();
 
-app.use('/', api);
+app.use('/api', api);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
