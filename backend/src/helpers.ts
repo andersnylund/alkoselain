@@ -4,16 +4,6 @@ import fetch from 'node-fetch';
 import { alkoHeaders, alkoUrl } from './constants';
 import { UnsanitizedProduct, Product } from '../../shared/types';
 
-export const chunk = <T>(array: T[], size: number): T[][] => {
-  const chunkedArray = [];
-  let index = 0;
-  while (index < array.length) {
-    chunkedArray.push(array.slice(index, size + index));
-    index += size;
-  }
-  return chunkedArray;
-};
-
 export const capitalizeFirstChar = (string: string): string => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
@@ -87,12 +77,11 @@ export const sanitizeProduct = (product: UnsanitizedProduct): Product => {
     litrahinta: product.litrahinta ? Number(product.litrahinta) : undefined,
     kantavierreprosentti: product.kantavierreprosentti
       ? Number(product.kantavierreprosentti)
-      : undefined
+      : undefined,
   };
 };
 
 export default {
-  chunk,
   capitalizeFirstChar,
-  getProducts
+  getProducts,
 };

@@ -5,7 +5,7 @@ import {
   setSearchAction,
   setSelectedCategoryAction,
   setSelectedFieldAction,
-  toggleSortAction,
+  toggleSortAction
 } from '../actions/filterActions';
 
 describe('filterReducer.js', () => {
@@ -15,7 +15,7 @@ describe('filterReducer.js', () => {
       search: '',
       selectedCategory: '1',
       selectedField: 'alkoholilitrahinta',
-      sort: 'ASC',
+      sort: 'ASC'
     });
   });
 
@@ -30,7 +30,7 @@ describe('filterReducer.js', () => {
       search: 'search',
       selectedCategory: '1',
       selectedField: 'alkoholilitrahinta',
-      sort: 'ASC',
+      sort: 'ASC'
     });
   });
 
@@ -45,7 +45,7 @@ describe('filterReducer.js', () => {
       search: '',
       selectedCategory: 'categoryID',
       selectedField: 'alkoholilitrahinta',
-      sort: 'ASC',
+      sort: 'ASC'
     });
   });
 
@@ -60,7 +60,7 @@ describe('filterReducer.js', () => {
       search: '',
       selectedCategory: '1',
       selectedField: 'fieldID',
-      sort: 'ASC',
+      sort: 'ASC'
     });
   });
 
@@ -73,7 +73,7 @@ describe('filterReducer.js', () => {
       search: '',
       selectedCategory: '1',
       selectedField: 'alkoholilitrahinta',
-      sort: 'DESC',
+      sort: 'DESC'
     });
   });
 });

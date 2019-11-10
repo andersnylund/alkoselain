@@ -34,7 +34,7 @@ const runImport = async (): Promise<void> => {
   const insertedProducts = await Promise.all(
     products.map(product =>
       ProductModel.query().insert({
-        ...product
+        ...product,
       })
     )
   );
