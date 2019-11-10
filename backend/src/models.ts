@@ -1,9 +1,10 @@
 import { Model } from 'objection';
 
-class Category extends Model {
+export class Category extends Model {
+  id!: string;
+  name!: string;
+
   static get tableName(): string {
     return 'category';
   }
 }
-
-export default Category;
