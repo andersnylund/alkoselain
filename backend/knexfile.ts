@@ -1,4 +1,4 @@
-import './env';
+import './src/env';
 
 const configuration = {
   client: 'pg',
@@ -9,7 +9,7 @@ const configuration = {
   },
   migrations: {
     tableName: 'knex_migrations',
-    directory: 'migrations'
+    directory: 'src/migrations'
   },
   timezone: 'UTC'
 };

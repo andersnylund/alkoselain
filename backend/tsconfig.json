@@ -13,6 +13,5 @@
     "importHelpers": true,
     "lib": ["es2015"]
   },
-  "include": ["./src/**/*.ts"],
-  "exclude": ["./src/public/"]
+  "include": ["./src/**/*.ts", "knexfile.ts"]
 }

@@ -1,10 +1,10 @@
 import express, { Request, Response } from 'express';
 
-import Category from '../models';
+import { Category } from './models';
 
 const router = express.Router();
 
-router.get('/all', async (req: Request, res: Response) => {
+router.get('/categories/all', async (req: Request, res: Response) => {
   const categories = await Category.query();
   res.json(categories);
 });

@@ -3,18 +3,20 @@ import { Model } from 'objection';
 import Knex from 'knex';
 
 import './env';
-import knexConfig from './knexfile';
-import categories from './categories/categories';
+import knexConfig from '../knexfile';
+import api from './api';
 
 const knex = Knex(knexConfig);
+
+knex.migrate.latest();
 
 Model.knex(knex);
 
 const app = express();
 
-app.use('/categories', categories);
+app.use('/', api);
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`server listening on ${port}`);
 });
