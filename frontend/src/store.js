@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import filterReducer from './reducers/filterReducer';
 
 const reducer = combineReducers({
-  filter: filterReducer,
+  filter: filterReducer
 });
 
 const store = createStore(reducer, composeWithDevTools());

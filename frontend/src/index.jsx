@@ -31,11 +31,11 @@ const client = new ApolloClient({
       }
     }),
     new HttpLink({
-      uri: '/graphql',
-    }),
+      uri: '/graphql'
+    })
   ]),
   cache: new InMemoryCache(),
-  connectToDevTools: true,
+  connectToDevTools: true
 });
 
 ReactDOM.render(

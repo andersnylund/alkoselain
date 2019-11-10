@@ -15,8 +15,8 @@ export default class Category extends Model implements CategoryType {
       modelClass: Product,
       join: {
         from: 'category.tyyppi',
-        to: 'product.tyyppi'
-      }
-    }
+        to: 'product.tyyppi',
+      },
+    },
   };
 }
