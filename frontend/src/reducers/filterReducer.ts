@@ -7,19 +7,27 @@ import {
   TOGGLE_SORT,
   SET_SEARCH,
   SET_SELECTED_CATEGORY,
+  FilterAction,
 } from '../actions/filterActions';
 
-const initialState = {
+export interface FilterState {
+  selectedField: string;
+  sort: string;
+  search: string;
+  selectedCategory: string;
+}
+
+const initialState: FilterState = {
   selectedField: filterableFields[0].key,
   sort: 'ASC',
   search: '',
   selectedCategory: allCategories.key,
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: FilterAction): FilterState => {
   if (action.type === SET_SELECTED_FIELD) {
     return produce(state, draft => {
-      draft.selectedField = action.field;
+      draft.selectedField = action.field!;
     });
   }
   if (action.type === TOGGLE_SORT) {
@@ -29,12 +37,12 @@ const reducer = (state = initialState, action) => {
   }
   if (action.type === SET_SEARCH) {
     return produce(state, draft => {
-      draft.search = action.search;
+      draft.search = action.search!;
     });
   }
   if (action.type === SET_SELECTED_CATEGORY) {
     return produce(state, draft => {
-      draft.selectedCategory = action.category;
+      draft.selectedCategory = action.category!;
     });
   }
   return state;

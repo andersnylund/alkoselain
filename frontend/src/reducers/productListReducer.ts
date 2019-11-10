@@ -5,15 +5,23 @@ import {
   FETCH_PRODUCT_LIST_ERROR,
   FETCH_PRODUCT_LIST_LOADING,
   FETCH_PRODUCT_LIST_SUCCESS,
+  ProductListAction,
 } from '../actions/productListActions';
+import { Product } from '../../../shared/types';
 
-const initialState = {
+export interface ProductListState {
+  isLoading: boolean;
+  isError: boolean;
+  products?: Product[];
+}
+
+const initialState: ProductListState = {
   isLoading: false,
   isError: false,
   products: [],
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: ProductListAction) => {
   if (action.type === FETCH_PRODUCT_LIST_LOADING) {
     return produce(state, draft => {
       draft.isLoading = true;

@@ -5,15 +5,23 @@ import {
   FETCH_PRODUCT_ERROR,
   FETCH_PRODUCT_LOADING,
   FETCH_PRODUCT_SUCCESS,
+  SingleProductAction,
 } from '../actions/singleProductActions';
+import { Product } from '../../../shared/types';
 
-const initialState = {
+export interface SingleProductState {
+  isLoading: boolean;
+  isError: boolean;
+  product: Product | undefined;
+}
+
+const initialState: SingleProductState = {
   isLoading: false,
   isError: false,
-  product: {},
+  product: undefined,
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: SingleProductAction) => {
   if (action.type === FETCH_PRODUCT_LOADING) {
     return produce(state, draft => {
       draft.isLoading = true;
