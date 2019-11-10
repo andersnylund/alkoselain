@@ -6,7 +6,7 @@ export const getProducts = () => {
   return async dispatch => {
     dispatch({ type: FETCH_PRODUCT_LIST_LOADING });
     try {
-      const response = await fetch('/products/all');
+      const response = await fetch('/products');
       const products = await response.json();
       dispatch({ type: FETCH_PRODUCT_LIST_SUCCESS, products });
     } catch (e) {
