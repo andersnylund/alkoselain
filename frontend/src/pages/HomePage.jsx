@@ -25,6 +25,7 @@ const ProductListContainer = styled(Container)`
 const Index = () => (
   <>
     <Content>
+      {/* use styled(Filters) */}
       <div className="filters">
         <Filters />
       </div>

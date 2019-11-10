@@ -1,6 +1,4 @@
-import React from 'react';
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import React, { useEffect } from 'react';
 import { Loader, Icon, Message } from 'semantic-ui-react';
 import styled from 'styled-components';
 import produce from 'immer';
@@ -10,7 +8,7 @@ import posed from 'react-pose';
 
 import Button from '../common/Button';
 import Product from './Product';
-import { titleCase } from '../../helpers';
+import { getProducts as getProductsAction } from '../../actions/productActions';
 
 const Container = styled.section`
   max-width: 900px;
@@ -29,137 +27,30 @@ const PosedItem = posed.div({
   exit: { x: 50, opacity: 0 },
 });
 
-export const PRODUCTLIST_QUERY = gql`
-  query products(
-    $endCursor: String
-    $orderBy: ProductOrderByInput
-    $where: ProductWhereInput
-  ) {
-    productsConnection(
-      where: $where
-      first: 5
-      orderBy: $orderBy
-      after: $endCursor
-    ) {
-      pageInfo {
-        startCursor
-        endCursor
-      }
-      edges {
-        node {
-          id
-          nimi
-          valmistaja
-          pullokoko
-          hinta
-          litrahinta
-          tyyppi {
-            id
-            tyyppi
-          }
-          luonnehdinta
-          pakkaustyyppi
-          alkoholiprosentti
-          alkoholilitrahinta
-        }
-      }
-    }
-  }
-`;
-
-export const createWhere = (selectedField, search, selectedCategory) => {
-  const where = {
-    [`${selectedField}_not`]: null,
-    OR: [
-      // TODO fix hack
-      { nimi_contains: search },
-      { nimi_contains: search.toUpperCase() },
-      { nimi_contains: search.toLowerCase() },
-      { nimi_contains: titleCase(search) },
-      { luonnehdinta_contains: search },
-      { luonnehdinta_contains: search.toUpperCase() },
-      { luonnehdinta_contains: search.toLowerCase() },
-      { luonnehdinta_contains: titleCase(search) },
-      { tyyppi: { tyyppi_contains: search } },
-      { tyyppi: { tyyppi_contains: search.toUpperCase() } },
-      { tyyppi: { tyyppi_contains: search.toLowerCase() } },
-      { tyyppi: { tyyppi_contains: titleCase(search) } },
-      { valmistaja_contains: search },
-      { valmistaja_contains: search.toUpperCase() },
-      { valmistaja_contains: search.toLowerCase() },
-      { valmistaja_contains: titleCase(search) },
-    ],
-  };
-
-  if (selectedCategory !== '1') {
-    where.tyyppi = {
-      id: selectedCategory,
-    };
-  }
-  return where;
-};
-
 export const ProductList = ({
   selectedField,
   selectedCategory,
   sort,
   search,
+  getProducts,
+  isLoading,
+  products,
 }) => {
-  const variables = {
-    endCursor: null,
-    orderBy: `${selectedField}_${sort}`,
-    where: createWhere(selectedField, search, selectedCategory),
-  };
+  useEffect(() => {
+    getProducts();
+  }, [getProducts]);
+
+  if (isLoading) {
+    return <Loader active />;
+  }
+
   return (
     <PosedContainer>
-      <Query query={PRODUCTLIST_QUERY} variables={variables}>
-        {({ data, loading, error, fetchMore }) => {
-          if (loading) {
-            return <Loader active data-testid="loader" />;
-          }
-          if (error) {
-            return <Message negative>{error.message}</Message>;
-          }
-          return (
-            <>
-              {data.productsConnection.edges.map(edge => (
-                <PosedItem key={edge.node.id}>
-                  <Product product={edge.node} />
-                </PosedItem>
-              ))}
-              {data.productsConnection.pageInfo.endCursor && (
-                <Button
-                  onClick={() => {
-                    fetchMore({
-                      variables: {
-                        endCursor: data.productsConnection.pageInfo.endCursor,
-                      },
-                      updateQuery: (prev, { fetchMoreResult }) => {
-                        if (!fetchMoreResult) {
-                          return prev;
-                        }
-                        const nextState = produce(prev, draft => {
-                          // eslint-disable-next-line no-param-reassign
-                          draft.productsConnection.pageInfo.endCursor =
-                            fetchMoreResult.productsConnection.pageInfo.endCursor;
-                          draft.productsConnection.edges.push(
-                            ...fetchMoreResult.productsConnection.edges
-                          );
-                        });
-
-                        return nextState;
-                      },
-                    });
-                  }}
-                >
-                  <Icon name="plus" />
-                  Lisää
-                </Button>
-              )}
-            </>
-          );
-        }}
-      </Query>
+      {products.map(product => (
+        <PosedItem key={product.id}>
+          <Product product={product} />
+        </PosedItem>
+      ))}
     </PosedContainer>
   );
 };
@@ -176,6 +67,15 @@ const mapStateToProps = state => ({
   selectedCategory: state.filter.selectedCategory,
   sort: state.filter.sort,
   search: state.filter.search,
+  isLoading: state.product.isLoading,
+  products: state.product.products,
 });
 
-export default connect(mapStateToProps)(ProductList);
+const mapDispatchToProps = {
+  getProducts: getProductsAction,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductList);

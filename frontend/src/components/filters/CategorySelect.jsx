@@ -19,31 +19,32 @@ export const CATEGORY_QUERY = gql`
 
 export const CategorySelect = ({ selectedCategory, setSelectedCategory }) => {
   return (
-    <Query query={CATEGORY_QUERY}>
-      {({ data, loading, error }) => {
-        if (loading) {
-          return <Select options={[]} />;
-        }
-        if (error) {
-          return null;
-        }
-        const options = [
-          allCategories,
-          ...data.categories.map(c => ({
-            key: c.id,
-            text: c.tyyppi,
-            value: c.id,
-          })),
-        ];
-        return (
-          <Select
-            options={options}
-            value={selectedCategory}
-            onChange={(event, { value }) => setSelectedCategory(value)}
-          />
-        );
-      }}
-    </Query>
+    <></>
+    // <Query query={CATEGORY_QUERY}>
+    //   {({ data, loading, error }) => {
+    //     if (loading) {
+    //       return <Select options={[]} />;
+    //     }
+    //     if (error) {
+    //       return null;
+    //     }
+    //     const options = [
+    //       allCategories,
+    //       ...data.categories.map(c => ({
+    //         key: c.id,
+    //         text: c.tyyppi,
+    //         value: c.id,
+    //       })),
+    //     ];
+    //     return (
+    //       <Select
+    //         options={options}
+    //         value={selectedCategory}
+    //         onChange={(event, { value }) => setSelectedCategory(value)}
+    //       />
+    //     );
+    //   }}
+    // </Query>
   );
 };
 
