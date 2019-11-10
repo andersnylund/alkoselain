@@ -2,31 +2,31 @@
 import produce from 'immer';
 
 import {
-  FETCH_PRODUCTS_ERROR,
-  FETCH_PRODUCTS_LOADING,
-  FETCH_PRODUCTS_SUCCESS,
-} from '../actions/productActions';
+  FETCH_PRODUCT_ERROR,
+  FETCH_PRODUCT_LOADING,
+  FETCH_PRODUCT_SUCCESS,
+} from '../actions/singleProductActions';
 
 const initialState = {
   isLoading: false,
   isError: false,
-  products: [],
+  product: {},
 };
 
 const reducer = (state = initialState, action) => {
-  if (action.type === FETCH_PRODUCTS_LOADING) {
+  if (action.type === FETCH_PRODUCT_LOADING) {
     return produce(state, draft => {
       draft.isLoading = true;
     });
   }
-  if (action.type === FETCH_PRODUCTS_ERROR) {
+  if (action.type === FETCH_PRODUCT_ERROR) {
     return produce(state, draft => {
       draft.isError = true;
     });
   }
-  if (action.type === FETCH_PRODUCTS_SUCCESS) {
+  if (action.type === FETCH_PRODUCT_SUCCESS) {
     return produce(state, draft => {
-      draft.products = action.products;
+      draft.product = action.product;
       draft.isError = false;
       draft.isLoading = false;
     });
