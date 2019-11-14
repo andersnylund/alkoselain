@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { Link } from '@reach/router';
+import { Link, RouteComponentProps } from '@reach/router';
 
 import Button from '../components/common/Button';
 
@@ -12,7 +12,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const NotFound = () => (
+const NotFound: FunctionComponent<RouteComponentProps> = () => (
   <Container>
     <h1>Tätä sivua ei löydy</h1>
     <Link to="/">

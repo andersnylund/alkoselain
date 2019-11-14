@@ -31,6 +31,6 @@ const PosedButton = posed(Button)({
   },
 });
 
-export default props => {
+export default (props: any) => {
   return <PosedButton {...props} />;
 };

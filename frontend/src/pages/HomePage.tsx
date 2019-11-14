@@ -1,10 +1,11 @@
 /* eslint-disable import/no-named-as-default */
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { Container } from 'semantic-ui-react';
 
 import ProductList from '../components/home/ProductList';
 import Filters from '../components/filters/Filters';
+import { RouteComponentProps } from '@reach/router';
 
 const Content = styled.div`
   display: flex;
@@ -22,7 +23,7 @@ const ProductListContainer = styled(Container)`
   padding: var(--size-8) 0;
 `;
 
-const Index = () => (
+const Index: FunctionComponent<RouteComponentProps> = () => (
   <>
     <Content>
       {/* use styled(Filters) */}

@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { shape, string, number } from 'prop-types';
 import styled from 'styled-components';
 import posed from 'react-pose';
 import { Link } from '@reach/router';
@@ -82,9 +81,7 @@ const Product: FC<Props> = ({ product }) => (
     <PosedCard>
       <Image>
         <img
-          src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${product.id}/${
-            product.nimi
-          }.jpg`}
+          src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${product.id}/${product.nimi}.jpg`}
           alt={product.nimi}
         />
       </Image>

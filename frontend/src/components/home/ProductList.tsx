@@ -1,12 +1,9 @@
 import React, { useEffect, FC } from 'react';
-import { Loader, Icon, Message } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 import styled from 'styled-components';
-import produce from 'immer';
 import { connect } from 'react-redux';
-import { string } from 'prop-types';
 import posed from 'react-pose';
 
-import Button from '../common/Button';
 import Product from './Product';
 import { getProducts as getProductsAction } from '../../actions/productListActions';
 import { AppState } from '../../store';
@@ -66,7 +63,4 @@ const mapDispatchToProps = {
   getProducts: getProductsAction,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProductList);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
