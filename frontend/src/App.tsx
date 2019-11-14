@@ -25,7 +25,7 @@ const RouteContainer = posed.div({
   exit: { opacity: 0 },
 });
 
-const PosedRouter = ({ children }) => (
+const PosedRouter = ({ children }: { children: any }) => (
   <Location>
     {({ location }) => (
       <PoseGroup>

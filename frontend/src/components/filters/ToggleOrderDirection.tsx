@@ -1,27 +1,26 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { string, func } from 'prop-types';
 
 import Button from '../common/Button';
 import { toggleSortAction } from '../../actions/filterActions';
+import { AppState } from '../../store';
 
-export const ToggleOrderDirection = ({ sort, toggleSort }) => {
+interface Props {
+  sort: string; // TODO: ASC DESC
+  toggleSort: () => void;
+}
+
+export const ToggleOrderDirection: FunctionComponent<Props> = ({ sort, toggleSort }) => {
+  const name = sort === 'ASC' ? 'sort content ascending' : 'sort content descending';
   return (
     <Button onClick={() => toggleSort()} data-testid="toggle-sort-button">
-      <Icon
-        name={`sort content ${sort === 'ASC' ? 'ascending' : 'descending'}`}
-      />
+      <Icon name={name} />
     </Button>
   );
 };
 
-ToggleOrderDirection.propTypes = {
-  sort: string.isRequired,
-  toggleSort: func.isRequired,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState) => ({
   sort: state.filter.sort,
 });
 

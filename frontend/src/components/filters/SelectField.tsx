@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Select } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { string, func } from 'prop-types';
 
 import { filterableFields } from '../../constants';
 import { setSelectedFieldAction } from '../../actions/filterActions';
+import { AppState } from '../../store';
+
+interface Props {
+  selectedField: string;
+  setSelectedField: (value: string) => void;
+}
 
 const options = filterableFields.map(field => ({
   key: field.key,
@@ -12,20 +17,15 @@ const options = filterableFields.map(field => ({
   value: field.key,
 }));
 
-export const SelectField = ({ selectedField, setSelectedField }) => (
+export const SelectField: FunctionComponent<Props> = ({ selectedField, setSelectedField }) => (
   <Select
     value={selectedField}
     options={options}
-    onChange={(event, { value }) => setSelectedField(value)}
+    onChange={(event, { value }) => setSelectedField(value as string)}
   />
 );
 
-SelectField.propTypes = {
-  selectedField: string.isRequired,
-  setSelectedField: func.isRequired,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState) => ({
   selectedField: state.filter.selectedField,
 });
 

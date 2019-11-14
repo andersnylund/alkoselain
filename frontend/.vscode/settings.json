@@ -2,5 +2,6 @@
   "editor.formatOnSave": true,
   "workbench.colorCustomizations": {
     "statusBar.background": "#0015ce"
-  }
+  },
+  "cSpell.enabled": false
 }
