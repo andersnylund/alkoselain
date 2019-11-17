@@ -13,6 +13,7 @@ knex.migrate.latest();
 Model.knex(knex);
 
 const app = express();
+app.disable('x-powered-by');
 
 app.use('/api', api);
 

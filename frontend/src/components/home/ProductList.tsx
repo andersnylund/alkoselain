@@ -27,21 +27,20 @@ const PosedItem = posed.div({
 });
 
 export interface Props {
-  getProducts: () => void;
+  getProducts: (page: number) => void;
   isLoading: boolean;
   products?: ProductType[];
+  page: number;
 }
 
-export const ProductList: FC<Props> = ({ getProducts, isLoading, products }) => {
+export const ProductList: FC<Props> = ({ getProducts, isLoading, products, page }) => {
   useEffect(() => {
-    getProducts();
-  }, [getProducts]);
+    getProducts(page);
+  }, [getProducts, page]);
 
   if (isLoading || !products) {
     return <Loader active />;
   }
-
-  // TODO: show error message
 
   return (
     <PosedContainer>
@@ -57,6 +56,7 @@ export const ProductList: FC<Props> = ({ getProducts, isLoading, products }) => 
 const mapStateToProps = (state: AppState) => ({
   isLoading: state.productList.isLoading,
   products: state.productList.products,
+  page: state.page.page,
 });
 
 const mapDispatchToProps = {
