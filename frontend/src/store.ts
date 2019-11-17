@@ -6,12 +6,14 @@ import filterReducer from './reducers/filterReducer';
 import productListReducer from './reducers/productListReducer';
 import singleProductReducer from './reducers/singleProductReducer';
 import categoryReducer from './reducers/categoryReducer';
+import { pageReducer } from './reducers/pageReducer';
 
 const reducer = combineReducers({
   filter: filterReducer,
   productList: productListReducer,
   product: singleProductReducer,
   category: categoryReducer,
+  page: pageReducer,
 });
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
