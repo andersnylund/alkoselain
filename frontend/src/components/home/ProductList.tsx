@@ -7,7 +7,7 @@ import posed from 'react-pose';
 import Product from './Product';
 import { getProducts as getProductsAction } from '../../actions/productListActions';
 import { AppState } from '../../store';
-import { Product as ProductType } from '../../../../shared/types';
+import { Product as ProductType, SortOrder } from '../../../../shared/types';
 
 const Container = styled.section`
   max-width: 900px;
@@ -27,12 +27,14 @@ const PosedItem = posed.div({
 });
 
 export interface Props {
-  getProducts: (page: number, category: string) => void;
+  getProducts: (page: number, category: string, orderBy: string, sortOrder: SortOrder) => void;
   isLoading: boolean;
   isError: boolean;
   products?: ProductType[];
   page: number;
   category: string;
+  orderBy: string;
+  order: SortOrder;
 }
 
 export const ProductList: FC<Props> = ({
@@ -42,10 +44,12 @@ export const ProductList: FC<Props> = ({
   products,
   page,
   category,
+  orderBy,
+  order,
 }) => {
   useEffect(() => {
-    getProducts(page, category);
-  }, [getProducts, page, category]);
+    getProducts(page, category, orderBy, order);
+  }, [getProducts, page, category, orderBy, order]);
 
   if (isLoading || !products) {
     return <Loader active />;
@@ -72,6 +76,8 @@ const mapStateToProps = (state: AppState) => ({
   products: state.productList.products,
   page: state.page.page,
   category: state.filter.selectedCategory,
+  orderBy: state.filter.selectedField,
+  order: state.filter.sort,
 });
 
 const mapDispatchToProps = {

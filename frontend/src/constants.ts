@@ -1,6 +1,6 @@
-import { ALL_CATEGORIES_UUID } from '../../shared/types';
+import { AllCategoriesUUID } from '../../shared/types';
 
-const allCategoriesId: ALL_CATEGORIES_UUID = '93976e57-7d96-40c3-8860-8ffcc76b233d';
+const allCategoriesId: AllCategoriesUUID = '93976e57-7d96-40c3-8860-8ffcc76b233d';
 
 export const filterableFields = [
   { key: 'alkoholilitrahinta', value: 'Alkoholin litrahinta' },

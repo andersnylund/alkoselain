@@ -1,6 +1,8 @@
-export type ALL_CATEGORIES_UUID = "93976e57-7d96-40c3-8860-8ffcc76b233d";
+export type AllCategoriesUUID = "93976e57-7d96-40c3-8860-8ffcc76b233d";
 
-interface UnsanitizedProduct {
+export type SortOrder = "ASC" | "DESC";
+
+export interface UnsanitizedProduct {
   id: string;
   nimi: string;
   valmistaja: string;
@@ -31,7 +33,7 @@ interface UnsanitizedProduct {
   valikoima: string | undefined;
 }
 
-interface Product {
+export interface Product {
   id: string;
   nimi: string;
   valmistaja: string;
@@ -63,7 +65,7 @@ interface Product {
   valikoima: string | undefined;
 }
 
-interface Category {
+export interface Category {
   id: string;
   tyyppi: string;
 }
