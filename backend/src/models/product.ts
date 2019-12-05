@@ -13,7 +13,6 @@ export default class Product extends Model implements ProductType {
   litrahinta: number | undefined;
   uutuus!: string;
   hinnastojarjestys!: string;
-  tyyppi!: string;
   erityisryhma: string | undefined;
   oluttyyppi: string | undefined;
   valmistusmaa!: string;
@@ -34,6 +33,8 @@ export default class Product extends Model implements ProductType {
   energia: number | undefined;
   valikoima: string | undefined;
 
+  tyyppiId: string | undefined; // uuid
+
   static tableName = 'product';
 
   static relationMappings = {
@@ -41,8 +42,8 @@ export default class Product extends Model implements ProductType {
       relation: Model.BelongsToOneRelation,
       modelClass: Category,
       join: {
-        from: 'product.tyyppi',
-        to: 'category.tyyppi',
+        from: 'product.tyyppiId',
+        to: 'category.id',
       },
     },
   };

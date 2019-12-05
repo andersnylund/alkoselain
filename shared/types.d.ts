@@ -1,4 +1,6 @@
-export interface UnsanitizedProduct {
+export type ALL_CATEGORIES_UUID = "93976e57-7d96-40c3-8860-8ffcc76b233d";
+
+interface UnsanitizedProduct {
   id: string;
   nimi: string;
   valmistaja: string;
@@ -29,7 +31,7 @@ export interface UnsanitizedProduct {
   valikoima: string | undefined;
 }
 
-export interface Product {
+interface Product {
   id: string;
   nimi: string;
   valmistaja: string;
@@ -39,7 +41,7 @@ export interface Product {
   litrahinta: number | undefined;
   uutuus: string;
   hinnastojarjestys: string;
-  tyyppi: string;
+  tyyppiId: string | undefined;
   erityisryhma: string | undefined;
   oluttyyppi: string | undefined;
   valmistusmaa: string;
@@ -61,7 +63,7 @@ export interface Product {
   valikoima: string | undefined;
 }
 
-export interface Category {
+interface Category {
   id: string;
   tyyppi: string;
 }

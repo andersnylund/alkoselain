@@ -29,6 +29,7 @@ const reducer = (state = initialState, action: ProductListAction) => {
   }
   if (action.type === FETCH_PRODUCT_LIST_ERROR) {
     return produce(state, draft => {
+      draft.isLoading = false;
       draft.isError = true;
     });
   }

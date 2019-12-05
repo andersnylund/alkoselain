@@ -5,10 +5,7 @@ import { Container } from 'semantic-ui-react';
 import ProductList from '../components/home/ProductList';
 import Filters from '../components/filters/Filters';
 import { RouteComponentProps } from '@reach/router';
-import Button from '../components/common/Button';
-import { AppState } from '../store';
-import { connect } from 'react-redux';
-import { setPageAction } from '../actions/pageActions';
+import PageButtons from '../components/home/PageButtons';
 
 const Content = styled.div`
   display: flex;
@@ -24,45 +21,27 @@ const Content = styled.div`
 
 const ProductListContainer = styled(Container)`
   padding: var(--size-8) 0;
+
+  &&& {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-`;
-
-interface Props extends RouteComponentProps {
-  page: number;
-  setPage: (page: number) => void;
-}
-
-const Index: FunctionComponent<Props> = ({ page, setPage }) => (
+const Index: FunctionComponent<RouteComponentProps> = () => (
   <Content>
     {/* use styled(Filters) */}
     <div className="filters">
       <Filters />
     </div>
     <ProductListContainer>
+      <PageButtons />
       <ProductList />
-      <ButtonContainer>
-        <Button disabled={page <= 1} onClick={() => setPage(page - 1)}>
-          ←
-        </Button>
-        Sivu {page}
-        <Button onClick={() => setPage(page + 1)}>→</Button>
-      </ButtonContainer>
+      <PageButtons />
     </ProductListContainer>
   </Content>
 );
 
-const mapStateToProps = (state: AppState) => ({
-  page: state.page.page,
-});
-
-const mapDispatchToProps = {
-  setPage: setPageAction,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Index);
+export default Index;

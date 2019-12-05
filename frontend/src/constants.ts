@@ -1,3 +1,7 @@
+import { ALL_CATEGORIES_UUID } from '../../shared/types';
+
+const allCategoriesId: ALL_CATEGORIES_UUID = '93976e57-7d96-40c3-8860-8ffcc76b233d';
+
 export const filterableFields = [
   { key: 'alkoholilitrahinta', value: 'Alkoholin litrahinta' },
   { key: 'hinta', value: 'Hinta' },
@@ -8,9 +12,9 @@ export const filterableFields = [
 ];
 
 export const allCategories = {
-  key: '1',
+  key: allCategoriesId,
   text: 'Kaikki juomatyypit',
-  value: '1',
+  value: allCategoriesId,
 };
 
 export default {

@@ -3,7 +3,7 @@ import Knex from 'knex';
 import uuid from 'uuid/v4';
 
 import './env';
-import { getProducts, sanitizeProduct } from './helpers';
+import { getProducts, sanitizeProduct, capitalizeFirstChar } from './helpers';
 import { UnsanitizedProduct, Product } from '../../shared/types';
 import CategoryModel from './models/category';
 import ProductModel from './models/product';
@@ -20,16 +20,24 @@ const runImport = async (): Promise<void> => {
   console.log('deletedProducts', deletedProducts);
 
   const unzanitisedProducts: UnsanitizedProduct[] = await getProducts();
-  const products: Product[] = unzanitisedProducts.map(sanitizeProduct);
+  const categories: string[] = Array.from(
+    new Set(
+      unzanitisedProducts
+        .filter(p => p.tyyppi !== undefined)
+        .map(p => capitalizeFirstChar(p.tyyppi))
+    )
+  );
 
-  const categories: string[] = Array.from(new Set(products.map(p => p.tyyppi)));
-
-  const insertedCategories = await Promise.all(
+  const insertedCategories: CategoryModel[] = await Promise.all(
     categories.map(category =>
       CategoryModel.query().insert({ id: uuid(), tyyppi: category })
     )
   );
   console.log('insertedCategories', insertedCategories.length);
+
+  const products: Product[] = unzanitisedProducts.map(p =>
+    sanitizeProduct(p, insertedCategories)
+  );
 
   const insertedProducts = await Promise.all(
     products.map(product =>

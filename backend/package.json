@@ -15,7 +15,7 @@
     "knex:migrate:make": "knex migrate:make",
     "knex:migrate:latest": "knex migrate:latest",
     "knex:migrate:rollback": "knex migrate:rollback",
-    "import": "ts-node ./src/import.ts"
+    "import-data": "ts-node ./src/import.ts"
   },
   "dependencies": {
     "@types/node-fetch": "^2.5.3",
