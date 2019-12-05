@@ -9,10 +9,11 @@ import {
   SET_SELECTED_CATEGORY,
   FilterAction,
 } from '../actions/filterActions';
+import { SortOrder } from '../../../shared/types';
 
 export interface FilterState {
   selectedField: string;
-  sort: string;
+  sort: SortOrder;
   search: string;
   selectedCategory: string;
 }

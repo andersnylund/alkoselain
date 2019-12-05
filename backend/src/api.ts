@@ -2,9 +2,9 @@ import { Request, Response, Router } from 'express';
 
 import Category from './models/category';
 import Product from './models/product';
-import { ALL_CATEGORIES_UUID } from '../../shared/types';
+import { AllCategoriesUUID, SortOrder } from '../../shared/types';
 
-const allCategoriesId: ALL_CATEGORIES_UUID =
+const allCategoriesId: AllCategoriesUUID =
   '93976e57-7d96-40c3-8860-8ffcc76b233d';
 
 const router = Router();
@@ -25,7 +25,11 @@ router.get('/categories', async (req: Request, res: Response) => {
 
 router.get('/products', async (req: Request, res: Response) => {
   try {
-    const { categoryId, orderBy, order } = req.query;
+    const {
+      categoryId,
+      orderBy,
+      order,
+    }: { categoryId: string; orderBy: string; order: SortOrder } = req.query;
     let { page } = req.query;
     page = Number(page);
     if (page <= 1) {
