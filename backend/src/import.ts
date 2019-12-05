@@ -1,8 +1,9 @@
 import { Model } from 'objection';
 import Knex from 'knex';
 import uuid from 'uuid/v4';
+import dotenv from 'dotenv';
+dotenv.config();
 
-import './env';
 import { getProducts, sanitizeProduct, capitalizeFirstChar } from './helpers';
 import { UnsanitizedProduct, Product } from '../../shared/types';
 import CategoryModel from './models/category';
@@ -10,7 +11,6 @@ import ProductModel from './models/product';
 import knexConfig from '../knexfile';
 
 const knex = Knex(knexConfig);
-knex.migrate.latest();
 Model.knex(knex);
 
 const runImport = async (): Promise<void> => {

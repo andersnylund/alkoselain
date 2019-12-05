@@ -1,17 +1,18 @@
-import './src/env';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const configuration = {
   client: 'pg',
   connection: process.env.DATABASE_URL,
   pool: {
     min: 2,
-    max: 10
+    max: 10,
   },
   migrations: {
     tableName: 'knex_migrations',
-    directory: 'src/migrations'
+    directory: 'src/migrations',
   },
-  timezone: 'UTC'
+  timezone: 'UTC',
 };
 
 export = configuration;
