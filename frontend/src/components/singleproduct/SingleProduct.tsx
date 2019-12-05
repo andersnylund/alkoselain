@@ -1,12 +1,12 @@
 import React, { useEffect, FC } from 'react';
 import styled from 'styled-components';
-import { Loader } from 'semantic-ui-react';
+import { Loader, Message } from 'semantic-ui-react';
 import { Link } from '@reach/router';
 import { connect } from 'react-redux';
 
 import Button from '../common/Button';
 import { getProduct as getProductAction } from '../../actions/singleProductActions';
-import { Product } from '../../../../shared/types';
+import { Product, Category } from '../../../../shared/types';
 import { AppState } from '../../store';
 
 const Card = styled.div`
@@ -39,9 +39,18 @@ interface Props {
   product: Product | undefined;
   getProduct: (productId: string) => void;
   isLoading: boolean;
+  isError: boolean;
+  categories: Category[];
 }
 
-export const SingleProduct: FC<Props> = ({ productId, product, getProduct, isLoading }) => {
+export const SingleProduct: FC<Props> = ({
+  productId,
+  product,
+  getProduct,
+  isLoading,
+  isError,
+  categories,
+}) => {
   useEffect(() => {
     getProduct(productId);
   }, [getProduct, productId]);
@@ -50,7 +59,17 @@ export const SingleProduct: FC<Props> = ({ productId, product, getProduct, isLoa
     return <Loader active />;
   }
 
-  // TODO: insert error message
+  if (isError) {
+    return <Message error={true}>Hups! Jotakin meni pieleen</Message>;
+  }
+
+  let categoryName = '';
+  if (product.tyyppiId) {
+    let category = categories.find(cat => cat.id === product.tyyppiId);
+    if (category) {
+      categoryName = category.tyyppi;
+    }
+  }
 
   // TODO: map product info
 
@@ -105,7 +124,7 @@ export const SingleProduct: FC<Props> = ({ productId, product, getProduct, isLoa
           </tr>
           <tr>
             <td>Tyyppi</td>
-            <td>{product.tyyppiId}</td>
+            <td>{categoryName}</td>
           </tr>
           <tr>
             <td>Erityisryhmä</td>
@@ -193,7 +212,9 @@ export const SingleProduct: FC<Props> = ({ productId, product, getProduct, isLoa
 
 const mapStateToProps = (state: AppState) => ({
   isLoading: state.product.isLoading,
+  isError: state.product.isError,
   product: state.product.product,
+  categories: state.category.categories,
 });
 
 const mapDispatchToProps = {
