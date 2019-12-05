@@ -27,7 +27,13 @@ const PosedItem = posed.div({
 });
 
 export interface Props {
-  getProducts: (page: number, category: string, orderBy: string, sortOrder: SortOrder) => void;
+  getProducts: (
+    page: number,
+    category: string,
+    orderBy: string,
+    sortOrder: SortOrder,
+    searchString: string
+  ) => void;
   isLoading: boolean;
   isError: boolean;
   products?: ProductType[];
@@ -35,6 +41,7 @@ export interface Props {
   category: string;
   orderBy: string;
   order: SortOrder;
+  searchString: string;
 }
 
 export const ProductList: FC<Props> = ({
@@ -46,10 +53,11 @@ export const ProductList: FC<Props> = ({
   category,
   orderBy,
   order,
+  searchString,
 }) => {
   useEffect(() => {
-    getProducts(page, category, orderBy, order);
-  }, [getProducts, page, category, orderBy, order]);
+    getProducts(page, category, orderBy, order, searchString);
+  }, [getProducts, page, category, orderBy, order, searchString]);
 
   if (isLoading || !products) {
     return <Loader active />;
@@ -78,6 +86,7 @@ const mapStateToProps = (state: AppState) => ({
   category: state.filter.selectedCategory,
   orderBy: state.filter.selectedField,
   order: state.filter.sort,
+  searchString: state.filter.search,
 });
 
 const mapDispatchToProps = {

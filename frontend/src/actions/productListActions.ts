@@ -14,13 +14,14 @@ export const getProducts = (
   page: number,
   categoryId: string,
   orderBy: string,
-  order: SortOrder
+  order: SortOrder,
+  searchString: string
 ) => {
   return async (dispatch: Dispatch) => {
     dispatch({ type: FETCH_PRODUCT_LIST_LOADING });
     try {
       const response = await fetch(
-        `/api/products?page=${page}&categoryId=${categoryId}&orderBy=${orderBy}&order=${order}`
+        `/api/products?page=${page}&categoryId=${categoryId}&orderBy=${orderBy}&order=${order}&searchString=${searchString}`
       );
       if (response.ok) {
         const products: Product[] = await response.json();
