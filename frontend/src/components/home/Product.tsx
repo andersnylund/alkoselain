@@ -2,8 +2,10 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import posed from 'react-pose';
 import { Link } from '@reach/router';
+import { connect } from 'react-redux';
 
-import { Product as ProductType } from '../../../../shared/types';
+import { Product as ProductType, Category } from '../../../../shared/types';
+import { AppState } from '../../store';
 
 const Card = styled.div`
   background-color: var(--background-white);
@@ -74,72 +76,87 @@ const Extra = styled.div`
 
 export interface Props {
   product: ProductType;
+  categories: Category[];
 }
 
-const Product: FC<Props> = ({ product }) => (
-  <Link to={`/products/${product.id}`}>
-    <PosedCard>
-      <Image>
-        <img
-          src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${product.id}/${product.nimi}.jpg`}
-          alt={product.nimi}
-        />
-      </Image>
-      <Content>
-        <MainContent>
-          <h3>{product.nimi}</h3>
-          <p>{product.luonnehdinta}</p>
-        </MainContent>
-        <Extra>
-          <p>{product.tyyppi}</p>
-          <table>
-            <tbody>
-              {product.valmistaja !== null && (
-                <tr>
-                  <td>Valmistaja</td>
-                  <td>{product.valmistaja}</td>
-                </tr>
-              )}
-              {product.alkoholiprosentti !== null && (
-                <tr>
-                  <td>Alkoholiprosentti</td>
-                  <td>{`${product.alkoholiprosentti} %`}</td>
-                </tr>
-              )}
-              <tr>
-                <td>Hinta</td>
-                <td>{`${product.hinta} €`}</td>
-              </tr>
-              {product.alkoholilitrahinta !== null && (
-                <tr>
-                  <td>Alkoholin litrahinta</td>
-                  <td>{`${product.alkoholilitrahinta} €/l`}</td>
-                </tr>
-              )}
-              {product.litrahinta !== null && (
-                <tr>
-                  <td>Litrahinta</td>
-                  <td>{`${product.litrahinta} €/l`}</td>
-                </tr>
-              )}
-              {product.pakkaustyyppi !== null && (
-                <tr>
-                  <td>Pakkaustyyppi</td>
-                  <td>{product.pakkaustyyppi}</td>
-                </tr>
-              )}
-              {product.pullokoko !== null && (
-                <tr>
-                  <td>Pullokoko</td>
-                  <td>{`${product.pullokoko} litraa`}</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </Extra>
-      </Content>
-    </PosedCard>
-  </Link>
-);
+const Product: FC<Props> = ({ product, categories }) => {
+  let category = '';
+  if (product.tyyppiId) {
+    const result = categories.find(cat => cat.id === product.tyyppiId);
+    if (result) {
+      category = result.tyyppi;
+    }
+  }
 
-export default Product;
+  return (
+    <Link to={`/products/${product.id}`}>
+      <PosedCard>
+        <Image>
+          <img
+            src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${product.id}/${product.nimi}.jpg`}
+            alt={product.nimi}
+          />
+        </Image>
+        <Content>
+          <MainContent>
+            <h3>{product.nimi}</h3>
+            <p>{product.luonnehdinta}</p>
+          </MainContent>
+          <Extra>
+            <p>{category}</p>
+            <table>
+              <tbody>
+                {product.valmistaja !== null && (
+                  <tr>
+                    <td>Valmistaja</td>
+                    <td>{product.valmistaja}</td>
+                  </tr>
+                )}
+                {product.alkoholiprosentti !== null && (
+                  <tr>
+                    <td>Alkoholiprosentti</td>
+                    <td>{`${product.alkoholiprosentti} %`}</td>
+                  </tr>
+                )}
+                <tr>
+                  <td>Hinta</td>
+                  <td>{`${product.hinta} €`}</td>
+                </tr>
+                {product.alkoholilitrahinta !== null && (
+                  <tr>
+                    <td>Alkoholin litrahinta</td>
+                    <td>{`${product.alkoholilitrahinta} €/l`}</td>
+                  </tr>
+                )}
+                {product.litrahinta !== null && (
+                  <tr>
+                    <td>Litrahinta</td>
+                    <td>{`${product.litrahinta} €/l`}</td>
+                  </tr>
+                )}
+                {product.pakkaustyyppi !== null && (
+                  <tr>
+                    <td>Pakkaustyyppi</td>
+                    <td>{product.pakkaustyyppi}</td>
+                  </tr>
+                )}
+                {product.pullokoko !== null && (
+                  <tr>
+                    <td>Pullokoko</td>
+                    <td>{`${product.pullokoko} litraa`}</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </Extra>
+        </Content>
+      </PosedCard>
+    </Link>
+  );
+};
+
+const mapStateToProps = (state: AppState) => ({
+  categories: state.category.categories,
+});
+
+export default connect(mapStateToProps)(Product);

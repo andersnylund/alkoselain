@@ -35,14 +35,13 @@ export async function up(knex: Knex): Promise<void> {
     table.text('valikoima');
 
     table
-      .text('tyyppi')
-      .references('tyyppi')
+      .uuid('tyyppiId')
+      .references('id')
       .inTable('category')
-      .notNullable()
       .onDelete('cascade');
 
     table.index('id');
-    table.index('tyyppi');
+    table.index('tyyppiId');
   });
 }
 

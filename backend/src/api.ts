@@ -2,6 +2,10 @@ import { Request, Response, Router } from 'express';
 
 import Category from './models/category';
 import Product from './models/product';
+import { ALL_CATEGORIES_UUID } from '../../shared/types';
+
+const allCategoriesId: ALL_CATEGORIES_UUID =
+  '93976e57-7d96-40c3-8860-8ffcc76b233d';
 
 const router = Router();
 
@@ -21,20 +25,25 @@ router.get('/categories', async (req: Request, res: Response) => {
 
 router.get('/products', async (req: Request, res: Response) => {
   try {
-    const { category, orderBy, order } = req.query;
+    const { categoryId, orderBy, order } = req.query;
     let { page } = req.query;
     page = Number(page);
     if (page <= 1) {
       page = undefined;
     }
     let query = Product.query();
-    query = category ? query.where('tyyppi', category) : query;
+    if (categoryId) {
+      if (categoryId !== allCategoriesId) {
+        query = categoryId ? query.where('tyyppiId', categoryId) : query;
+      }
+    }
     query = orderBy && order ? query.orderBy(orderBy, order) : query;
     query = page ? query.offset(Number(page) * 10) : query;
     const products = await query.limit(10);
     res.json(products);
   } catch (e) {
-    res.json(error).status(500);
+    console.error(e);
+    res.status(500).json(error);
   }
 });
 
@@ -43,6 +52,7 @@ router.get('/products/:id', async (req: Request, res: Response) => {
     const product = await Product.query().findById(req.params.id);
     res.json(product);
   } catch (e) {
+    console.error(e);
     res.json(error).status(500);
   }
 });

@@ -1,5 +1,5 @@
 import React, { useEffect, FC } from 'react';
-import { Loader } from 'semantic-ui-react';
+import { Loader, Message } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import posed from 'react-pose';
@@ -27,19 +27,32 @@ const PosedItem = posed.div({
 });
 
 export interface Props {
-  getProducts: (page: number) => void;
+  getProducts: (page: number, category: string) => void;
   isLoading: boolean;
+  isError: boolean;
   products?: ProductType[];
   page: number;
+  category: string;
 }
 
-export const ProductList: FC<Props> = ({ getProducts, isLoading, products, page }) => {
+export const ProductList: FC<Props> = ({
+  getProducts,
+  isLoading,
+  isError,
+  products,
+  page,
+  category,
+}) => {
   useEffect(() => {
-    getProducts(page);
-  }, [getProducts, page]);
+    getProducts(page, category);
+  }, [getProducts, page, category]);
 
   if (isLoading || !products) {
     return <Loader active />;
+  }
+
+  if (isError) {
+    return <Message error={true}>Hups... jotakin meni pieleen!</Message>;
   }
 
   return (
@@ -55,8 +68,10 @@ export const ProductList: FC<Props> = ({ getProducts, isLoading, products, page 
 
 const mapStateToProps = (state: AppState) => ({
   isLoading: state.productList.isLoading,
+  isError: state.productList.isError,
   products: state.productList.products,
   page: state.page.page,
+  category: state.filter.selectedCategory,
 });
 
 const mapDispatchToProps = {

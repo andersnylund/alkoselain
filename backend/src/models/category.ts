@@ -14,8 +14,8 @@ export default class Category extends Model implements CategoryType {
       relation: Model.HasManyRelation,
       modelClass: Product,
       join: {
-        from: 'category.tyyppi',
-        to: 'product.tyyppi',
+        from: 'category.id',
+        to: 'product.tyyppiId',
       },
     },
   };

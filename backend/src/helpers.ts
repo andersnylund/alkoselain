@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 
 import { alkoHeaders, alkoUrl } from './constants';
 import { UnsanitizedProduct, Product } from '../../shared/types';
+import Category from './models/category';
 
 export const capitalizeFirstChar = (string: string): string => {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -28,8 +29,11 @@ export const getProducts = async (): Promise<UnsanitizedProduct[]> => {
   return headersRemoved;
 };
 
-export const sanitizeProduct = (product: UnsanitizedProduct): Product => {
-  // FIXME: check all field in more detail
+export const sanitizeProduct = (
+  product: UnsanitizedProduct,
+  categories: Category[]
+): Product => {
+  // FIXME: check all fields in more detail
 
   const hinta = Number(product.hinta);
   let pullokoko: number | undefined = undefined;
@@ -46,15 +50,34 @@ export const sanitizeProduct = (product: UnsanitizedProduct): Product => {
     }
   }
 
+  let foundCategoryId;
+
+  if (product.tyyppi) {
+    const foundCategory: Category | undefined = categories.find(
+      c => capitalizeFirstChar(c.tyyppi) === capitalizeFirstChar(product.tyyppi)
+    );
+    foundCategoryId = foundCategory ? foundCategory.id : undefined;
+  }
+
   return {
-    ...product,
+    id: product.id,
+    tyyppiId: foundCategoryId,
+    nimi: product.nimi,
+    valmistaja: product.valmistaja,
+    valmistusmaa: product.valmistusmaa,
+    uutuus: product.uutuus,
+    hinnastojarjestys: product.hinnastojarjestys,
+    alue: product.alue,
+    etikettimerkintoja: product.etikettimerkintoja,
+    luonnehdinta: product.luonnehdinta,
+    huomautus: product.huomautus,
+    rypaleet: product.rypaleet,
+    vari: product.vari,
+    katkerot: product.katkerot,
     hinta,
     pullokoko,
     alkoholiprosentti,
     alkoholilitrahinta,
-    tyyppi: product.tyyppi
-      ? capitalizeFirstChar(product.tyyppi)
-      : 'Määrittelemättömät',
     pakkaustyyppi: product.pakkaustyyppi
       ? capitalizeFirstChar(product.pakkaustyyppi)
       : undefined,

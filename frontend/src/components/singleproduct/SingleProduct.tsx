@@ -52,14 +52,14 @@ export const SingleProduct: FC<Props> = ({ productId, product, getProduct, isLoa
 
   // TODO: insert error message
 
+  // TODO: map product info
+
   return (
     <Card>
       {BackButton}
       <ImageContainer>
         <Image
-          src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${product.id}/${
-            product.nimi
-          }.jpg`}
+          src={`https://images.alko.fi/images/cs_srgb,f_auto,t_medium/cdn/${product.id}/${product.nimi}.jpg`}
           alt={product.nimi}
         />
       </ImageContainer>
@@ -105,7 +105,7 @@ export const SingleProduct: FC<Props> = ({ productId, product, getProduct, isLoa
           </tr>
           <tr>
             <td>Tyyppi</td>
-            <td>{product.tyyppi}</td>
+            <td>{product.tyyppiId}</td>
           </tr>
           <tr>
             <td>Erityisryhmä</td>
@@ -200,7 +200,4 @@ const mapDispatchToProps = {
   getProduct: getProductAction,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SingleProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
