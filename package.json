@@ -4,13 +4,10 @@
   "private": true,
   "description": "A browser of Alko's products",
   "scripts": {
-    "start": "cd backend && yarn start",
-    "backend": "cd backend && yarn dev-start",
-    "frontend": "cd frontend && yarn start",
-    "dev-start": "concurrently --kill-others-on-fail \"yarn backend\" \"yarn frontend\"",
-    "build": "cd frontend && yarn install && yarn build && cd ../backend && yarn install && yarn build",
+    "start": "cd backend && yarn start:prod",
+    "build-backend": "cd backend && yarn install && yarn build",
     "test": "cd frontend && CI=true yarn test && cd ../backend && CI=true yarn test",
-    "heroku-postbuild": "yarn build"
+    "heroku-postbuild": "yarn build-backend"
   },
   "engines": {
     "node": "10.x.x"
