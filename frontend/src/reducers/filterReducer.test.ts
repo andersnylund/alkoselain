@@ -7,13 +7,16 @@ import {
   setSelectedFieldAction,
   toggleSortAction,
 } from '../actions/filterActions';
+import { AllCategoriesUUID } from '../../../shared/types';
+
+const id: AllCategoriesUUID = '93976e57-7d96-40c3-8860-8ffcc76b233d';
 
 describe('filterReducer.js', () => {
   it('should set initial state', () => {
     const state = filterReducer(undefined, { type: 'SOME_RANDOM_TYPE' });
     expect(state).toEqual({
       search: '',
-      selectedCategory: '1',
+      selectedCategory: id,
       selectedField: 'alkoholilitrahinta',
       sort: 'ASC',
     });
@@ -24,7 +27,7 @@ describe('filterReducer.js', () => {
     const nextState = deepFreeze(filterReducer(state, setSearchAction('search')));
     expect(nextState).toEqual({
       search: 'search',
-      selectedCategory: '1',
+      selectedCategory: id,
       selectedField: 'alkoholilitrahinta',
       sort: 'ASC',
     });
@@ -46,7 +49,7 @@ describe('filterReducer.js', () => {
     const nextState = deepFreeze(filterReducer(state, setSelectedFieldAction('fieldID')));
     expect(nextState).toEqual({
       search: '',
-      selectedCategory: '1',
+      selectedCategory: id,
       selectedField: 'fieldID',
       sort: 'ASC',
     });
@@ -57,7 +60,7 @@ describe('filterReducer.js', () => {
     const nextState = deepFreeze(filterReducer(state, toggleSortAction()));
     expect(nextState).toEqual({
       search: '',
-      selectedCategory: '1',
+      selectedCategory: id,
       selectedField: 'alkoholilitrahinta',
       sort: 'DESC',
     });
