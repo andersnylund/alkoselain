@@ -47,19 +47,24 @@ router.get('/products', async (req: Request, res: Response) => {
         query = categoryId ? query.where('tyyppiId', categoryId) : query;
       }
     }
-    query = orderBy && order ? query.orderBy(orderBy, order) : query;
+    query =
+      orderBy && order
+        ? query.orderBy(orderBy, order).whereNotNull(orderBy)
+        : query;
     query = page ? query.offset(Number(page) * 10) : query;
     query = searchString
-      ? query
-          .where('id', 'ilike', `%${searchString}%`)
-          .orWhere('nimi', 'ilike', `%${searchString}%`)
-          .orWhere('valmistaja', 'ilike', `%${searchString}%`)
-          .orWhere('erityisryhma', 'ilike', `%${searchString}%`)
-          .orWhere('valmistusmaa', 'ilike', `%${searchString}%`)
-          .orWhere('alue', 'ilike', `%${searchString}%`)
-          .orWhere('etikettimerkintoja', 'ilike', `%${searchString}%`)
-          .orWhere('rypaleet', 'ilike', `%${searchString}%`)
-          .orWhere('luonnehdinta', 'ilike', `%${searchString}%`)
+      ? query.andWhere(builder =>
+          builder
+            .where('id', 'ilike', `%${searchString}%`)
+            .orWhere('nimi', 'ilike', `%${searchString}%`)
+            .orWhere('valmistaja', 'ilike', `%${searchString}%`)
+            .orWhere('erityisryhma', 'ilike', `%${searchString}%`)
+            .orWhere('valmistusmaa', 'ilike', `%${searchString}%`)
+            .orWhere('alue', 'ilike', `%${searchString}%`)
+            .orWhere('etikettimerkintoja', 'ilike', `%${searchString}%`)
+            .orWhere('rypaleet', 'ilike', `%${searchString}%`)
+            .orWhere('luonnehdinta', 'ilike', `%${searchString}%`)
+        )
       : query;
     const products = await query.limit(10);
     res.json(products);
