@@ -8,6 +8,7 @@ dotenv.config();
 
 import knexConfig from '../knexfile';
 import api from './api';
+import { keepAlive } from './keep-alive';
 
 const knex = Knex(knexConfig);
 Model.knex(knex);
@@ -22,4 +23,5 @@ app.use('/api', api);
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`server listening on ${port}`);
+  keepAlive();
 });
