@@ -5,6 +5,7 @@
   "description": "A browser of Alko's products",
   "scripts": {
     "start": "cd backend && yarn start:prod",
+    "build": "cd frontend && yarn build && cd ../backend && yarn build",
     "build-backend": "cd backend && yarn install && yarn build",
     "test": "cd frontend && CI=true yarn test && cd ../backend && CI=true yarn test",
     "heroku-postbuild": "yarn build-backend"
