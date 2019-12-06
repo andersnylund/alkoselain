@@ -19,7 +19,7 @@ router.get('/categories', async (req: Request, res: Response) => {
     const categories = await Category.query().limit(10);
     res.json(categories);
   } catch (e) {
-    res.json(error).status(500);
+    res.status(500).json(error);
   }
 });
 

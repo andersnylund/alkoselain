@@ -15,8 +15,12 @@ export const getProduct = (id: string) => {
     dispatch({ type: FETCH_PRODUCT_LOADING });
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`);
-      const product: Product = await response.json();
-      dispatch({ type: FETCH_PRODUCT_SUCCESS, product });
+      if (response.ok) {
+        const product: Product = await response.json();
+        dispatch({ type: FETCH_PRODUCT_SUCCESS, product });
+      } else {
+        throw new Error('Hups... Jotakin meni pieleen');
+      }
     } catch (e) {
       dispatch({ type: FETCH_PRODUCT_ERROR });
     }

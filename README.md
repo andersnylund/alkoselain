@@ -1,4 +1,4 @@
-# 🍷 Alkoselain - http://alkoselain.com [![Build Status](https://travis-ci.org/andersnylund/alkobrowser.svg?branch=master)](https://travis-ci.org/andersnylund/alkobrowser)
+# 🍷 Alkoselain - https://alkoselain.com [![Build Status](https://travis-ci.org/andersnylund/alkoselain.svg?branch=master)](https://travis-ci.org/andersnylund/alkoselain)
 
 A browser for the products of the Finnish liquor store Alko. Created for my own personal learning purposes and for fun.  
 

@@ -2,7 +2,7 @@
   "name": "alkoselain-backend",
   "version": "1.0.0",
   "main": "backend/src/index.js",
-  "repository": "git@github.com:andersnylund/alkobrowser.git",
+  "repository": "git@github.com:andersnylund/alkoselain.git",
   "author": "Anders Nylund",
   "license": "MIT",
   "private": true,
