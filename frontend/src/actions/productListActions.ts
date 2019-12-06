@@ -21,7 +21,7 @@ export const getProducts = (
     dispatch({ type: FETCH_PRODUCT_LIST_LOADING });
     try {
       const response = await fetch(
-        `/api/products?page=${page}&categoryId=${categoryId}&orderBy=${orderBy}&order=${order}&searchString=${searchString}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/products?page=${page}&categoryId=${categoryId}&orderBy=${orderBy}&order=${order}&searchString=${searchString}`
       );
       if (response.ok) {
         const products: Product[] = await response.json();

@@ -14,7 +14,7 @@ export const getProduct = (id: string) => {
   return async (dispatch: Dispatch) => {
     dispatch({ type: FETCH_PRODUCT_LOADING });
     try {
-      const response = await fetch(`/api/products/${id}`);
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`);
       const product: Product = await response.json();
       dispatch({ type: FETCH_PRODUCT_SUCCESS, product });
     } catch (e) {
