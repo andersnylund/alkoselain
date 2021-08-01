@@ -54,7 +54,8 @@ export const sanitizeProduct = (
 
   if (product.tyyppi) {
     const foundCategory: Category | undefined = categories.find(
-      c => capitalizeFirstChar(c.tyyppi) === capitalizeFirstChar(product.tyyppi)
+      (c) =>
+        capitalizeFirstChar(c.tyyppi) === capitalizeFirstChar(product.tyyppi)
     );
     foundCategoryId = foundCategory ? foundCategory.id : undefined;
   }

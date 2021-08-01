@@ -19,6 +19,7 @@ router.get('/categories', async (req: Request, res: Response) => {
     const categories = await Category.query().limit(10);
     res.json(categories);
   } catch (e) {
+    console.error('e', e);
     res.status(500).json(error);
   }
 });
@@ -53,7 +54,7 @@ router.get('/products', async (req: Request, res: Response) => {
         : query;
     query = page ? query.offset(Number(page) * 10) : query;
     query = searchString
-      ? query.andWhere(builder =>
+      ? query.andWhere((builder) =>
           builder
             .where('id', 'ilike', `%${searchString}%`)
             .orWhere('nimi', 'ilike', `%${searchString}%`)

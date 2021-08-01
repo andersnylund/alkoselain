@@ -8,6 +8,7 @@ export const alkoHeaders = [
   'uutuus',
   'hinnastojarjestys',
   'tyyppi',
+  'alatyyppi',
   'erityisryhma',
   'oluttyyppi',
   'valmistusmaa',
@@ -27,6 +28,7 @@ export const alkoHeaders = [
   'katkerot',
   'energia',
   'valikoima',
+  'ean',
 ];
 
 export const alkoUrl =
