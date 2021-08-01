@@ -14,42 +14,48 @@ const knex = Knex(knexConfig);
 Model.knex(knex);
 
 const runImport = async (): Promise<void> => {
-  const deletedCategories = await CategoryModel.query().delete();
-  console.log('deletedCategories', deletedCategories);
-  const deletedProducts = await ProductModel.query().delete();
-  console.log('deletedProducts', deletedProducts);
+  try {
+    const deletedCategories = await CategoryModel.query().delete();
+    console.log('deletedCategories', deletedCategories);
+    const deletedProducts = await ProductModel.query().delete();
+    console.log('deletedProducts', deletedProducts);
 
-  const unzanitisedProducts: UnsanitizedProduct[] = await getProducts();
-  const categories: string[] = Array.from(
-    new Set(
-      unzanitisedProducts
-        .filter(p => p.tyyppi !== undefined)
-        .map(p => capitalizeFirstChar(p.tyyppi))
-    )
-  );
+    const unzanitisedProducts: UnsanitizedProduct[] = await getProducts();
+    const categories: string[] = Array.from(
+      new Set(
+        unzanitisedProducts
+          .filter((p) => p.tyyppi !== undefined)
+          .map((p) => capitalizeFirstChar(p.tyyppi))
+      )
+    );
 
-  const insertedCategories: CategoryModel[] = await Promise.all(
-    categories.map(category =>
-      CategoryModel.query().insert({ id: uuid(), tyyppi: category })
-    )
-  );
-  console.log('insertedCategories', insertedCategories.length);
+    const insertedCategories: CategoryModel[] = await Promise.all(
+      categories.map((category) =>
+        CategoryModel.query().insert({ id: uuid(), tyyppi: category })
+      )
+    );
+    console.log('insertedCategories', insertedCategories.length);
 
-  const products: Product[] = unzanitisedProducts.map(p =>
-    sanitizeProduct(p, insertedCategories)
-  );
+    const products: Product[] = unzanitisedProducts.map((p) =>
+      sanitizeProduct(p, insertedCategories)
+    );
+    console.log('products[13]', products[13]);
 
-  const insertedProducts = await Promise.all(
-    products.map(product =>
-      ProductModel.query().insert({
-        ...product,
-      })
-    )
-  );
-  console.log('insertedProducts', insertedProducts.length);
-
-  knex.destroy();
-  process.exit();
+    const insertedProducts = await Promise.all(
+      products.map((product) =>
+        ProductModel.query().insert({
+          ...product,
+        })
+      )
+    );
+    console.log('insertedProducts', insertedProducts.length);
+    process.exit();
+  } catch (e) {
+    console.log('e', e);
+    process.exit(1);
+  } finally {
+    knex.destroy();
+  }
 };
 
 runImport();
