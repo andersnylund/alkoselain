@@ -40,8 +40,11 @@ const runImport = async (): Promise<void> => {
       sanitizeProduct(p, insertedCategories)
     );
 
+    const productsWithAlcohol = products.filter((p) => p.alkoholiprosentti);
+    console.log('productsWithAlcohol.length', productsWithAlcohol.length);
+
     const insertedProducts = await Promise.all(
-      products.map((product) =>
+      productsWithAlcohol.map((product) =>
         ProductModel.query().insert({
           ...product,
         })
