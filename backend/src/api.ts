@@ -16,7 +16,7 @@ const error = {
 
 router.get('/categories', async (req: Request, res: Response) => {
   try {
-    const categories = await Category.query().limit(10);
+    const categories = await Category.query();
     res.json(categories);
   } catch (e) {
     console.error('e', e);
