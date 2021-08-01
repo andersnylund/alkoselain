@@ -39,7 +39,6 @@ const runImport = async (): Promise<void> => {
     const products: Product[] = unzanitisedProducts.map((p) =>
       sanitizeProduct(p, insertedCategories)
     );
-    console.log('products[13]', products[13]);
 
     const insertedProducts = await Promise.all(
       products.map((product) =>
